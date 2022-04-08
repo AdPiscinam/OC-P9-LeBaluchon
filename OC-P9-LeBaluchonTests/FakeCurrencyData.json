@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "timestamp": 1649419924,
+    "base": "EUR",
+    "date": "2022-04-08",
+    "rates": {
+        "AED": 3.988117,
+        "AFN": 95.80861
+    }
+}

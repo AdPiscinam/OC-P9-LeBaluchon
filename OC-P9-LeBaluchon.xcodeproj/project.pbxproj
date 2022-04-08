@@ -22,6 +22,8 @@
 		597E430C28004AF600FFA50D /* OC_P9_LeBaluchonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E430B28004AF600FFA50D /* OC_P9_LeBaluchonTests.swift */; };
 		597E431428004CEA00FFA50D /* CurrencyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 597E431328004CEA00FFA50D /* CurrencyData.json */; };
 		597E431628004DC300FFA50D /* ConverterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E431528004DC300FFA50D /* ConverterViewModel.swift */; };
+		597E43182800620500FFA50D /* FakeCurrencyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 597E43172800620500FFA50D /* FakeCurrencyData.json */; };
+		597E431A28006C1E00FFA50D /* XCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E431928006C1E00FFA50D /* XCTestCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		597E430B28004AF600FFA50D /* OC_P9_LeBaluchonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OC_P9_LeBaluchonTests.swift; sourceTree = "<group>"; };
 		597E431328004CEA00FFA50D /* CurrencyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CurrencyData.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		597E431528004DC300FFA50D /* ConverterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewModel.swift; sourceTree = "<group>"; };
+		597E43172800620500FFA50D /* FakeCurrencyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FakeCurrencyData.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
+		597E431928006C1E00FFA50D /* XCTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +218,7 @@
 			children = (
 				597E431228004B0A00FFA50D /* Extensions */,
 				597E430B28004AF600FFA50D /* OC_P9_LeBaluchonTests.swift */,
+				597E43172800620500FFA50D /* FakeCurrencyData.json */,
 			);
 			path = "OC-P9-LeBaluchonTests";
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 		597E431228004B0A00FFA50D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				597E431928006C1E00FFA50D /* XCTestCase.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -307,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				597E42E4280039D100FFA50D /* LaunchScreen.storyboard in Resources */,
+				597E43182800620500FFA50D /* FakeCurrencyData.json in Resources */,
 				597E42E1280039D100FFA50D /* Assets.xcassets in Resources */,
 				597E431428004CEA00FFA50D /* CurrencyData.json in Resources */,
 			);
@@ -344,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				597E431A28006C1E00FFA50D /* XCTestCase.swift in Sources */,
 				597E430C28004AF600FFA50D /* OC_P9_LeBaluchonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
