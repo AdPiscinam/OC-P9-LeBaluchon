@@ -19,7 +19,7 @@ final class ConverterViewModel {
         }
     }
     
-    var date = "2" {
+    var date = "yyyy-MM-dd" {
         didSet {
             dateUpdater?(stringedDate)
         }
@@ -33,14 +33,14 @@ final class ConverterViewModel {
     
     // ViewDidLoad
     func viewDidLoad() {
-        resultOfConversion = "Hello"
-        date = "Today"
-        currencyRate = "Sure"
+        resultOfConversion = "Result"
+        date = "Date"
+        currencyRate = "Rate"
     }
     
     var stringedDate: String {
         // Configure Date Formatter
-        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         return dateFormatter.string(from: .now)
     }
