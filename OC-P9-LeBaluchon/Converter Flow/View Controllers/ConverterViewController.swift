@@ -8,7 +8,8 @@ import UIKit
 class ConverterViewController: UIViewController {
     
     weak var coordinator: ConverterCoordinator?
-    
+    private var viewModel = ConverterViewModel()
+
     // User Interface
     let upperLabel: UILabel = {
         let label = UILabel()
@@ -88,9 +89,29 @@ class ConverterViewController: UIViewController {
         view.backgroundColor = .systemBackground
         title = "Converter"
         setupUI()
+        bindViewModel()
+        viewModel.viewDidLoad()
     }
     
+    func bindViewModel() {
+        viewModel.resultUpdater = { [weak self] text in
+            self?.upperLabel.text = text
+        }
+        viewModel.dateUpdater = { [weak self] text in
+            self?.dateLabel.text = text
+        }
+        viewModel.rateUpdater = { [weak self] text in
+            self?.currencyRateLabel.text = text
+        }
+       
+    }
     
+    private func updateConverterUI(with viewModel: ConverterViewModel) {
+        upperLabel.text = viewModel.resultOfConversion
+        dateLabel.text = viewModel.date
+        currencyRateLabel.text = viewModel.currencyRate
+    }
+   
     @objc func fetchData() {
         
     }

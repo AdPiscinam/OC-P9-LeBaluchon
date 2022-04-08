@@ -21,6 +21,7 @@
 		597E430328003C6F00FFA50D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E430228003C6F00FFA50D /* AppCoordinator.swift */; };
 		597E430C28004AF600FFA50D /* OC_P9_LeBaluchonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E430B28004AF600FFA50D /* OC_P9_LeBaluchonTests.swift */; };
 		597E431428004CEA00FFA50D /* CurrencyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 597E431328004CEA00FFA50D /* CurrencyData.json */; };
+		597E431628004DC300FFA50D /* ConverterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E431528004DC300FFA50D /* ConverterViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		597E430928004AF600FFA50D /* OC-P9-LeBaluchonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OC-P9-LeBaluchonTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		597E430B28004AF600FFA50D /* OC_P9_LeBaluchonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OC_P9_LeBaluchonTests.swift; sourceTree = "<group>"; };
 		597E431328004CEA00FFA50D /* CurrencyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CurrencyData.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
+		597E431528004DC300FFA50D /* ConverterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 		597E43042800432100FFA50D /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				597E431528004DC300FFA50D /* ConverterViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				597E42FA28003C1000FFA50D /* WeatherViewController.swift in Sources */,
 				597E42DA280039CF00FFA50D /* SceneDelegate.swift in Sources */,
 				597E42F828003BFE00FFA50D /* WeatherCoordinator.swift in Sources */,
+				597E431628004DC300FFA50D /* ConverterViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
