@@ -5,7 +5,7 @@
 
 import UIKit
 
-class ConverterCoordinator: Coordinator {
+class ConverterCoordinator: NSObject, Coordinator {
    
     var navigationController: UINavigationController
     weak var parentCoordinator: AppCoordinator?
@@ -32,5 +32,36 @@ extension ConverterCoordinator {
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()
+    }
+    
+    //MARK: Finishes
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() {
+            if coordinator === child {
+                childCoordinators.remove(at: index)
+                break
+            }
+        }
+    }
+}
+
+
+extension ConverterCoordinator: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        
+        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+            return
+        }
+        
+        if navigationController.viewControllers.contains(fromViewController) {
+            return
+        }
+        
+        if let currencySelectionCoordinator = fromViewController as? CurrencySelectionViewController {
+            childDidFinish(currencySelectionCoordinator.coordinator)
+            print("converter Finished")
+        }
+        
     }
 }

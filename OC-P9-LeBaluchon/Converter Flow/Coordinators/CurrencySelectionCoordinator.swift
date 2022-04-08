@@ -23,5 +23,7 @@ extension CurrencySelectionCoordinator {
         viewController.coordinator = self
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.present(viewController, animated: true)
+        
     }
+    
 }

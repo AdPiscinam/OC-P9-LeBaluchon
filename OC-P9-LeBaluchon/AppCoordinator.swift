@@ -70,9 +70,8 @@ extension AppCoordinator: UINavigationControllerDelegate {
         
         if let converterCoordinator = fromViewController as? ConverterViewController {
             childDidFinish(converterCoordinator.coordinator)
-            print("did Finish")
+            print("converter Finished")
         }
-        
         
     }
 }
