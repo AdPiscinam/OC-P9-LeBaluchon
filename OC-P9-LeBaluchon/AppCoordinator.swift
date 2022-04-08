@@ -11,7 +11,7 @@ protocol Coordinator: AnyObject {
     func start()
 }
 
-class AppCoordinator: Coordinator {
+class AppCoordinator: NSObject, Coordinator {
     
     var navigationController: UINavigationController
     
@@ -30,6 +30,17 @@ extension AppCoordinator {
         child.start()
     }
     
+    //MARK: Finishes
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() {
+            if coordinator === child {
+                childCoordinators.remove(at: index)
+               
+                break
+            }
+        }
+    }
+    
 //    func startWeatherFlow() {
 //        let child = WeatherCoordinator(navigationController: navigationController)
 //        child.parentCoordinator = self
@@ -45,3 +56,23 @@ extension AppCoordinator {
 //    }
 }
 
+extension AppCoordinator: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        
+        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+            return
+        }
+        
+        if navigationController.viewControllers.contains(fromViewController) {
+            return
+        }
+        
+        if let converterCoordinator = fromViewController as? ConverterViewController {
+            childDidFinish(converterCoordinator.coordinator)
+            print("did Finish")
+        }
+        
+        
+    }
+}
