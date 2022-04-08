@@ -26,4 +26,11 @@ extension ConverterCoordinator {
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func startCurrencySelection() {
+        let child = CurrencySelectionCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
+    }
 }
