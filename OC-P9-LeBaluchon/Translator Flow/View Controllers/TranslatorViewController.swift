@@ -7,8 +7,9 @@ import UIKit
 
 class TranslatorViewController: UIViewController {
 
+    weak var coordinator: TranslatorCoordinator?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .systemGray2
     }
 }

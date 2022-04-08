@@ -15,14 +15,12 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         appCoordinator.start()
+        
         converterCoordinator.start()
-        viewControllers = [appCoordinator.navigationController, converterCoordinator.navigationController]
+        weatherCoordinator.start()
+        translatorCoordinator.start()
+        viewControllers = [converterCoordinator.navigationController, weatherCoordinator.navigationController, translatorCoordinator.navigationController]
     }
-    
-    
-    
-    
     
 }

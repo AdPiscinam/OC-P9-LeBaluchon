@@ -6,9 +6,12 @@
 import UIKit
 
 class ConverterViewController: UIViewController {
-
+    
+    weak var coordinator: ConverterCoordinator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
     }
 }
 

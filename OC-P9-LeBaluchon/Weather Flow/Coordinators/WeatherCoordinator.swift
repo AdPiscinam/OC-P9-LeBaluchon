@@ -8,7 +8,7 @@ import UIKit
 class WeatherCoordinator: Coordinator {
     
     var navigationController: UINavigationController
-    
+    weak var parentCoordinator: AppCoordinator?
     var childCoordinators: [Coordinator] = []
     
     init(navigationController: UINavigationController) {
@@ -18,5 +18,10 @@ class WeatherCoordinator: Coordinator {
 
 extension WeatherCoordinator {
     func start() {
+        let viewController = WeatherViewController()
+        let tab = UITabBarItem(title: "Weather", image: UIImage(systemName: "cloud.sun.rain"), selectedImage: UIImage(systemName: "cloud.sun.rain.fill"))
+        viewController.tabBarItem = tab
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

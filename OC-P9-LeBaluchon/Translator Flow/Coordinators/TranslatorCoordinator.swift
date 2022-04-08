@@ -8,7 +8,7 @@ import UIKit
 class TranslatorCoordinator: Coordinator {
    
     var navigationController: UINavigationController
-    
+    weak var parentCoordinator: AppCoordinator?
     var childCoordinators: [Coordinator] = []
     
     init(navigationController: UINavigationController) {
@@ -18,5 +18,9 @@ class TranslatorCoordinator: Coordinator {
 
 extension TranslatorCoordinator {
     func start() {
+        let viewController = TranslatorViewController()
+        viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

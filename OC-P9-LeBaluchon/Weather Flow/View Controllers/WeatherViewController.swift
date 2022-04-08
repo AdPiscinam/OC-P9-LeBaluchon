@@ -6,9 +6,10 @@
 import UIKit
 
 class WeatherViewController: UIViewController {
-
+    
+    weak var coordinator: WeatherCoordinator?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .secondarySystemBackground
     }
 }

@@ -24,6 +24,24 @@ class AppCoordinator: Coordinator {
 
 extension AppCoordinator {
     func start() {
+        let child = ConverterCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
     }
+    
+//    func startWeatherFlow() {
+//        let child = WeatherCoordinator(navigationController: navigationController)
+//        child.parentCoordinator = self
+//        childCoordinators.append(child)
+//        child.start()
+//    }
+//    
+//    func startTranslatorFlow() {
+//        let child = TranslatorCoordinator(navigationController: navigationController)
+//        child.parentCoordinator = self
+//        childCoordinators.append(child)
+//        child.start()
+//    }
 }
 
