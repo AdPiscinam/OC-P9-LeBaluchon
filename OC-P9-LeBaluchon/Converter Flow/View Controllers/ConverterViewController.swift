@@ -37,7 +37,7 @@ class ConverterViewController: UIViewController {
         let button = UIButton(type: .system)
         button.backgroundColor = .red
         button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(selectDestinationCurrency), for: .touchUpInside)
+        button.addTarget(self, action: #selector(selectConversionCurrencies), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -46,7 +46,7 @@ class ConverterViewController: UIViewController {
         let button = UIButton(type: .system)
         button.backgroundColor = .blue
         button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(selectDestinationCurrency), for: .touchUpInside)
+        button.addTarget(self, action: #selector(selectConversionCurrencies), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -116,9 +116,10 @@ class ConverterViewController: UIViewController {
         
     }
 
-    @objc func selectDestinationCurrency() {
-        
+    @objc func selectConversionCurrencies() {
+        coordinator?.startCurrencySelection()
     }
+    
 }
 //MARK: Keyboard Management
 extension ConverterViewController {
