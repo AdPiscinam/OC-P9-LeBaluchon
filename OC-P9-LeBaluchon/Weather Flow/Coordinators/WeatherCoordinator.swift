@@ -22,6 +22,7 @@ extension WeatherCoordinator {
         let tab = UITabBarItem(title: "Weather", image: UIImage(systemName: "cloud.sun.rain"), selectedImage: UIImage(systemName: "cloud.sun.rain.fill"))
         viewController.tabBarItem = tab
         viewController.coordinator = self
+        navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
     }
 }

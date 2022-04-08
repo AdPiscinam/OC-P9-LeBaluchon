@@ -103,6 +103,7 @@
 			children = (
 				597E42F228003BA900FFA50D /* Coordinators */,
 				597E42F328003BAF00FFA50D /* View Controllers */,
+				597E43042800432100FFA50D /* View Models */,
 			);
 			path = "Converter Flow";
 			sourceTree = "<group>";
@@ -171,6 +172,13 @@
 				597E430028003C4B00FFA50D /* TranslatorViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		597E43042800432100FFA50D /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

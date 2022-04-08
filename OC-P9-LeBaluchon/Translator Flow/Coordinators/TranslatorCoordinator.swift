@@ -21,6 +21,7 @@ extension TranslatorCoordinator {
         let viewController = TranslatorViewController()
         viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
         viewController.coordinator = self
+        navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
     }
 }

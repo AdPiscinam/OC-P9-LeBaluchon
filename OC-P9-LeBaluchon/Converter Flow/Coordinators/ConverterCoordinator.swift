@@ -23,6 +23,7 @@ extension ConverterCoordinator {
         let tab = UITabBarItem(title: "Converter", image: UIImage(systemName: "dollarsign.circle"), selectedImage: UIImage(systemName: "dollarsign.circle.fill"))
         viewController.tabBarItem = tab
         viewController.coordinator = self
+        navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
     }
 }

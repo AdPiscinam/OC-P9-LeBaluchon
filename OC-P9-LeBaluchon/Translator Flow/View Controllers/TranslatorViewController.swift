@@ -10,6 +10,7 @@ class TranslatorViewController: UIViewController {
     weak var coordinator: TranslatorCoordinator?
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Translator"
         view.backgroundColor = .systemGray2
     }
 }
