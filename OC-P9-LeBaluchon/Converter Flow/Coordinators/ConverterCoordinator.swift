@@ -7,13 +7,16 @@ import UIKit
 
 class ConverterCoordinator: NSObject, Coordinator {
    
+   
+    
+    var viewControllers: [UIViewController] = []
     var navigationController: UINavigationController
     weak var parentCoordinator: AppCoordinator?
     var childCoordinators: [Coordinator] = []
-    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+    
 }
 
 extension ConverterCoordinator {
@@ -23,16 +26,25 @@ extension ConverterCoordinator {
         let tab = UITabBarItem(title: "Converter", image: UIImage(systemName: "dollarsign.circle"), selectedImage: UIImage(systemName: "dollarsign.circle.fill"))
         viewController.tabBarItem = tab
         viewController.coordinator = self
+        viewControllers.append(viewController)
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
     }
     
     func startCurrencySelection() {
         let child = CurrencySelectionCoordinator(navigationController: navigationController)
+    
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()
     }
+    
+    func dismiss() {
+        
+    }
+   
+    
+
     
     //MARK: Finishes
     func childDidFinish(_ child: Coordinator?) {
@@ -51,10 +63,12 @@ extension ConverterCoordinator: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         
         guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+           
             return
         }
         
         if navigationController.viewControllers.contains(fromViewController) {
+            
             return
         }
         

@@ -11,13 +11,13 @@ struct Currency {
     
     private init() {}
     
-    static var currenciesData: Data? {
-        let path = Bundle.main.path(forResource: "CurrenciesData", ofType: "json")
-        let url = URL(fileURLWithPath: path!)
-        return try? Data(contentsOf: url)
+    static var currenciesData:  Data? {
+         let url = Bundle.main.url(forResource: "CurrencyData", withExtension: "json")
+        return try? Data(contentsOf: url!)
+       
     }
+    static let jsonData = try! JSONDecoder().decode(CurrenciesData.self, from: currenciesData!)
     
-    let data = try! JSONDecoder().decode(CurrenciesData.self, from: currenciesData!)
 }
 
 
@@ -27,7 +27,7 @@ struct CurrenciesDataValue: Codable {
     let decimalDigits: Int
     let rounding: Double
     let code, namePlural: String
-
+    
     enum CodingKeys: String, CodingKey {
         case symbol, name
         case symbolNative = "symbol_native"

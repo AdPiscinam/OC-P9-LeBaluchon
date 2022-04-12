@@ -33,7 +33,7 @@ final class ConverterViewModel {
     
     // ViewDidLoad
     func viewDidLoad() {
-        resultOfConversion = "Result"
+        resultOfConversion = "USD."
         date = "Date"
         currencyRate = "Rate"
     }

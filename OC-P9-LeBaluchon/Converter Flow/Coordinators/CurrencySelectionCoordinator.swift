@@ -6,10 +6,11 @@
 import UIKit
 
 class CurrencySelectionCoordinator: Coordinator {
-   
+
     var navigationController: UINavigationController
     weak var parentCoordinator: ConverterCoordinator?
     var childCoordinators: [Coordinator] = []
+    var viewControllers: [UIViewController] = []
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -20,10 +21,21 @@ extension CurrencySelectionCoordinator {
     
     func start() {
         let viewController = CurrencySelectionViewController()
-        viewController.coordinator = self
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.present(viewController, animated: true)
         
+        viewController.coordinator = self
+        viewControllers.append(viewController)
+        navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
     
+    func update(base: String, destination: String) {
+        guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
+            return
+        }
+        viewController.update(base: base, destination: destination)
+    }
+    
+    func dismiss() {
+        navigationController.dismiss(animated: true)
+    }
 }

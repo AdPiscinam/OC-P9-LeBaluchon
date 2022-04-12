@@ -8,7 +8,9 @@ import UIKit
 protocol Coordinator: AnyObject {
     var navigationController: UINavigationController {get set}
     var childCoordinators: [Coordinator] {get set}
+    
     func start()
+    func dismiss()
 }
 
 class AppCoordinator: NSObject, Coordinator {
@@ -41,13 +43,17 @@ extension AppCoordinator {
         }
     }
     
+    func dismiss() {
+        
+    }
+    
 //    func startWeatherFlow() {
 //        let child = WeatherCoordinator(navigationController: navigationController)
 //        child.parentCoordinator = self
 //        childCoordinators.append(child)
 //        child.start()
 //    }
-//    
+//
 //    func startTranslatorFlow() {
 //        let child = TranslatorCoordinator(navigationController: navigationController)
 //        child.parentCoordinator = self
@@ -69,8 +75,9 @@ extension AppCoordinator: UINavigationControllerDelegate {
         }
         
         if let converterCoordinator = fromViewController as? ConverterViewController {
-            childDidFinish(converterCoordinator.coordinator)
             print("converter Finished")
+            childDidFinish(converterCoordinator.coordinator)
+            
         }
         
     }

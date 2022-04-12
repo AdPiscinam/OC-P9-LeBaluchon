@@ -25,4 +25,7 @@ extension WeatherCoordinator {
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
     }
+    func dismiss() {
+        
+    }
 }

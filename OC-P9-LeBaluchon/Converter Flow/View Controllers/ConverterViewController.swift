@@ -6,10 +6,12 @@
 import UIKit
 
 class ConverterViewController: UIViewController {
+  
+    
     
     weak var coordinator: ConverterCoordinator?
     private var viewModel = ConverterViewModel()
-
+   
     // User Interface
     let upperLabel: UILabel = {
         let label = UILabel()
@@ -33,22 +35,32 @@ class ConverterViewController: UIViewController {
         return field
     }()
     
-    lazy var upperFlagButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .red
-        button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(selectConversionCurrencies), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    lazy var upperCurrencyLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .red
+        label.layer.masksToBounds = true
+        label.textAlignment = .center
+        label.text = "USD"
+        label.layer.cornerRadius = 20
+        label.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(selectConversionCurrencies))
+        label.addGestureRecognizer(tap)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    lazy var downerFlagButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(selectConversionCurrencies), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    lazy var downerCurrencyLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .blue
+        label.layer.masksToBounds = true
+        label.textAlignment = .center
+        label.text = "EUR"
+        label.layer.cornerRadius = 20
+        label.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(selectConversionCurrencies))
+        label.addGestureRecognizer(tap)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     let verticalStackView: UIStackView = {
@@ -91,7 +103,10 @@ class ConverterViewController: UIViewController {
         setupUI()
         bindViewModel()
         viewModel.viewDidLoad()
+        
     }
+    
+    
     
     func bindViewModel() {
         viewModel.resultUpdater = { [weak self] text in
@@ -103,19 +118,23 @@ class ConverterViewController: UIViewController {
         viewModel.rateUpdater = { [weak self] text in
             self?.currencyRateLabel.text = text
         }
-       
+        
+    }
+    var selectedConvertToCurrencyCode = "USD"
+    var selectedBaseCurrencyCode = "EUR"
+    
+    
+    func update(base: String, destination: String) {
+        upperLabel.text =  destination
+        downerTextField.text = base
     }
     
-    private func updateConverterUI(with viewModel: ConverterViewModel) {
-        upperLabel.text = viewModel.resultOfConversion
-        dateLabel.text = viewModel.date
-        currencyRateLabel.text = viewModel.currencyRate
-    }
+
    
     @objc func fetchData() {
         
     }
-
+    
     @objc func selectConversionCurrencies() {
         coordinator?.startCurrencySelection()
     }
@@ -164,17 +183,17 @@ extension ConverterViewController {
         downerTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         downerTextField.heightAnchor.constraint(equalToConstant: 80).isActive = true
         
-        upperLabel.addSubview(upperFlagButton)
-        upperFlagButton.centerYAnchor.constraint(equalTo: upperLabel.centerYAnchor).isActive = true
-        upperFlagButton.leadingAnchor.constraint(equalTo: upperLabel.leadingAnchor, constant: 16).isActive = true
-        upperFlagButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        upperFlagButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        upperLabel.addSubview(upperCurrencyLabel)
+        upperCurrencyLabel.centerYAnchor.constraint(equalTo: upperLabel.centerYAnchor).isActive = true
+        upperCurrencyLabel.leadingAnchor.constraint(equalTo: upperLabel.leadingAnchor, constant: 16).isActive = true
+        upperCurrencyLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        upperCurrencyLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
-        downerTextField.addSubview(downerFlagButton)
-        downerFlagButton.centerYAnchor.constraint(equalTo: downerTextField.centerYAnchor).isActive = true
-        downerFlagButton.leadingAnchor.constraint(equalTo: downerTextField.leadingAnchor, constant: 16).isActive = true
-        downerFlagButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        downerFlagButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        downerTextField.addSubview(downerCurrencyLabel)
+        downerCurrencyLabel.centerYAnchor.constraint(equalTo: downerTextField.centerYAnchor).isActive = true
+        downerCurrencyLabel.leadingAnchor.constraint(equalTo: downerTextField.leadingAnchor, constant: 16).isActive = true
+        downerCurrencyLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        downerCurrencyLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
         view.addSubview(refreshButton)
         view.addSubview(verticalStackView)
