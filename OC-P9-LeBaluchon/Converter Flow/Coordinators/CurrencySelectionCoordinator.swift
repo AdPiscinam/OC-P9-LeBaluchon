@@ -32,7 +32,14 @@ extension CurrencySelectionCoordinator {
         guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
             return
         }
-        viewController.update(base: base, destination: destination)
+        viewController.updateCurrenciesNames(base: base, destination: destination)
+    }
+    
+    func update(response: ConversionResponse) {
+        guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
+            return
+        }
+        viewController.updateCurrencyResponse(response: response)
     }
     
     func dismiss() {
