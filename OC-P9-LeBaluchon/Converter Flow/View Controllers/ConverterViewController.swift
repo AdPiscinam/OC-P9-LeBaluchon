@@ -6,12 +6,10 @@
 import UIKit
 
 class ConverterViewController: UIViewController {
-  
-    
     
     weak var coordinator: ConverterCoordinator?
     private var viewModel = ConverterViewModel()
-   
+    var selectedBaseCurrencyCode = "EUR"
     // User Interface
     let upperLabel: UILabel = {
         let label = UILabel()
@@ -119,18 +117,10 @@ class ConverterViewController: UIViewController {
             self?.currencyRateLabel.text = text
         }
         
+        
+        
     }
-    var selectedConvertToCurrencyCode = "USD"
-    var selectedBaseCurrencyCode = "EUR"
-    
-    
-    func update(base: String, destination: String) {
-        upperLabel.text =  destination
-        downerTextField.text = base
-    }
-    
 
-   
     @objc func fetchData() {
         
     }
@@ -139,7 +129,20 @@ class ConverterViewController: UIViewController {
         coordinator?.startCurrencySelection()
     }
     
+    func updateCurrenciesNames(base: String, destination: String) {
+        upperCurrencyLabel.text =  destination
+        downerCurrencyLabel.text = selectedBaseCurrencyCode
+    }
+    
+    func updateCurrencyResponse(response: ConversionResponse) {
+        var rate = response.rates[upperCurrencyLabel.text!]!
+        var baseNumber = Double(downerTextField.text!)!
+        
+        upperLabel.text = String(rate * baseNumber)
+       
+    }
 }
+
 //MARK: Keyboard Management
 extension ConverterViewController {
     func hideKeyboardWhenTappedAround() {
