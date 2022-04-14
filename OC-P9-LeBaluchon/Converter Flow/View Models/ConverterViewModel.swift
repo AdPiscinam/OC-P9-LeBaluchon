@@ -22,7 +22,7 @@ final class ConverterViewModel {
     var date = "yyyy-MM-dd" {
         didSet {
             dateUpdater?(stringedDate)
-        }
+        }   
     }
     
     var currencyRate = "ring" {

@@ -29,6 +29,7 @@
 		597E43222800719D00FFA50D /* CurrencySelectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E43212800719D00FFA50D /* CurrencySelectionCoordinator.swift */; };
 		597E4324280071EA00FFA50D /* CurrencySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E4323280071EA00FFA50D /* CurrencySelectionViewController.swift */; };
 		597E4325280089ED00FFA50D /* FakeCurrencyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 597E43172800620500FFA50D /* FakeCurrencyData.json */; };
+		59AF4F172808635B00EC8DCD /* ConversionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AF4F162808635B00EC8DCD /* ConversionResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		597E431F28006F1500FFA50D /* ConversionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionService.swift; sourceTree = "<group>"; };
 		597E43212800719D00FFA50D /* CurrencySelectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySelectionCoordinator.swift; sourceTree = "<group>"; };
 		597E4323280071EA00FFA50D /* CurrencySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySelectionViewController.swift; sourceTree = "<group>"; };
+		59AF4F162808635B00EC8DCD /* ConversionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				597E431F28006F1500FFA50D /* ConversionService.swift */,
+				59AF4F162808635B00EC8DCD /* ConversionResponse.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				597E42EE28003AF600FFA50D /* MainTabBarController.swift in Sources */,
 				597E42FF28003C3E00FFA50D /* TranslatorCoordinator.swift in Sources */,
 				597E430128003C4B00FFA50D /* TranslatorViewController.swift in Sources */,
+				59AF4F172808635B00EC8DCD /* ConversionResponse.swift in Sources */,
 				597E432028006F1500FFA50D /* ConversionService.swift in Sources */,
 				597E42FA28003C1000FFA50D /* WeatherViewController.swift in Sources */,
 				597E42DA280039CF00FFA50D /* SceneDelegate.swift in Sources */,
