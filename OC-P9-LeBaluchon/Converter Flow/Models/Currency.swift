@@ -38,4 +38,3 @@ struct CurrenciesDataValue: Codable {
 }
 // The key of this dictionnary is the currency code
 typealias CurrenciesData = [String: CurrenciesDataValue]
-
