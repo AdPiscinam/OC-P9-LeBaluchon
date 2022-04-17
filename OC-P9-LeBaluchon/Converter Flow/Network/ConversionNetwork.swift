@@ -5,9 +5,9 @@
 
 import Foundation
 
-final class ConversionService {
+final class ConversionNetwork {
     
-    static var shared = ConversionService()
+    static var shared = ConversionNetwork()
     
     private init() {}
     
@@ -45,13 +45,10 @@ final class ConversionService {
                     print(error!)
                     return
                 }
-                
                 callback(true, json)
                 self.rate = json.rates[destinationCode]!
                
             }
         }).resume()
-        print(self.rate)
-        print("hello")
     }
 }
