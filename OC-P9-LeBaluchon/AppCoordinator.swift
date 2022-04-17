@@ -8,17 +8,16 @@ import UIKit
 protocol Coordinator: AnyObject {
     var navigationController: UINavigationController {get set}
     var childCoordinators: [Coordinator] {get set}
-    
     func start()
     func dismiss()
 }
 
-class AppCoordinator: NSObject, Coordinator {
+
+final class AppCoordinator: NSObject, Coordinator {
     
     var navigationController: UINavigationController
-    
     var childCoordinators: [Coordinator] = []
-        
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -44,22 +43,7 @@ extension AppCoordinator {
     }
     
     func dismiss() {
-        
     }
-    
-//    func startWeatherFlow() {
-//        let child = WeatherCoordinator(navigationController: navigationController)
-//        child.parentCoordinator = self
-//        childCoordinators.append(child)
-//        child.start()
-//    }
-//
-//    func startTranslatorFlow() {
-//        let child = TranslatorCoordinator(navigationController: navigationController)
-//        child.parentCoordinator = self
-//        childCoordinators.append(child)
-//        child.start()
-//    }
 }
 
 extension AppCoordinator: UINavigationControllerDelegate {
