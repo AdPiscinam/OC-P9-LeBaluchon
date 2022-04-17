@@ -1,7 +1,7 @@
 // Currency.swift
 // OC-P9-LeBaluchon
 // Created by Ad Piscinam on 08/04/2022
-// 
+// IMPORTANT: Data of JSON Currency Data file is to be found on https://gist.github.com/ksafranski/2973986
 
 import Foundation
 
@@ -16,8 +16,8 @@ struct Currency {
         return try? Data(contentsOf: url!)
        
     }
-    static let jsonData = try! JSONDecoder().decode(CurrenciesData.self, from: currenciesData!)
     
+    static let jsonData = try! JSONDecoder().decode(CurrenciesData.self, from: currenciesData!)
 }
 
 
