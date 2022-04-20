@@ -25,6 +25,13 @@ extension WeatherCoordinator {
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func startCitySelection() {
+        let child = CitySelectionCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
+    }
     func dismiss() {
         
     }
