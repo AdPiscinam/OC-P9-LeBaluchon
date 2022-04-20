@@ -5,22 +5,7 @@
 
 import UIKit
 
-protocol ConverterViewControllerDelegate: AnyObject {
-    func catalogScreenDidSelectDetail(with title: String)
-}
-
-protocol ViewModel {}
-
-final class ConverterViewModel: ViewModel {
-    
-    //MARK: Private Properties
-    private weak var delegate: ConverterViewControllerDelegate?
-    
-    // MARK: - Initializer
-    
-    init(delegate: ConverterViewControllerDelegate?) {
-        self.delegate = delegate
-    }
+final class ConverterViewModel {
     
     // MARK: - Outputs
     var titleText: ((String) -> Void)?
@@ -28,32 +13,55 @@ final class ConverterViewModel: ViewModel {
     var resultUpdater: ((String) -> Void)?
     var dateUpdater: ((String) -> Void)?
     var rateUpdater: ((String) -> Void)?
+    var destinationUpdater: ((String) -> Void)?
+    var baseUpdater: ((String) -> Void)?
     
-    
-    // MARK: - Inputs
-    
-    func viewDidLoad() {
-        titleText?("Converter")
-        
-        
-        resultUpdater?("0")
-        dateUpdater?(getCurrentTime())
-        rateUpdater?(currencyRate)
-        
-      /*  ConversionNetwork.shared.getData(baseCode: "EUR", destinationCode: "USD") { [self] (success, response) in
-            if success, let response = response {
-                print(success)
-                print(response)
-               
-                rateUpdater?("1 Eur = \(String(response.rates["USD"]!))")
-                
-            }
-           
-        }*/
+    private var title = "Converter" {
+        didSet {
+            titleText?(title)
+        }
     }
     
+    private var currencyRate = "Rate" {
+         didSet {
+             rateUpdater?("1 Eur = \(currencyRate)$ ")
+         }
+     }
     
+    private var result = "0" {
+        didSet {
+            resultUpdater?(result)
+        }
+    }
     
+    private var destionationCode = "USD" {
+        didSet {
+            destinationUpdater?(destionationCode)
+        }
+    }
+    
+    private var baseCode = "EUR" {
+        didSet {
+            baseUpdater?(baseCode)
+        }
+    }
+    
+    private var date = "Date" {
+        didSet{
+            dateUpdater?(date)
+        }
+    }
+    
+    // MARK: - Inputs
+    func viewDidLoad() {
+        titleText?(title)
+        resultUpdater?(result)
+      //  dateUpdater?(getCurrentTime())
+     //   rateUpdater?(getConversion())
+        destinationUpdater?(destionationCode)
+        baseUpdater?(baseCode)
+    }
+
     func getCurrentTime() -> String {
         let date = Date()
         let df = DateFormatter()
@@ -61,33 +69,16 @@ final class ConverterViewModel: ViewModel {
         let dateString = df.string(from: date)
         return dateString
     }
-   
-    // Updaters
-//    private let dateFormatter = DateFormatter()
-//    // Properties
-//    var resultOfConversion = "0" {
-//        didSet {
-//            resultUpdater?(resultOfConversion)
-//        }
-//    }
-//
-//    var date = "yyyy-MM-dd" {
-//        didSet {
-//            dateUpdater?(stringedDate)
-//        }
-//    }
-//
-    var currencyRate = "String" {
-        didSet {
-            rateUpdater?("1 Eur = \(currencyRate)$ ")
-        }
-    }
-//
-//    var stringedDate: String {
-//        // Configure Date Formatter
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//
-//        return dateFormatter.string(from: .now)
-//    }
     
+    func getConversion() -> String {
+        //TODO: Uncomment me
+        ConversionNetwork.shared.getData(baseCode: "EUR", destinationCode: "USD") { [self] (success, response) in
+            if success, let response = response {
+                currencyRate = "\(String(response.rates["USD"]!))"
+            
+            }
+           
+        }
+        return currencyRate
+    }
 }
