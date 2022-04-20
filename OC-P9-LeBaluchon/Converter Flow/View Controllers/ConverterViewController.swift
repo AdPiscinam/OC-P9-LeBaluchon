@@ -8,8 +8,8 @@ import UIKit
 class ConverterViewController: UIViewController {
     
     weak var coordinator: ConverterCoordinator?
-    private var viewModel = ConverterViewModel()
-    var selectedBaseCurrencyCode = "EUR"
+    var viewModel: ConverterViewModel!
+    
     // User Interface
     let upperLabel: UILabel = {
         let label = UILabel()
@@ -87,7 +87,7 @@ class ConverterViewController: UIViewController {
     
     let currencyRateLabel: UILabel = {
         let label = UILabel()
-        label.text = "1 EUR = 1,11 USD"
+        label.text = "Rate"
         label.backgroundColor = .red
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -96,17 +96,17 @@ class ConverterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "Converter"
         setupUI()
-        bindViewModel()
+        bind(to: viewModel)
         viewModel.viewDidLoad()
-        
     }
     
     
     
-    func bindViewModel() {
+    func bind(to: ConverterViewModel){
+        viewModel.titleText = { [weak self] text in
+            self?.title = text
+        }
         viewModel.resultUpdater = { [weak self] text in
             self?.upperLabel.text = text
         }
@@ -116,11 +116,11 @@ class ConverterViewController: UIViewController {
         viewModel.rateUpdater = { [weak self] text in
             self?.currencyRateLabel.text = text
         }
-        
-        
-        
+        viewModel.destinationUpdater = { [weak self] text in
+            self?.upperCurrencyLabel.text = text
+        }
     }
-
+    
     @objc func fetchData() {
         
     }
@@ -130,16 +130,37 @@ class ConverterViewController: UIViewController {
     }
     
     func updateCurrenciesNames(base: String, destination: String) {
-        upperCurrencyLabel.text =  destination
-        downerCurrencyLabel.text = selectedBaseCurrencyCode
+        viewModel.destinationUpdater?(destination)
+        viewModel.baseUpdater?(base)
     }
     
     func updateCurrencyResponse(response: ConversionResponse) {
-        var rate = response.rates[upperCurrencyLabel.text!]!
-        var baseNumber = Double(downerTextField.text!)!
+        viewModel.dateUpdater?(viewModel.getCurrentTime())
         
-        upperLabel.text = String(rate * baseNumber)
-       
+        guard let currency = upperCurrencyLabel.text else {
+            return
+        }
+        guard var rate = response.rates[currency] else {
+            return
+        }
+        
+        guard let rateValue = response.rates[currency] else {
+            return
+        }
+        
+        rate = rateValue
+        
+        guard let base = downerTextField.text else {
+            return
+        }
+        
+        guard let doubleBase = Double(base) else {
+            return
+        }
+        
+        let baseNumber = doubleBase
+        
+        viewModel.resultUpdater?(String(rate * baseNumber))
     }
 }
 
@@ -162,7 +183,6 @@ extension ConverterViewController {
         fetchData()
         if textField.text == "" {
             textField.text = "0"
-            fetchData()
             textField.text = ""
         }
     }
@@ -171,6 +191,8 @@ extension ConverterViewController {
 //MARK: User Interface
 extension ConverterViewController {
     private func setupUI() {
+        
+        view.backgroundColor = .systemBackground
         self.hideKeyboardWhenTappedAround()
         view.addSubview(upperLabel)
         view.addSubview(downerTextField)
