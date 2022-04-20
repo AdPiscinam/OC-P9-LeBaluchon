@@ -16,7 +16,7 @@ final class ConversionNetwork {
     var baseCode = "EUR"
     var symbols =  "&symbols="
     var destinationCode = ""
-    var accessKey = "&access_key=67ce629b8a4032fddf94a4b7b20fbe3d"
+    var accessKey = "&access_key=c88bc1a6702b2e1c1687e5301fbb50ba"
     var rate = 0.0
     
     func constructApiCall(baseCode: String, destinationCode: String) -> String {
@@ -42,7 +42,7 @@ final class ConversionNetwork {
                 }
                 guard let json = result else {
                     //FIXME: Manage Errors with Alert
-                    print(error!)
+                 //   print(error!)
                     return
                 }
                 callback(true, json)
