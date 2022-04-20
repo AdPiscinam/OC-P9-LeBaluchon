@@ -16,43 +16,24 @@ class CurrencySelectionViewController: UIViewController, UINavigationControllerD
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
-    
-//    let baseCurrencyPickerView: UIPickerView = {
-//        let picker = UIPickerView()
-//        picker.translatesAutoresizingMaskIntoConstraints = false
-//        return picker
-//    }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         destinationCurrencyPickerView.delegate = self
         destinationCurrencyPickerView.dataSource = self
         destinationCurrencyPickerView.reloadAllComponents()
-      
-//        baseCurrencyPickerView.delegate = self
-//        baseCurrencyPickerView.dataSource = self
-//        baseCurrencyPickerView.reloadAllComponents()
         view.backgroundColor = .orange
         title = "Currency"
         setupUI()
         populateData()
-         
-      
-       
-        
     }
     
     private func setupUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(okay))
         view.addSubview(destinationCurrencyPickerView)
-  //      view.addSubview(baseCurrencyPickerView)
         destinationCurrencyPickerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -20).isActive = true
         destinationCurrencyPickerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         destinationCurrencyPickerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
-        
-//        baseCurrencyPickerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: 20).isActive = true
-//        baseCurrencyPickerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
-//        baseCurrencyPickerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
    }
     
     
@@ -81,15 +62,13 @@ class CurrencySelectionViewController: UIViewController, UINavigationControllerD
     @objc func okay() {
         convertToCurrencyCode = getCurrenciesCode(pickerView: self.destinationCurrencyPickerView)
         coordinator?.update(base: "EUR", destination: convertToCurrencyCode)
-        ConversionService.shared.getData(baseCode: "EUR", destinationCode: convertToCurrencyCode) { [self] (success, response) in
+       
+        ConversionNetwork.shared.getData(baseCode: "EUR", destinationCode: convertToCurrencyCode) { [self] (success, response) in
             if success, let response = response {
-                print(success)
-                print(response)
-               
+
                 coordinator?.update(response: response)
-                
+
             }
-           
         }
         coordinator?.dismiss()
     }
@@ -125,9 +104,4 @@ extension CurrencySelectionViewController: UIPickerViewDataSource, UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return currenciesArray[row]
     }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-    }
 }
-
