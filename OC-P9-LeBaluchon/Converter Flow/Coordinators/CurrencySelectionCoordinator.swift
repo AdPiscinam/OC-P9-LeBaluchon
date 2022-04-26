@@ -21,8 +21,10 @@ extension CurrencySelectionCoordinator {
     
     func start() {
         let viewController = CurrencySelectionViewController()
-        
+        let network = ConversionNetwork.shared
         viewController.coordinator = self
+        let viewModel = ConverterViewModel(network: network)
+        viewController.viewModel = viewModel
         viewControllers.append(viewController)
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)

@@ -21,10 +21,11 @@ extension ConverterCoordinator {
     
     func start() {
         let viewController = ConverterViewController()
+        let network = ConversionNetwork.shared
         let tab = UITabBarItem(title: "Converter", image: UIImage(systemName: "dollarsign.circle"), selectedImage: UIImage(systemName: "dollarsign.circle.fill"))
         viewController.tabBarItem = tab
         viewController.coordinator = self
-        let viewModel = ConverterViewModel()
+        let viewModel = ConverterViewModel(network: network)
         viewController.viewModel = viewModel
         viewControllers.append(viewController)
         navigationController.navigationBar.prefersLargeTitles = true
