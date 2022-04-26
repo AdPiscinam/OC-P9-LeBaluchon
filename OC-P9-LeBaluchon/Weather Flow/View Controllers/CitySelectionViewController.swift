@@ -57,13 +57,7 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
         }
         coordinator?.update(chosenCity: name)
        
-//        ConversionNetwork.shared.getData(baseCode: "EUR", destinationCode: convertToCurrencyCode) { [self] (success, response) in
-//            if success, let response = response {
-//
-//                coordinator?.update(response: response)
-//
-//            }
-//        }
+        
         coordinator?.dismiss()
         
     }

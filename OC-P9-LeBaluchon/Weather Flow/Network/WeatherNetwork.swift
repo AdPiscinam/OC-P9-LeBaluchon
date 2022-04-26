@@ -27,7 +27,7 @@ final class WeatherNetwork {
         print(url)
         url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         URLSession.shared.dataTask(with: URL(string: url)!, completionHandler:  { [self] data, response, error in
-            
+   
             DispatchQueue.main.async { [self] in
                 guard let data = data , error == nil else {
                     //FIXME: Manage Errors with Alert
