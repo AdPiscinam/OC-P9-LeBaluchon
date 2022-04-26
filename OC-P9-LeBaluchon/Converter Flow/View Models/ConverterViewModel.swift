@@ -7,8 +7,18 @@ import UIKit
 
 final class ConverterViewModel {
     
+    private let network: ConversionNetworkType
+    
+    init(network: ConversionNetworkType) {
+        self.network = network
+    }
+    
+    var ratesCityCode: [String: String] = [:]
+    var currenciesArray: [String] = []
+    
     // MARK: - Outputs
     var titleText: ((String) -> Void)?
+    var modalTitleText: ((String) -> Void)?
     
     var resultUpdater: ((String) -> Void)?
     var dateUpdater: ((String) -> Void)?
@@ -16,69 +26,62 @@ final class ConverterViewModel {
     var destinationUpdater: ((String) -> Void)?
     var baseUpdater: ((String) -> Void)?
     
-    private var title = "Converter" {
-        didSet {
-            titleText?(title)
-        }
-    }
-    
     private var currencyRate = "Rate" {
          didSet {
              rateUpdater?("1 Eur = \(currencyRate)$ ")
          }
      }
     
-    private var result = "0" {
-        didSet {
-            resultUpdater?(result)
-        }
-    }
-    
-    private var destionationCode = "USD" {
-        didSet {
-            destinationUpdater?(destionationCode)
-        }
-    }
-    
-    private var baseCode = "EUR" {
-        didSet {
-            baseUpdater?(baseCode)
-        }
-    }
-    
-    private var date = "Date" {
-        didSet{
-            dateUpdater?(date)
-        }
-    }
-    
     // MARK: - Inputs
     func viewDidLoad() {
-        titleText?(title)
-        resultUpdater?(result)
-      //  dateUpdater?(getCurrentTime())
-     //   rateUpdater?(getConversion())
-        destinationUpdater?(destionationCode)
-        baseUpdater?(baseCode)
+        titleText?("Converter")
+        modalTitleText?("Currency")
+        resultUpdater?("0")
+        dateUpdater?(getCurrentTime())
+        rateUpdater?(getConversion(baseCode: "EUR", destinationCode: "USD"))
+        destinationUpdater?("USD")
+        baseUpdater?("EUR")
+        populateData()
     }
 
     func getCurrentTime() -> String {
         let date = Date()
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        df.dateFormat = "dd/MM/yyyy HH:mm:ss"            //"yyyy-MM-dd HH:mm:ss"
         let dateString = df.string(from: date)
         return dateString
     }
     
-    func getConversion() -> String {
+    func getConversion(baseCode: String, destinationCode: String) -> String {
         //TODO: Uncomment me
-        ConversionNetwork.shared.getData(baseCode: "EUR", destinationCode: "USD") { [self] (success, response) in
-            if success, let response = response {
-                currencyRate = "\(String(response.rates["USD"]!))"
+        network.getData(baseCode: "EUR", destinationCode: "USD") { [self] (success, response) in
             
+            if success, let response = response {
+                currencyRate = "\(String(response.chosenConversion))"
+                print(currencyRate)
             }
-           
         }
         return currencyRate
     }
+    
+
+    
+    // CHANTIER
+    
+    func populateData() {
+        for (code, _) in Currency.jsonData {
+            ratesCityCode[code] = Currency.jsonData[code]?.name
+        }
+        self.currenciesArray = createArrayFormDictionnary(dict: ratesCityCode)
+        
+    }
+    
+    func createArrayFormDictionnary(dict: [String: String]) -> [String]{
+       var array: [String] = []
+       for (key, value) in dict {
+           array.append(key + " - \(value)")
+       }
+       
+       return array.sorted()
+   }
 }

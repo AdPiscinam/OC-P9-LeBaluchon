@@ -14,7 +14,6 @@ struct Currency {
     static var currenciesData:  Data? {
          let url = Bundle.main.url(forResource: "CurrencyData", withExtension: "json")
         return try? Data(contentsOf: url!)
-       
     }
     
     static let jsonData = try! JSONDecoder().decode(CurrenciesData.self, from: currenciesData!)
