@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		590E9EDE28184193005F3956 /* String+Capitalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E9EDD28184193005F3956 /* String+Capitalization.swift */; };
+		590E9EE028184203005F3956 /* UIImageView+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E9EDF28184203005F3956 /* UIImageView+Gif.swift */; };
+		590E9EE22818F1B7005F3956 /* TranslatorFieldCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E9EE12818F1B7005F3956 /* TranslatorFieldCoordinator.swift */; };
+		590E9EE42818F4F1005F3956 /* TranslatorFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E9EE32818F4F1005F3956 /* TranslatorFieldViewController.swift */; };
 		597E42D8280039CF00FFA50D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E42D7280039CF00FFA50D /* AppDelegate.swift */; };
 		597E42DA280039CF00FFA50D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E42D9280039CF00FFA50D /* SceneDelegate.swift */; };
 		597E42DC280039CF00FFA50D /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E42DB280039CF00FFA50D /* ConverterViewController.swift */; };
@@ -67,6 +71,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		590E9EDD28184193005F3956 /* String+Capitalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Capitalization.swift"; sourceTree = "<group>"; };
+		590E9EDF28184203005F3956 /* UIImageView+Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Gif.swift"; sourceTree = "<group>"; };
+		590E9EE12818F1B7005F3956 /* TranslatorFieldCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorFieldCoordinator.swift; sourceTree = "<group>"; };
+		590E9EE32818F4F1005F3956 /* TranslatorFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorFieldViewController.swift; sourceTree = "<group>"; };
 		597E42D4280039CF00FFA50D /* OC-P9-LeBaluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OC-P9-LeBaluchon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		597E42D7280039CF00FFA50D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		597E42D9280039CF00FFA50D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -263,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				597E42FE28003C3E00FFA50D /* TranslatorCoordinator.swift */,
+				590E9EE12818F1B7005F3956 /* TranslatorFieldCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -271,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				597E430028003C4B00FFA50D /* TranslatorViewController.swift */,
+				590E9EE32818F4F1005F3956 /* TranslatorFieldViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -347,7 +357,9 @@
 		59CB5F1B280F932B00470E7C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				590E9EDD28184193005F3956 /* String+Capitalization.swift */,
 				59CB5F1C280F934400470E7C /* UIImage+Gif.swift */,
+				590E9EDF28184203005F3956 /* UIImageView+Gif.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -487,8 +499,10 @@
 				59CB5F1D280F934400470E7C /* UIImage+Gif.swift in Sources */,
 				597E431E28006EB400FFA50D /* Currency.swift in Sources */,
 				597E42F128003BA300FFA50D /* ConverterCoordinator.swift in Sources */,
+				590E9EE028184203005F3956 /* UIImageView+Gif.swift in Sources */,
 				597E42DC280039CF00FFA50D /* ConverterViewController.swift in Sources */,
 				597E430328003C6F00FFA50D /* AppCoordinator.swift in Sources */,
+				590E9EE42818F4F1005F3956 /* TranslatorFieldViewController.swift in Sources */,
 				597E42D8280039CF00FFA50D /* AppDelegate.swift in Sources */,
 				59CB5F1F280F967B00470E7C /* CitySelectionCoordinator.swift in Sources */,
 				597E42EE28003AF600FFA50D /* MainTabBarController.swift in Sources */,
@@ -496,10 +510,12 @@
 				597E42FF28003C3E00FFA50D /* TranslatorCoordinator.swift in Sources */,
 				59CB5F26280FB82700470E7C /* WeatherResponse.swift in Sources */,
 				597E430128003C4B00FFA50D /* TranslatorViewController.swift in Sources */,
+				590E9EDE28184193005F3956 /* String+Capitalization.swift in Sources */,
 				59AF4F172808635B00EC8DCD /* ConversionResponse.swift in Sources */,
 				597E432028006F1500FFA50D /* ConversionNetwork.swift in Sources */,
 				59CB5F24280FB65B00470E7C /* WeatherNetwork.swift in Sources */,
 				597E42FA28003C1000FFA50D /* WeatherViewController.swift in Sources */,
+				590E9EE22818F1B7005F3956 /* TranslatorFieldCoordinator.swift in Sources */,
 				597E42DA280039CF00FFA50D /* SceneDelegate.swift in Sources */,
 				597E4324280071EA00FFA50D /* CurrencySelectionViewController.swift in Sources */,
 				597E42F828003BFE00FFA50D /* WeatherCoordinator.swift in Sources */,
