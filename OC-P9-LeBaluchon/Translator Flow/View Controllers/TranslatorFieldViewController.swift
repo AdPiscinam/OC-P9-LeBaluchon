@@ -8,10 +8,10 @@ import UIKit
 class TranslatorFieldViewController: UIViewController {
     
     weak var coordinator: TranslatorFieldCoordinator?
+    var viewModel: TranslatorViewModel!
     
     let textToTranslate: UITextView = {
         let text = UITextView()
-        text.text = "Write"
         text.isEditable = true
         text.backgroundColor = .gray
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -21,8 +21,20 @@ class TranslatorFieldViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
-        title = "Enter Text"
         setupUI()
+        bind(to: viewModel)
+        viewModel.viewDidLoad()
+    }
+    
+    func bind(to: TranslatorViewModel){
+        viewModel.modalTitleText = { [weak self] text in
+            self?.title = text
+        }
+        
+        viewModel.textToTranslateUpdater = { [weak self] text in
+            self?.textToTranslate.text = text
+        }
+    
     }
     
     func setupUI() {
@@ -36,7 +48,7 @@ class TranslatorFieldViewController: UIViewController {
     }
     
     @objc func translate() {
-        print("translating...   ")
+        coordinator?.dismiss()
     }
     
 }

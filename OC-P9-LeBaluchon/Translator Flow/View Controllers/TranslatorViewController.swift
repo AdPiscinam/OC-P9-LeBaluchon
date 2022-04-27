@@ -8,10 +8,10 @@ import UIKit
 class TranslatorViewController: UIViewController {
     
     weak var coordinator: TranslatorCoordinator?
+    var viewModel: TranslatorViewModel!
     
     let frenchText: UITextView = {
         let text = UITextView()
-        text.text = "french"
         text.isEditable = false
         text.backgroundColor = .red
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -20,21 +20,36 @@ class TranslatorViewController: UIViewController {
     
     let englishText: UITextView = {
         let text = UITextView()
-        text.text = "English"
         text.isEditable = false
         text.backgroundColor = .red
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Translator"
         view.backgroundColor = .systemGray2
         setupUI()
+        bind(to: viewModel)
+        viewModel.viewDidLoad()
         addTapRecognizer()
     }
+    
+    func bind(to: TranslatorViewModel){
+        viewModel.titleText = { [weak self] text in
+            self?.title = text
+        }
+        
+        viewModel.englishTextUpdater = { [weak self] text in
+            self?.englishText.text = text
+        }
+        
+        viewModel.frenchTextUpdater = { [weak self] text in
+            self?.frenchText.text = text
+        }
+    
+    }
+    
     
     private func setupUI() {
         view.addSubview(englishText)
@@ -51,6 +66,8 @@ class TranslatorViewController: UIViewController {
         
         
     }
+    
+    
     
     func addTapRecognizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(showModal))
