@@ -8,6 +8,8 @@ import UIKit
 class WeatherCoordinator: Coordinator {
     
     var navigationController: UINavigationController
+    var viewControllers: [UIViewController] = []
+    
     weak var parentCoordinator: AppCoordinator?
     var childCoordinators: [Coordinator] = []
     
@@ -19,9 +21,13 @@ class WeatherCoordinator: Coordinator {
 extension WeatherCoordinator {
     func start() {
         let viewController = WeatherViewController()
+        let network = WeatherNetwork.shared
         let tab = UITabBarItem(title: "Weather", image: UIImage(systemName: "cloud.sun.rain"), selectedImage: UIImage(systemName: "cloud.sun.rain.fill"))
         viewController.tabBarItem = tab
         viewController.coordinator = self
+        let viewModel = WeatherViewModel(network: network)
+        viewController.viewModel = viewModel
+        viewControllers.append(viewController)
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -32,7 +38,12 @@ extension WeatherCoordinator {
         childCoordinators.append(child)
         child.start()
     }
-    func dismiss() {
-        
+    
+    func update(chosenCity: String) {
+        guard let viewController = navigationController.viewControllers.first as? WeatherViewController else {
+            return
+        }
+         viewController.updateChosenCity(name: chosenCity)
     }
+    
 }

@@ -6,7 +6,7 @@
 import UIKit
 
 class CitySelectionCoordinator: Coordinator {
-
+    
     var navigationController: UINavigationController
     weak var parentCoordinator: WeatherCoordinator?
     var childCoordinators: [Coordinator] = []
@@ -29,15 +29,9 @@ extension CitySelectionCoordinator {
     }
 
  
-    
     func update(chosenCity: String) {
-        guard let viewController = navigationController.viewControllers.first as? WeatherViewController else {
-            return
-        }
-         viewController.updateChosenCity(name: chosenCity)
+        parentCoordinator?.update(chosenCity: chosenCity)
     }
-    
-    
     
     func dismiss() {
         navigationController.dismiss(animated: true)
