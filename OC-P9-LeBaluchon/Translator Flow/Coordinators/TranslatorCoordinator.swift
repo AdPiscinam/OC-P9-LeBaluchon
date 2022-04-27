@@ -24,7 +24,11 @@ extension TranslatorCoordinator {
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
     }
-    func dismiss() {
-        
+    
+    func startTranslatorField() {
+        let child = TranslatorFieldCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
     }
 }
