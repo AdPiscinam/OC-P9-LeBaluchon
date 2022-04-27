@@ -16,11 +16,9 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appCoordinator.start()
-        
         converterCoordinator.start()
         weatherCoordinator.start()
         translatorCoordinator.start()
         viewControllers = [converterCoordinator.navigationController, weatherCoordinator.navigationController, translatorCoordinator.navigationController]
     }
-    
 }
