@@ -29,7 +29,6 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        title = "Settings"
         setupUI()
     }
     
@@ -56,8 +55,6 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
             return
         }
         coordinator?.update(chosenCity: name)
-       
-        
         coordinator?.dismiss()
         
     }

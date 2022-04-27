@@ -11,6 +11,9 @@
 		590E9EE028184203005F3956 /* UIImageView+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E9EDF28184203005F3956 /* UIImageView+Gif.swift */; };
 		590E9EE22818F1B7005F3956 /* TranslatorFieldCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E9EE12818F1B7005F3956 /* TranslatorFieldCoordinator.swift */; };
 		590E9EE42818F4F1005F3956 /* TranslatorFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E9EE32818F4F1005F3956 /* TranslatorFieldViewController.swift */; };
+		593A5A3B2819622E000220D4 /* TranslatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593A5A3A2819622E000220D4 /* TranslatorViewModel.swift */; };
+		593A5A3D28196ABF000220D4 /* TranslationNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593A5A3C28196ABF000220D4 /* TranslationNetwork.swift */; };
+		593A5A402819C884000220D4 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593A5A3F2819C884000220D4 /* WeatherViewModel.swift */; };
 		597E42D8280039CF00FFA50D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E42D7280039CF00FFA50D /* AppDelegate.swift */; };
 		597E42DA280039CF00FFA50D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E42D9280039CF00FFA50D /* SceneDelegate.swift */; };
 		597E42DC280039CF00FFA50D /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E42DB280039CF00FFA50D /* ConverterViewController.swift */; };
@@ -75,6 +78,9 @@
 		590E9EDF28184203005F3956 /* UIImageView+Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Gif.swift"; sourceTree = "<group>"; };
 		590E9EE12818F1B7005F3956 /* TranslatorFieldCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorFieldCoordinator.swift; sourceTree = "<group>"; };
 		590E9EE32818F4F1005F3956 /* TranslatorFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorFieldViewController.swift; sourceTree = "<group>"; };
+		593A5A3A2819622E000220D4 /* TranslatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorViewModel.swift; sourceTree = "<group>"; };
+		593A5A3C28196ABF000220D4 /* TranslationNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationNetwork.swift; sourceTree = "<group>"; };
+		593A5A3F2819C884000220D4 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		597E42D4280039CF00FFA50D /* OC-P9-LeBaluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OC-P9-LeBaluchon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		597E42D7280039CF00FFA50D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		597E42D9280039CF00FFA50D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +151,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		593A5A3928196205000220D4 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				593A5A3A2819622E000220D4 /* TranslatorViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		593A5A3E28197D5B000220D4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				593A5A3C28196ABF000220D4 /* TranslationNetwork.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		597E42CB280039CF00FFA50D = {
 			isa = PBXGroup;
 			children = (
@@ -166,8 +188,8 @@
 		597E42D6280039CF00FFA50D /* OC-P9-LeBaluchon */ = {
 			isa = PBXGroup;
 			children = (
-				597E42ED28003AF600FFA50D /* MainTabBarController.swift */,
 				597E430228003C6F00FFA50D /* AppCoordinator.swift */,
+				597E42ED28003AF600FFA50D /* MainTabBarController.swift */,
 				597E42EF28003AFF00FFA50D /* Converter Flow */,
 				597E42F428003BC100FFA50D /* Weather Flow */,
 				597E42FB28003C1D00FFA50D /* Translator Flow */,
@@ -263,6 +285,8 @@
 			children = (
 				597E42FC28003C2700FFA50D /* Coordinators */,
 				597E42FD28003C2D00FFA50D /* View Controllers */,
+				593A5A3928196205000220D4 /* View Models */,
+				593A5A3E28197D5B000220D4 /* Network */,
 			);
 			path = "Translator Flow";
 			sourceTree = "<group>";
@@ -322,6 +346,7 @@
 		59CB5EED280F695700470E7C /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				593A5A3F2819C884000220D4 /* WeatherViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -508,10 +533,12 @@
 				597E42EE28003AF600FFA50D /* MainTabBarController.swift in Sources */,
 				59CB5F21280F96C000470E7C /* CitySelectionViewController.swift in Sources */,
 				597E42FF28003C3E00FFA50D /* TranslatorCoordinator.swift in Sources */,
+				593A5A3B2819622E000220D4 /* TranslatorViewModel.swift in Sources */,
 				59CB5F26280FB82700470E7C /* WeatherResponse.swift in Sources */,
 				597E430128003C4B00FFA50D /* TranslatorViewController.swift in Sources */,
 				590E9EDE28184193005F3956 /* String+Capitalization.swift in Sources */,
 				59AF4F172808635B00EC8DCD /* ConversionResponse.swift in Sources */,
+				593A5A402819C884000220D4 /* WeatherViewModel.swift in Sources */,
 				597E432028006F1500FFA50D /* ConversionNetwork.swift in Sources */,
 				59CB5F24280FB65B00470E7C /* WeatherNetwork.swift in Sources */,
 				597E42FA28003C1000FFA50D /* WeatherViewController.swift in Sources */,
@@ -519,6 +546,7 @@
 				597E42DA280039CF00FFA50D /* SceneDelegate.swift in Sources */,
 				597E4324280071EA00FFA50D /* CurrencySelectionViewController.swift in Sources */,
 				597E42F828003BFE00FFA50D /* WeatherCoordinator.swift in Sources */,
+				593A5A3D28196ABF000220D4 /* TranslationNetwork.swift in Sources */,
 				597E43222800719D00FFA50D /* CurrencySelectionCoordinator.swift in Sources */,
 				597E431628004DC300FFA50D /* ConverterViewModel.swift in Sources */,
 			);

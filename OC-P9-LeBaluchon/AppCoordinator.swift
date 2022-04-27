@@ -9,7 +9,6 @@ protocol Coordinator: AnyObject {
     var navigationController: UINavigationController {get set}
     var childCoordinators: [Coordinator] {get set}
     func start()
-    func dismiss()
 }
 
 
@@ -41,15 +40,10 @@ extension AppCoordinator {
             }
         }
     }
-    
-    func dismiss() {
-    }
 }
 
 extension AppCoordinator: UINavigationControllerDelegate {
-    
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        
         guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
             return
         }
@@ -61,8 +55,6 @@ extension AppCoordinator: UINavigationControllerDelegate {
         if let converterCoordinator = fromViewController as? ConverterViewController {
             print("converter Finished")
             childDidFinish(converterCoordinator.coordinator)
-            
         }
-        
     }
 }
