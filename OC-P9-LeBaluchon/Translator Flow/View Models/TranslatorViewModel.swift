@@ -24,16 +24,15 @@ class TranslatorViewModel {
     
     // MARK: - Inputs
     func viewDidLoad() {
-        titleText?("TranslatorVM")
-        modalTitleText?("Enter textVM")
+        titleText?("Translator")
+        modalTitleText?("Enter text")
         
-        englishTextUpdater?("EnglishVM")
-        frenchTextUpdater?("Tap to translateVM")
+        englishTextUpdater?("English")
+        frenchTextUpdater?("Français")
         
         textToTranslateUpdater?("Tap to enter your text...")
-//        rateUpdater?(getConversion(baseCode: "EUR", destinationCode: "USD"))
-//        destinationUpdater?("USD")
-//        baseUpdater?("EUR")
-//        populateData()
     }
+    
+    
+    
 }

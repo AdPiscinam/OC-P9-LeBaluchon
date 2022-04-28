@@ -35,22 +35,6 @@ class TranslatorViewController: UIViewController {
         addTapRecognizer()
     }
     
-    func bind(to: TranslatorViewModel){
-        viewModel.titleText = { [weak self] text in
-            self?.title = text
-        }
-        
-        viewModel.englishTextUpdater = { [weak self] text in
-            self?.englishText.text = text
-        }
-        
-        viewModel.frenchTextUpdater = { [weak self] text in
-            self?.frenchText.text = text
-        }
-    
-    }
-    
-    
     private func setupUI() {
         view.addSubview(englishText)
         view.addSubview(frenchText)
@@ -63,11 +47,7 @@ class TranslatorViewController: UIViewController {
         frenchText.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         frenchText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         frenchText.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        
-        
     }
-    
-    
     
     func addTapRecognizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(showModal))
@@ -75,9 +55,28 @@ class TranslatorViewController: UIViewController {
         frenchText.addGestureRecognizer(tap)
     }
     
+    func updateTranslation(text: String) {
+        frenchText.text = text
+    }
+    
     @objc func showModal() {
         coordinator?.startTranslatorField()
     }
 }
 
-
+//MARK: Binding
+extension TranslatorViewController {
+    func bind(to: TranslatorViewModel){
+        viewModel.titleText = { [weak self] text in
+            self?.title = text
+        }
+        
+        viewModel.englishTextUpdater = { [weak self] text in
+            self?.englishText.text = text
+        }
+        
+        viewModel.frenchTextUpdater = { [weak self] text in
+            self?.frenchText.text = text
+        }
+    }
+}

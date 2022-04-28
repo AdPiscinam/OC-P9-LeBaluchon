@@ -21,6 +21,7 @@ class TranslatorFieldViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
+        textToTranslate.delegate = self
         setupUI()
         bind(to: viewModel)
         viewModel.viewDidLoad()
@@ -44,11 +45,19 @@ class TranslatorFieldViewController: UIViewController {
         textToTranslate.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         textToTranslate.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         let okBarButtonItem = UIBarButtonItem(title: "Translate", style: .done, target: self, action: #selector(translate))
-        self.navigationItem.rightBarButtonItem  = okBarButtonItem
+                                              
+        self.navigationItem.rightBarButtonItem = okBarButtonItem
     }
     
     @objc func translate() {
+        coordinator?.updateTranslation(text: textToTranslate.text)
         coordinator?.dismiss()
     }
+}
+
+extension TranslatorFieldViewController: UITextViewDelegate {
     
+    func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
+        viewModel.textToTranslateUpdater?(textView.text)
+    }
 }
