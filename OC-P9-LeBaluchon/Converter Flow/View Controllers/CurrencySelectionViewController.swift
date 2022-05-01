@@ -8,87 +8,61 @@ import UIKit
 class CurrencySelectionViewController: UIViewController, UINavigationControllerDelegate {
     
     weak var coordinator: CurrencySelectionCoordinator?
-    var ratesCityCode: [String: String] = [:]
-    var currenciesArray: [String] = []
+    var viewModel: ConverterViewModel!
     
-    let destinationCurrencyPickerView: UIPickerView = {
+    var originCurrencyCode = ""
+    var destinationCurrencyCode = "USD"
+    
+    
+    let originCurrencyPickerView: UIPickerView = {
         let picker = UIPickerView()
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        destinationCurrencyPickerView.delegate = self
-        destinationCurrencyPickerView.dataSource = self
-        destinationCurrencyPickerView.reloadAllComponents()
-        view.backgroundColor = .orange
-        title = "Currency"
+        originCurrencyPickerView.delegate = self
+        originCurrencyPickerView.dataSource = self
+        originCurrencyPickerView.reloadAllComponents()
         setupUI()
-        populateData()
+        bind(to: viewModel)
+        viewModel.viewDidLoad()
+       
     }
     
-    private func setupUI() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(okay))
-        view.addSubview(destinationCurrencyPickerView)
-        destinationCurrencyPickerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -20).isActive = true
-        destinationCurrencyPickerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
-        destinationCurrencyPickerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
-   }
-    
-    
-    func populateData() {
-        for (code, _) in Currency.jsonData {
-            ratesCityCode[code] = Currency.jsonData[code]?.name
-        }
-        self.currenciesArray = createArrayFormDictionnary(dict: ratesCityCode)
-        
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishSelecting()
     }
     
-    private func createArrayFormDictionnary(dict: [String: String]) -> [String]{
-        var array: [String] = []
-        for (key, value) in dict {
-            array.append(key + " - \(value)")
+    func bind(to: ConverterViewModel){
+        viewModel.modalTitleText = { [weak self] text in
+            self?.title = text
         }
         
-        return array.sorted()
+        viewModel.baseUpdater = { [weak self] baseCode in
+            self?.originCurrencyCode = baseCode
+        }
+        
+        viewModel.destinationUpdater = { [weak self] destinationCode in
+            self?.destinationCurrencyCode = destinationCode
+        }
     }
-    
-    var convertToCurrencyCode = ""
-    var baseCurrencyCode = ""
-    
-    var updateContactClosure: ((ConversionResponse) -> Void)?
     
     @objc func okay() {
-        convertToCurrencyCode = getCurrenciesCode(pickerView: self.destinationCurrencyPickerView)
-        coordinator?.update(base: "EUR", destination: convertToCurrencyCode)
-       
-        ConversionNetwork.shared.getData(baseCode: "EUR", destinationCode: convertToCurrencyCode) { [self] (success, response) in
-            if success, let response = response {
-
-                coordinator?.update(response: response)
-
-            }
-        }
+        originCurrencyCode = getCurrenciesCode(pickerView: self.originCurrencyPickerView)
+        coordinator?.update(base: originCurrencyCode, destination: destinationCurrencyCode)
+        coordinator?.fetchData()
         coordinator?.dismiss()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
     }
     
     func getCurrenciesCode(pickerView: UIPickerView) -> String {
         let currencyIndex = pickerView.selectedRow(inComponent: 0)
-        let currency = currenciesArray[currencyIndex]
+        let currency = viewModel.currenciesArray[currencyIndex]
         let currencyCode = currency.split(separator: " ").first!
         return String(currencyCode)
     }
-    
-    func didSelectCurrency(convertToCurrencyCode: String, baseCurrencyCode: String) {
-        self.convertToCurrencyCode = convertToCurrencyCode
-        self.baseCurrencyCode = baseCurrencyCode
-    }
-    
 }
 
 extension CurrencySelectionViewController: UIPickerViewDataSource, UIPickerViewDelegate {
@@ -98,10 +72,21 @@ extension CurrencySelectionViewController: UIPickerViewDataSource, UIPickerViewD
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return  ratesCityCode.count
+        return  viewModel.ratesCityCode.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return currenciesArray[row]
+        return viewModel.currenciesArray[row]
+    }
+}
+
+extension CurrencySelectionViewController {
+    private func setupUI() {
+        view.backgroundColor = .systemBackground
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(okay))
+        view.addSubview(originCurrencyPickerView)
+        originCurrencyPickerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -20).isActive = true
+        originCurrencyPickerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        originCurrencyPickerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
     }
 }
