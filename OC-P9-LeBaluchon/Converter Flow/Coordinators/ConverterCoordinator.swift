@@ -7,14 +7,15 @@ import UIKit
 
 class ConverterCoordinator: NSObject, Coordinator {
    
-    var viewControllers: [UIViewController] = []
     var navigationController: UINavigationController
+    var viewControllers: [UIViewController] = []
+    
     weak var parentCoordinator: AppCoordinator?
     var childCoordinators: [Coordinator] = []
+   
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-    
 }
 
 extension ConverterCoordinator {
@@ -39,13 +40,13 @@ extension ConverterCoordinator {
         child.start()
     }
     
-    func dismiss() {
-        
+    func updateCurrenciesNames(base: String, destination: String) {
+        guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
+            return
+        }
+        viewController.updateCurrenciesNames(base: base, destination: destination)
     }
-   
-    
 
-    
     //MARK: Finishes
     func childDidFinish(_ child: Coordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() {
@@ -56,26 +57,21 @@ extension ConverterCoordinator {
         }
     }
 }
-
-
-extension ConverterCoordinator: UINavigationControllerDelegate {
-    
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        
-        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
-           
-            return
-        }
-        
-        if navigationController.viewControllers.contains(fromViewController) {
-            
-            return
-        }
-        
-        if let currencySelectionCoordinator = fromViewController as? CurrencySelectionViewController {
-            childDidFinish(currencySelectionCoordinator.coordinator)
-            print("converter Finished")
-        }
-        
-    }
-}
+//
+//extension ConverterCoordinator: UINavigationControllerDelegate {
+//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+//
+//        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+//            return
+//        }
+//
+//        if navigationController.viewControllers.contains(fromViewController) {
+//            return
+//        }
+//
+//        if let currencySelectionCoordinator = fromViewController as? CurrencySelectionViewController {
+//            childDidFinish(currencySelectionCoordinator.coordinator)
+//            print("converter Finished")
+//        }
+//    }
+//}
