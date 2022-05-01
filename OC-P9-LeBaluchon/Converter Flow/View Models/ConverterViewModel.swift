@@ -20,60 +20,71 @@ final class ConverterViewModel {
     var titleText: ((String) -> Void)?
     var modalTitleText: ((String) -> Void)?
     
-    var resultUpdater: ((String) -> Void)?
+    var resultAmountUpdater: ((String) -> Void)?
     var dateUpdater: ((String) -> Void)?
     var rateUpdater: ((String) -> Void)?
     var destinationUpdater: ((String) -> Void)?
     var baseUpdater: ((String) -> Void)?
+        
+    var amount = "0" {
+        didSet {
+            resultAmountUpdater?(amount)
+        }
+    }
     
-    private var currencyRate = "Rate" {
-         didSet {
-             rateUpdater?("1 Eur = \(currencyRate)$ ")
-         }
-     }
-    
+    var doubledAmount: Double = 0
+
     // MARK: - Inputs
     func viewDidLoad() {
         titleText?("Converter")
         modalTitleText?("Currency")
-        resultUpdater?("0")
-        dateUpdater?(getCurrentTime())
-        rateUpdater?(getConversion(baseCode: "EUR", destinationCode: "USD"))
-        destinationUpdater?("USD")
+        
         baseUpdater?("EUR")
+        destinationUpdater?("USD")
+        resultAmountUpdater?("0")
+        
+        dateUpdater?(getCurrentTime())
+        getConversion(baseCode: "EUR", destinationCode: "USD")
         populateData()
     }
-
+    
+    func getConversion(baseCode: String, destinationCode: String) {
+        //TODO: Uncomment me
+        dateUpdater?(getCurrentTime())
+        ConversionNetwork.shared.getData(baseCode: baseCode, destinationCode: destinationCode) { [self] (success, response) in
+            if success, let response = response {
+                baseUpdater?(baseCode)
+                destinationUpdater?(destinationCode)
+                guard let rate = response.rates[destinationCode]?.rate else {
+                    return
+                }
+               
+                rateUpdater?("1 \(baseCode) = \(rate) \(destinationCode)")
+                
+                guard let doubledRate = Double(rate) else {
+                    return
+                }
+                
+                let result = doubledRate * doubledAmount
+                amount = String(result)
+                resultAmountUpdater?(amount)
+            }
+        }
+    }
+    
     func getCurrentTime() -> String {
         let date = Date()
         let df = DateFormatter()
-        df.dateFormat = "dd/MM/yyyy HH:mm:ss"            //"yyyy-MM-dd HH:mm:ss"
+        df.dateFormat = "dd/MM/yyyy HH:mm:ss"
         let dateString = df.string(from: date)
         return dateString
     }
-    
-    func getConversion(baseCode: String, destinationCode: String) -> String {
-        //TODO: Uncomment me
-        network.getData(baseCode: "EUR", destinationCode: "USD") { [self] (success, response) in
-            
-            if success, let response = response {
-                currencyRate = "\(String(response.chosenConversion))"
-                print(currencyRate)
-            }
-        }
-        return currencyRate
-    }
-    
-
-    
-    // CHANTIER
-    
+  
     func populateData() {
         for (code, _) in Currency.jsonData {
             ratesCityCode[code] = Currency.jsonData[code]?.name
         }
         self.currenciesArray = createArrayFormDictionnary(dict: ratesCityCode)
-        
     }
     
     func createArrayFormDictionnary(dict: [String: String]) -> [String]{
@@ -81,7 +92,6 @@ final class ConverterViewModel {
        for (key, value) in dict {
            array.append(key + " - \(value)")
        }
-       
        return array.sorted()
    }
 }
