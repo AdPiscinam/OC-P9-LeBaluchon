@@ -13,7 +13,6 @@ class CurrencySelectionViewController: UIViewController, UINavigationControllerD
     var originCurrencyCode = ""
     var destinationCurrencyCode = "USD"
     
-    
     let originCurrencyPickerView: UIPickerView = {
         let picker = UIPickerView()
         picker.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +27,6 @@ class CurrencySelectionViewController: UIViewController, UINavigationControllerD
         setupUI()
         bind(to: viewModel)
         viewModel.viewDidLoad()
-       
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -54,6 +52,10 @@ class CurrencySelectionViewController: UIViewController, UINavigationControllerD
         originCurrencyCode = getCurrenciesCode(pickerView: self.originCurrencyPickerView)
         coordinator?.update(base: originCurrencyCode, destination: destinationCurrencyCode)
         coordinator?.fetchData()
+        coordinator?.dismiss()
+    }
+    
+    @objc func cancel() {
         coordinator?.dismiss()
     }
     
@@ -83,7 +85,8 @@ extension CurrencySelectionViewController: UIPickerViewDataSource, UIPickerViewD
 extension CurrencySelectionViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(okay))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(okay))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
         view.addSubview(originCurrencyPickerView)
         originCurrencyPickerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -20).isActive = true
         originCurrencyPickerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
