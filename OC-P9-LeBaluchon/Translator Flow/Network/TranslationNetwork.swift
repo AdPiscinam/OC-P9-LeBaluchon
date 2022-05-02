@@ -7,7 +7,7 @@ import Foundation
 
 
 protocol TranslationNetworkType {
-    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, ConversionResponse?) -> Void)
+    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, CurrencyResponse?) -> Void)
 }
 
 final class TranslationNetwork: TranslationNetworkType {
@@ -17,7 +17,7 @@ final class TranslationNetwork: TranslationNetworkType {
     
     private init() {}
     
-    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, ConversionResponse?) -> Void) {
+    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, CurrencyResponse?) -> Void) {
         
     }
     
