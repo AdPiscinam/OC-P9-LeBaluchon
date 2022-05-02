@@ -7,28 +7,14 @@ import Foundation
 
 // MARK: - CityWeatherResponse
 struct WeatherResponse: Codable {
-    let coord: Coord
     let weather: [Weather]
     let base: String
     let main: Main
-    let visibility: Int
-    let wind: Wind
-    let clouds: Clouds
     let dt: Int
     let sys: Sys
     let timezone, id: Int
     let name: String
     let cod: Int
-}
-
-// MARK: - Clouds
-struct Clouds: Codable {
-    let all: Int
-}
-
-// MARK: - Coord
-struct Coord: Codable {
-    let lon, lat: Double
 }
 
 // MARK: - Main
@@ -64,13 +50,3 @@ struct Weather: Codable {
     }
 }
 
-// MARK: - Wind
-struct Wind: Codable {
-    let speed: Double
-    let deg: Int
-}
-
-// MARK: - WeatherResponseError
-struct WeatherResponseError: Codable {
-    let cod, message: String
-}
