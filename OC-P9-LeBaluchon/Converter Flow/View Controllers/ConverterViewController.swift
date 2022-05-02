@@ -101,28 +101,15 @@ class ConverterViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
-    
-    
-    func bind(to: ConverterViewModel){
-        viewModel.titleText = { [weak self] text in
-            self?.title = text
-        }
-        viewModel.resultUpdater = { [weak self] text in
-            self?.upperLabel.text = text
-        }
-        viewModel.dateUpdater = { [weak self] text in
-            self?.dateLabel.text = text
-        }
-        viewModel.rateUpdater = { [weak self] text in
-            self?.currencyRateLabel.text = text
-        }
-        viewModel.destinationUpdater = { [weak self] text in
-            self?.upperCurrencyLabel.text = text
-        }
-    }
-    
     @objc func fetchData() {
+        guard let base = downerCurrencyLabel.text else {
+            return
+        }
         
+        guard let destination = upperCurrencyLabel.text else {
+            return
+        }
+        viewModel.getConversion(baseCode: base, destinationCode: destination)
     }
     
     @objc func selectConversionCurrencies() {
@@ -130,7 +117,6 @@ class ConverterViewController: UIViewController {
     }
     
     func updateCurrenciesNames(base: String, destination: String) {
-        viewModel.destinationUpdater?(destination)
         viewModel.baseUpdater?(base)
         viewModel.destinationUpdater?(destination)
     }
