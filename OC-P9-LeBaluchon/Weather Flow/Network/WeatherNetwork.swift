@@ -3,58 +3,65 @@
 // Created by Ad Piscinam on 20/04/2022
 // 
 
-import Foundation
+import UIKit
 
-final class WeatherNetwork {
+protocol WeatherNetworkType {
+    func getWeather(city: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void)
+}
+
+final class WeatherNetwork: WeatherNetworkType {
     
     var weatherResponse: WeatherResponse?
-    static var shared = WeatherNetwork()
-    private init() {}
+    
+    private let session: URLSession
+    
+    init() {
+        session = URLSession.init(configuration: .default)
+    }
     
     let apiAdress = "https://api.openweathermap.org/data/2.5/weather?q="
     var cityName = "New York"
     var accessKey = "&appid=404728b6e3ea5ba52b603ac5142c0d28"
     var remainingKeys = "&units=metric&lang=fr"
-    
-    var temperature: Double = 0
-    
+    private var task: URLSessionDataTask?
     func constructApiCall(cityName: String) -> String {
         apiAdress + cityName + accessKey + remainingKeys
     }
     
-    func getWeather(city: String, callback: @escaping (Bool, WeatherResponse?) -> Void) {
-        var url = constructApiCall(cityName: city)
-        print(url)
-        url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        URLSession.shared.dataTask(with: URL(string: url)!, completionHandler:  { [self] data, response, error in
-   
-            DispatchQueue.main.async { [self] in
+    func getWeather(city: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void) {
+        let stringURL = constructApiCall(cityName: city)
+        
+        guard let url = stringURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return
+        }
+        
+        guard let strigedUrl = URL(string: url) else { return }
+        
+            task = session.dataTask(with: strigedUrl, completionHandler: { data, response, error in
+                DispatchQueue.main.async {  
                 guard let data = data , error == nil else {
-                    //FIXME: Manage Errors with Alert
-                    print(error!)
                     return
                 }
                 
-                // we have data
-                var result: WeatherResponse?
-                do {
-                    result = try JSONDecoder().decode(WeatherResponse.self, from: data)
-                } catch  {
-                    //FIXME: Manage Errors with Alert
-                }
-                guard let json = result else {
-                    //FIXME: Manage Errors with Alert
-                    //   print(error!)
+                guard let response = response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 404 else {
                     return
                 }
-                callback(true, json)
-                self.temperature = json.main.temp
-                print(self.temperature)
-            }
-        }).resume()
+                
+                var result: WeatherResponse?
+                
+                do {
+                    result = try JSONDecoder().decode(WeatherResponse.self, from: data)
+                } catch let error {
+                    callback(.failure(error))
+                }
+                guard let json = result else {
+                    return
+                }
+                callback(.success(json))
+                }
+                })
+        
+        
+        task?.resume()
     }
-    
-    
-    
 }
-
