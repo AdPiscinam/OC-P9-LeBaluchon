@@ -21,7 +21,7 @@ class WeatherCoordinator: Coordinator {
 extension WeatherCoordinator {
     func start() {
         let viewController = WeatherViewController()
-        let network = WeatherNetwork.shared
+        let network = WeatherNetwork()
         let tab = UITabBarItem(title: "Weather", image: UIImage(systemName: "cloud.sun.rain"), selectedImage: UIImage(systemName: "cloud.sun.rain.fill"))
         viewController.tabBarItem = tab
         viewController.coordinator = self
@@ -43,7 +43,6 @@ extension WeatherCoordinator {
         guard let viewController = navigationController.viewControllers.first as? WeatherViewController else {
             return
         }
-         viewController.updateChosenCity(name: chosenCity)
+         viewController.getWeather(city: chosenCity)
     }
-    
 }
