@@ -8,6 +8,8 @@ import UIKit
 class TranslatorCoordinator: Coordinator {
    
     var navigationController: UINavigationController
+    var viewControllers: [UIViewController] = []
+    
     weak var parentCoordinator: AppCoordinator?
     var childCoordinators: [Coordinator] = []
     
@@ -19,8 +21,13 @@ class TranslatorCoordinator: Coordinator {
 extension TranslatorCoordinator {
     func start() {
         let viewController = TranslatorViewController()
-        viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
+        let network = TranslationNetwork.shared
+        let tab = UITabBarItem(title: "Translator", image: UIImage(systemName: "bubble.left.and.bubble.right"), selectedImage: UIImage(systemName: "bubble.left.and.bubble.right.fill"))
+        viewController.tabBarItem = tab
         viewController.coordinator = self
+        let viewModel = TranslatorViewModel(network: network)
+        viewController.viewModel = viewModel
+        viewControllers.append(viewController)
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -31,4 +38,24 @@ extension TranslatorCoordinator {
         childCoordinators.append(child)
         child.start()
     }
+    
+    func updateTranslation(text: String){
+        guard let viewController = navigationController.viewControllers.first as? TranslatorViewController else {
+            return
+        }
+        viewController.updateTranslation(text: text)
+    }
+    
+    //MARK: Finishes
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() {
+            if coordinator === child {
+             
+                childCoordinators.remove(at: index)
+                 
+                break
+            }
+        }
+    }
 }
+
