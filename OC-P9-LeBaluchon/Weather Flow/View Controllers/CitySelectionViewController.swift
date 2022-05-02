@@ -21,6 +21,9 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
         field.backgroundColor = .darkGray
         field.textAlignment = .center
         field.textColor = .systemBackground
+        field.clearButtonMode = .whileEditing
+        field.clearsOnBeginEditing = true
+        field.layer.cornerRadius = 10
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -56,8 +59,8 @@ extension CitySelectionViewController {
         label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
         cityName.topAnchor.constraint(equalTo: label.bottomAnchor).isActive = true
-        cityName.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: -16).isActive = true
-        cityName.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 16).isActive = true
+        cityName.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        cityName.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         cityName.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }
