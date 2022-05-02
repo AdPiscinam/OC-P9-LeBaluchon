@@ -6,9 +6,8 @@
 import Foundation
 
 protocol ConversionNetworkType {
-    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, ConversionResponse?) -> Void)
+    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, CurrencyResponse?) -> Void)
 }
-
 
 final class ConversionNetwork: ConversionNetworkType {
     
@@ -16,77 +15,49 @@ final class ConversionNetwork: ConversionNetworkType {
     
     private init() {}
     
-    var apiAdresse = "https://free.currconv.com/api/v7/"
-    var base = "convert?q="
-    var baseCode = "USD"
-    var symbols =  "_"
-    var destinationCode = "EUR"
-    var accessKey = "&compact=ultra&apiKey=92d20273b92e9fbce9b5"
+    var apiAdresse = "https://api.getgeoapi.com/v2/currency/convert?"
+    var apiKey = "api_key="
+    var keyValue = "f8513c87b89eb3b39235d47eec48f50fae8b31c7"
+    var from = "&from="
+    var baseCode = "EUR"
+    var to =  "&to="
+    var destinationCode = "DZD"
+    var amount = "&amount="
+    var amountValue = "1"
+    var format = "&format=json"
     var rate = 0.0
     
     private func constructApiCall(baseCode: String, destinationCode: String) -> String {
-        apiAdresse + base + baseCode + symbols + destinationCode + accessKey
+        apiAdresse + apiKey + keyValue + from + baseCode + to + destinationCode + amount + amountValue
     }
     
-    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, ConversionResponse?) -> Void) {
+    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, CurrencyResponse?) -> Void) {
         let url = constructApiCall(baseCode: baseCode, destinationCode: destinationCode)
-        URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: { [self] data, response, error in
-            
-            DispatchQueue.main.async { [self] in
+        URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: {  data, response, error in
+           
+            DispatchQueue.main.async {
                 guard let data = data , error == nil else {
                     //FIXME: Manage Errors with Alert
-                
+                    print("data error")
                     return
                 }
-            
                 // we have data
-                var result: ConversionResponse?
+                var result: CurrencyResponse?
                 do {
-                    result = try JSONDecoder().decode(ConversionResponse.self, from: data)
-                    print(result?.chosenConversion)
+                    
+                    result = try JSONDecoder().decode(CurrencyResponse.self, from: data)
                 } catch  {
                     //FIXME: Manage Errors with Alert
+                    print("data error2")
                 }
-                print(result?.chosenConversion)
                 guard let json = result else {
                     //FIXME: Manage Errors with Alert
-                     
+                    print("data error3")
                     return
                 }
                 callback(true, json)
-                self.rate = json.chosenConversion
-                print(self.rate)
-               
+                print(json)
             }
         }).resume()
     }
-//    
-//    func getDataFromEuroToDollar(callback: @escaping (Bool, ConversionResponse?) -> Void) {
-//        let url = constructApiCall(baseCode: "EUR", destinationCode: "USD")
-//       
-//        URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: { [self] data, response, error in
-//           
-//            DispatchQueue.main.async { [self] in
-//                guard let data = data , error == nil else {
-//                    //FIXME: Manage Errors with Alert
-//                    return
-//                }
-//                
-//                // we have data
-//                var result: ConversionResponse?
-//                do {
-//                    result = try JSONDecoder().decode(ConversionResponse.self, from: data)
-//                } catch  {
-//                    //FIXME: Manage Errors with Alert
-//                }
-//                guard let json = result else {
-//                    //FIXME: Manage Errors with Alert
-//            
-//                    return
-//                }
-//                callback(true, json)
-//                self.rate = json.chosenConversion
-//            }
-//        }).resume()
-//    }
 }
