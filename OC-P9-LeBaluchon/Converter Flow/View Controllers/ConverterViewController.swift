@@ -154,15 +154,51 @@ extension ConverterViewController {
 //MARK: TextField Management
 extension ConverterViewController {
     @objc func textFieldDidChange(_ textField: UITextField) {
-        fetchData()
         if textField.text == "" {
             textField.text = "0"
             textField.text = ""
         }
+       
+        guard let unwrappedAmount = textField.text else {
+            return
+        }
+        
+        guard let doubledAmount = Double(unwrappedAmount) else {
+            return
+        }
+        
+        viewModel.doubledAmount = doubledAmount
+        
     }
 }
 
-//MARK: User Interface
+//MARK: View Model Binding
+extension ConverterViewController {
+    func bind(to: ConverterViewModel){
+        viewModel.titleText = { [weak self] text in
+            self?.title = text
+        }
+        viewModel.resultAmountUpdater = { [weak self] text in
+            self?.amountUpperLabel.text = text
+        }
+        viewModel.dateUpdater = { [weak self] text in
+            self?.dateLabel.text = text
+        }
+        
+        viewModel.rateUpdater = { [weak self] text in
+            self?.currencyRateLabel.text = text
+        }
+        viewModel.baseUpdater = { [weak self] text in
+            self?.downerCurrencyLabel.text = text
+        }
+        
+        viewModel.destinationUpdater = { [weak self] text in
+            self?.upperCurrencyLabel.text = text
+        }
+    }
+}
+
+//MARK: User Interface Setup
 extension ConverterViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
