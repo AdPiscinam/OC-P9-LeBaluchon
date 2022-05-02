@@ -8,10 +8,11 @@ import UIKit
 class CurrencySelectionCoordinator: Coordinator {
 
     var navigationController: UINavigationController
-    weak var parentCoordinator: ConverterCoordinator?
-    var childCoordinators: [Coordinator] = []
     var viewControllers: [UIViewController] = []
     
+    weak var parentCoordinator: ConverterCoordinator?
+    var childCoordinators: [Coordinator] = []
+  
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -31,20 +32,19 @@ extension CurrencySelectionCoordinator {
     }
     
     func update(base: String, destination: String) {
-        guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
-            return
-        }
-        viewController.updateCurrenciesNames(base: base, destination: destination)
+        parentCoordinator?.updateCurrenciesNames(base: base, destination: destination)
     }
     
-    func update(response: ConversionResponse) {
-        guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
-            return
-        }
-        viewController.updateCurrencyResponse(response: response)
+    func fetchData(){
+        parentCoordinator?.fetchData()
     }
+
     
     func dismiss() {
         navigationController.dismiss(animated: true)
+    }
+    
+    func didFinishSelecting() {
+        parentCoordinator?.childDidFinish(self)
     }
 }
