@@ -10,10 +10,8 @@ class ConverterViewController: UIViewController {
     weak var coordinator: ConverterCoordinator?
     var viewModel: ConverterViewModel!
     
-    // User Interface
-    let upperLabel: UILabel = {
+    let amountUpperLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
         label.backgroundColor = .green
         label.textAlignment = .right
         label.isUserInteractionEnabled = true
@@ -23,7 +21,6 @@ class ConverterViewController: UIViewController {
     
     let downerTextField: UITextField = {
         let field = UITextField()
-        field.text = ""
         field.placeholder = "0"
         field.backgroundColor = .green
         field.keyboardType = .decimalPad
@@ -38,11 +35,8 @@ class ConverterViewController: UIViewController {
         label.backgroundColor = .red
         label.layer.masksToBounds = true
         label.textAlignment = .center
-        label.text = "USD"
         label.layer.cornerRadius = 20
         label.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(selectConversionCurrencies))
-        label.addGestureRecognizer(tap)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -52,7 +46,6 @@ class ConverterViewController: UIViewController {
         label.backgroundColor = .blue
         label.layer.masksToBounds = true
         label.textAlignment = .center
-        label.text = "EUR"
         label.layer.cornerRadius = 20
         label.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(selectConversionCurrencies))
@@ -79,7 +72,6 @@ class ConverterViewController: UIViewController {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "31/03/2022 12:16"
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
