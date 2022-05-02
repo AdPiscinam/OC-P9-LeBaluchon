@@ -8,10 +8,9 @@ import UIKit
 class CitySelectionViewController: UIViewController, UINavigationControllerDelegate {
     
     weak var coordinator: CitySelectionCoordinator?
-    
+    var viewModel: WeatherViewModel!
     let label: UILabel = {
         let label = UILabel()
-        label.text = "Enter a City"
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -30,8 +29,22 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupUI()
+        bind(to: viewModel)
+        viewModel.viewDidLoad()
     }
-    
+
+    @objc func apply() {
+        guard let name = cityName.text else {
+            //TODO: add alert to provide a name
+            return
+        }
+        coordinator?.update(chosenCity: name)
+        coordinator?.dismiss()
+    }
+}
+
+//MARK: User Interface Setup
+extension CitySelectionViewController {
     private func setupUI() {
         view.addSubview(label)
         view.addSubview(cityName)
@@ -46,16 +59,14 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
         cityName.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: -16).isActive = true
         cityName.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 16).isActive = true
         cityName.heightAnchor.constraint(equalToConstant: 30).isActive = true
- 
     }
-    
-    @objc func apply() {
-        guard let name = cityName.text else {
-            //TODO: add alert to provide a name
-            return
+}
+
+//MARK: View Model Binding
+extension CitySelectionViewController {
+    func bind(to: WeatherViewModel) {
+        viewModel.subjectLabelTextUpdater = { [weak self] text in
+            self?.title = text
         }
-        coordinator?.update(chosenCity: name)
-        coordinator?.dismiss()
-        
     }
 }
