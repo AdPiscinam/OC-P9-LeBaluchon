@@ -90,7 +90,7 @@ class ConverterViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bind(to: viewModel)
-        viewModel.viewDidLoad()
+      //  viewModel.viewDidLoad()
     }
     
     @objc func fetchData() {
@@ -179,7 +179,7 @@ extension ConverterViewController {
 //MARK: User Interface Setup
 extension ConverterViewController {
     private func setupUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .customBackground
         self.hideKeyboardWhenTappedAround()
         view.addSubview(amountUpperLabel)
         view.addSubview(downerTextField)
