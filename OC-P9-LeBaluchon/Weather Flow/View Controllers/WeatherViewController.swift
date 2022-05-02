@@ -20,12 +20,14 @@ final class WeatherViewController: UIViewController {
     
     let nyCityName: UILabel = {
         let label = UILabel()
+        label.textColor = .customScriptureGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let nyDescription: UILabel = {
         let label = UILabel()
+        label.textColor = .customGolden
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,6 +36,7 @@ final class WeatherViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 30, weight: .ultraLight)
         label.textAlignment = .center
+        label.textColor = .customGolden
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -47,12 +50,14 @@ final class WeatherViewController: UIViewController {
     
     let cityName: UILabel = {
         let label = UILabel()
+        label.textColor = .customScriptureGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let cityDescription: UILabel = {
         let label = UILabel()
+        label.textColor = .customGolden
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -61,13 +66,14 @@ final class WeatherViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 30, weight: .ultraLight)
         label.textAlignment = .center
+        label.textColor = .customGolden
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     override func viewWillAppear(_ animated: Bool) {
-        getNYWeather()
-        getWeather(city: "Paris")
+//       getNYWeather()
+//        getWeather(city: "Paris")
     }
     
     override func viewDidLoad() {
@@ -93,7 +99,7 @@ final class WeatherViewController: UIViewController {
 //MARK: User Interface Setup
 extension WeatherViewController {
     private func setupUI() {
-        view.backgroundColor = .secondarySystemBackground
+        view.backgroundColor = .customBackground
         view.addSubview(nyWeatherImageView)
         view.addSubview(nyCityName)
         view.addSubview(nyDescription)
@@ -105,7 +111,7 @@ extension WeatherViewController {
         
         let logoutBarButtonItem = UIBarButtonItem(title: "Settings", style: .done, target: self, action: #selector(settings))
         self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
-        
+       
         nyWeatherImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         nyWeatherImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         nyWeatherImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true

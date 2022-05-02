@@ -9,12 +9,6 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
     
     weak var coordinator: CitySelectionCoordinator?
     var viewModel: WeatherViewModel!
-    let label: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
     
     let cityName: UITextField = {
         let field = UITextField()
@@ -49,16 +43,16 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
 //MARK: User Interface Setup
 extension CitySelectionViewController {
     private func setupUI() {
-        view.addSubview(label)
+        view.backgroundColor = .customLightBrown
+        navigationController?.navigationBar.tintColor = UIColor.customOrange
+
         view.addSubview(cityName)
         view.isOpaque = false
+        
         let okBarButtonItem = UIBarButtonItem(title: "Apply", style: .done, target: self, action: #selector(apply))
         self.navigationItem.rightBarButtonItem  = okBarButtonItem
-        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
-        cityName.topAnchor.constraint(equalTo: label.bottomAnchor).isActive = true
+        cityName.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         cityName.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         cityName.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         cityName.heightAnchor.constraint(equalToConstant: 30).isActive = true

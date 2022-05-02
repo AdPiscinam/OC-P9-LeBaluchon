@@ -15,6 +15,7 @@ class CurrencySelectionViewController: UIViewController, UINavigationControllerD
     
     let originCurrencyPickerView: UIPickerView = {
         let picker = UIPickerView()
+        
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
@@ -80,13 +81,25 @@ extension CurrencySelectionViewController: UIPickerViewDataSource, UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return viewModel.currenciesArray[row]
     }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let attributedString = NSAttributedString(string: viewModel.currenciesArray[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.customGolden])
+            return attributedString
+    }
+    
 }
 
 extension CurrencySelectionViewController {
     private func setupUI() {
-        view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(okay))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        view.backgroundColor = .customLightBrown
+        navigationController?.navigationBar.tintColor = UIColor.customOrange
+        
+        let okBarButtonItem = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(okay))
+        self.navigationItem.rightBarButtonItem  = okBarButtonItem
+        
+        let cancelButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        self.navigationItem.leftBarButtonItem  = cancelButtonItem
+        
         view.addSubview(originCurrencyPickerView)
         originCurrencyPickerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -20).isActive = true
         originCurrencyPickerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true

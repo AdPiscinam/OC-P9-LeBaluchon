@@ -13,7 +13,8 @@ class TranslatorViewController: UIViewController {
     let frenchText: UITextView = {
         let text = UITextView()
         text.isEditable = false
-        text.backgroundColor = .red
+        text.backgroundColor = .customLightBrown
+        text.textColor = .customGolden
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -21,7 +22,8 @@ class TranslatorViewController: UIViewController {
     let englishText: UITextView = {
         let text = UITextView()
         text.isEditable = false
-        text.backgroundColor = .red
+        text.backgroundColor = .customLightBrown
+        text.textColor = .lightGray
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -36,6 +38,7 @@ class TranslatorViewController: UIViewController {
     }
     
     private func setupUI() {
+        view.backgroundColor = .customBackground
         view.addSubview(englishText)
         view.addSubview(frenchText)
         englishText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true

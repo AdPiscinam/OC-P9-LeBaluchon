@@ -13,7 +13,8 @@ class TranslatorFieldViewController: UIViewController {
     let textToTranslate: UITextView = {
         let text = UITextView()
         text.isEditable = true
-        text.backgroundColor = .gray
+        text.textColor = .systemBackground
+        text.backgroundColor = .customLightBrown
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -39,6 +40,8 @@ class TranslatorFieldViewController: UIViewController {
     }
     
     func setupUI() {
+        view.backgroundColor = .customLightBrown
+        navigationController?.navigationBar.tintColor = UIColor.customOrange
         view.addSubview(textToTranslate)
         textToTranslate.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         textToTranslate.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true

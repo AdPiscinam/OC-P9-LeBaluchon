@@ -12,27 +12,29 @@ class ConverterViewController: UIViewController {
     
     let amountUpperLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .green
+        label.backgroundColor = .customLightBrown
         label.textAlignment = .right
+        label.textColor = .customScriptureGray
         label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+ 
     let downerTextField: UITextField = {
         let field = UITextField()
-        field.placeholder = "0"
-        field.backgroundColor = .green
+        field.backgroundColor = .customLightBrown
         field.keyboardType = .decimalPad
         field.textAlignment = .right
+        field.textColor = .customGolden
         field.tintColor = .clear
+        field.attributedPlaceholder = NSAttributedString( string: "0", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     
     lazy var upperCurrencyLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .red
+        label.backgroundColor = .customScriptureGray
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.layer.cornerRadius = 20
@@ -43,7 +45,7 @@ class ConverterViewController: UIViewController {
     
     lazy var downerCurrencyLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .blue
+        label.backgroundColor = .customGolden
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.layer.cornerRadius = 20
@@ -58,7 +60,7 @@ class ConverterViewController: UIViewController {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.backgroundColor = .yellow
+        stack.backgroundColor = .customLightBrown
         return stack
     }()
     
@@ -66,6 +68,7 @@ class ConverterViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
         button.addTarget(self, action: #selector(fetchData), for: .touchUpInside)
+        button.tintColor = .customGolden
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -73,6 +76,7 @@ class ConverterViewController: UIViewController {
     let dateLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .customScriptureGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -80,8 +84,9 @@ class ConverterViewController: UIViewController {
     let currencyRateLabel: UILabel = {
         let label = UILabel()
         label.text = "Rate"
-        label.backgroundColor = .red
+        label.backgroundColor = .customLightBrown
         label.textAlignment = .center
+        label.textColor = .customGolden
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -90,7 +95,7 @@ class ConverterViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bind(to: viewModel)
-      //  viewModel.viewDidLoad()
+        viewModel.viewDidLoad()
     }
     
     @objc func fetchData() {
@@ -180,10 +185,12 @@ extension ConverterViewController {
 extension ConverterViewController {
     private func setupUI() {
         view.backgroundColor = .customBackground
+        
         self.hideKeyboardWhenTappedAround()
         view.addSubview(amountUpperLabel)
         view.addSubview(downerTextField)
-        
+        tabBarController?.tabBar.tintColor = .customOrange
+        tabBarController?.tabBar.barTintColor = .customLightBrown
         downerTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         amountUpperLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         amountUpperLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true

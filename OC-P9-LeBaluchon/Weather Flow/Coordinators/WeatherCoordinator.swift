@@ -30,6 +30,8 @@ extension WeatherCoordinator {
         viewControllers.append(viewController)
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
+        navigationController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.customOrange]
+        navigationController.navigationBar.tintColor = UIColor.customOrange
     }
     
     func startCitySelection() {
