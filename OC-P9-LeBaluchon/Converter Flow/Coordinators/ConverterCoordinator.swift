@@ -46,6 +46,13 @@ extension ConverterCoordinator {
         }
         viewController.updateCurrenciesNames(base: base, destination: destination)
     }
+    
+    func fetchData() {
+        guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
+            return
+        }
+        viewController.fetchData()
+    }
 
     //MARK: Finishes
     func childDidFinish(_ child: Coordinator?) {
@@ -57,21 +64,3 @@ extension ConverterCoordinator {
         }
     }
 }
-//
-//extension ConverterCoordinator: UINavigationControllerDelegate {
-//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-//
-//        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
-//            return
-//        }
-//
-//        if navigationController.viewControllers.contains(fromViewController) {
-//            return
-//        }
-//
-//        if let currencySelectionCoordinator = fromViewController as? CurrencySelectionViewController {
-//            childDidFinish(currencySelectionCoordinator.coordinator)
-//            print("converter Finished")
-//        }
-//    }
-//}
