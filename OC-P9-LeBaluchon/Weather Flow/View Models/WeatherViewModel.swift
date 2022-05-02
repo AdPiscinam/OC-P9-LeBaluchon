@@ -5,9 +5,8 @@
 
 import UIKit
 
-class WeatherViewModel {
-    
-    private let network: WeatherNetworkType
+final class WeatherViewModel {
+   private let network: WeatherNetworkType
     
     init(network: WeatherNetworkType) {
         self.network = network
@@ -28,56 +27,25 @@ class WeatherViewModel {
     var cityImageViewGifNameUpdater: ((String) -> Void)?
     var nyImageViewGifNameUpdater: ((String) -> Void)?
     
+    var subjectLabelTextUpdater: ((String) -> Void)?
+   
     // MARK: - Inputs
     func viewDidLoad() {
-        titleText?("WeatherVM")
-        modalTitleText?("SettingsVM")
+        titleText?("Weather")
+        modalTitleText?("Settings")
         
-        nyCityNameUpdater?(nyCityName)
-        nyDescriptionUpdater?(nyDescription)
-        nyTemperatureUpdater?(nyTemperature)
+        nyCityNameUpdater?("New York")
+        nyDescriptionUpdater?("Description")
+        nyTemperatureUpdater?("99°C")
         
-        cityNameUpdater?(cityName)
-        cityDescriptionUpdater?(cityDescription)
-        cityTemperatureUpdater?(cityTemperature)
+        cityNameUpdater?("Paris")
+        cityDescriptionUpdater?("Description")
+        cityTemperatureUpdater?("99°C")
+        
+        subjectLabelTextUpdater?("Enter a City")
     }
     
     //MARK: Computed Properties
-    private var nyCityName = "New York" {
-        didSet {
-            nyCityNameUpdater?(nyCityName)
-        }
-    }
-    
-    private var nyDescription = "Cloudy" {
-        didSet {
-            nyDescriptionUpdater?(nyDescription)
-        }
-    }
-    
-    private var nyTemperature = "99°C" {
-        didSet {
-            nyTemperatureUpdater?(nyTemperature)
-        }
-    }
-    
-    private var cityName = "City" {
-        didSet {
-            cityNameUpdater?(cityName)
-        }
-    }
-    
-    private var cityDescription = "Cloudy" {
-        didSet {
-            cityDescriptionUpdater?(cityDescription)
-        }
-    }
-    
-    private var cityTemperature = "99°CV" {
-        didSet {
-            cityTemperatureUpdater?(cityTemperature)
-        }
-    }
     
     private var cityImageViewGifName = "tornado" {
         didSet {
@@ -87,31 +55,39 @@ class WeatherViewModel {
     
     private var nyImageViewGifName = "tornado" {
         didSet {
-            nyImageViewGifNameUpdater?(nyImageViewGifName)
+            nyImageViewGifNameUpdater?(nyImageViewGifName )
         }
     }
     
     func getCityWeather(city: String) {
-        WeatherNetwork.shared.getWeather(city: city) { [self] (success, response) in
-            if success, let response = response {
-                cityName = response.name
-                cityTemperature = "\(String(response.main.temp))°C"
-                cityDescription = response.weather[0].weatherDescription.capitalizingFirstLetter()
+        network.getWeather(city: city) {   [self] result in
+            switch result {
+            case .success(let response):
+                cityNameUpdater?(response.name)
+                cityTemperatureUpdater?("\(String(response.main.temp))°C")
+                cityDescriptionUpdater?(response.weather[0].weatherDescription.capitalizingFirstLetter())
                 setIconFrom(response: response, id: response.weather[0].id, imageViewGifName: &cityImageViewGifName)
-                
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
     
     func getNyCityWeather() {
-        WeatherNetwork.shared.getWeather(city: "New York") { [self] (success, response) in
-            if success, let response = response {
-                nyCityName = response.name
-                nyTemperature = "\(String(response.main.temp))°C"
-                nyDescription = response.weather[0].weatherDescription.capitalizingFirstLetter()
+       
+        network.getWeather(city: "New York") { [self] result in
+            switch result {
+            case .success(let response):
+                nyCityNameUpdater?(response.name)
+                nyTemperatureUpdater?("\(String(response.main.temp))°C")
+                nyDescriptionUpdater?(response.weather[0].weatherDescription.capitalizingFirstLetter())
                 setIconFrom(response: response, id: response.weather[0].id, imageViewGifName: &nyImageViewGifName)
-                
+            case .failure(let error):
+                print(error.localizedDescription)
             }
+        
+            
+           
         }
     }
     
@@ -163,8 +139,6 @@ class WeatherViewModel {
         default: imageViewGifName =  "hurricane"
         }
     }
+
     
 }
-
-
-
