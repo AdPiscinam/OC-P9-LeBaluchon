@@ -132,36 +132,10 @@ class ConverterViewController: UIViewController {
     func updateCurrenciesNames(base: String, destination: String) {
         viewModel.destinationUpdater?(destination)
         viewModel.baseUpdater?(base)
+        viewModel.destinationUpdater?(destination)
     }
     
-    func updateCurrencyResponse(response: ConversionResponse) {
-        viewModel.dateUpdater?(viewModel.getCurrentTime())
-        
-        guard let currency = upperCurrencyLabel.text else {
-            return
-        }
-        guard var rate = response.rates[currency] else {
-            return
-        }
-        
-        guard let rateValue = response.rates[currency] else {
-            return
-        }
-        
-        rate = rateValue
-        
-        guard let base = downerTextField.text else {
-            return
-        }
-        
-        guard let doubleBase = Double(base) else {
-            return
-        }
-        
-        let baseNumber = doubleBase
-        
-        viewModel.resultUpdater?(String(rate * baseNumber))
-    }
+    
 }
 
 //MARK: Keyboard Management
@@ -191,26 +165,25 @@ extension ConverterViewController {
 //MARK: User Interface
 extension ConverterViewController {
     private func setupUI() {
-        
         view.backgroundColor = .systemBackground
         self.hideKeyboardWhenTappedAround()
-        view.addSubview(upperLabel)
+        view.addSubview(amountUpperLabel)
         view.addSubview(downerTextField)
         
         downerTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        upperLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        upperLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        upperLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        upperLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        amountUpperLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        amountUpperLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        amountUpperLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        amountUpperLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
         
-        downerTextField.topAnchor.constraint(equalTo: upperLabel.bottomAnchor, constant: 1).isActive = true
+        downerTextField.topAnchor.constraint(equalTo: amountUpperLabel.bottomAnchor, constant: 1).isActive = true
         downerTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         downerTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         downerTextField.heightAnchor.constraint(equalToConstant: 80).isActive = true
         
-        upperLabel.addSubview(upperCurrencyLabel)
-        upperCurrencyLabel.centerYAnchor.constraint(equalTo: upperLabel.centerYAnchor).isActive = true
-        upperCurrencyLabel.leadingAnchor.constraint(equalTo: upperLabel.leadingAnchor, constant: 16).isActive = true
+        amountUpperLabel.addSubview(upperCurrencyLabel)
+        upperCurrencyLabel.centerYAnchor.constraint(equalTo: amountUpperLabel.centerYAnchor).isActive = true
+        upperCurrencyLabel.leadingAnchor.constraint(equalTo: amountUpperLabel.leadingAnchor, constant: 16).isActive = true
         upperCurrencyLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
         upperCurrencyLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -230,6 +203,5 @@ extension ConverterViewController {
         verticalStackView.addArrangedSubview(currencyRateLabel)
         verticalStackView.centerYAnchor.constraint(equalTo: refreshButton.centerYAnchor).isActive = true
         verticalStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        
     }
 }
