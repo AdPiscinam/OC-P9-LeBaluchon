@@ -12,10 +12,12 @@ class ConverterViewModelTests: XCTestCase {
     
     
     var sut: ConverterViewModel!
-    
+ 
     
     override func setUpWithError() throws {
-        sut = ConverterViewModel()
+        //TODO:
+        let mock = MockConversionRepository()
+        sut = ConverterViewModel(network: mock)
     }
     
     override func tearDownWithError() throws {
@@ -32,18 +34,16 @@ class ConverterViewModelTests: XCTestCase {
         sut.viewDidLoad()
         waitForExpectations(timeout: 1.0, handler: nil)
     }
-//    var destinationUpdater: ((String) -> Void)?
-//    var baseUpdater: ((String) -> Void)?
-
     
     func testGivenAConverterViewModel_WhenViewDidLoad_ThenBaseIsCorrectlyReturned() {
         let expectation = self.expectation(description: "Base is not Correct")
         let expectedBase: String = "EUR"
+        
         sut.baseUpdater = { base in
             XCTAssertEqual(base, expectedBase)
             expectation.fulfill()
         }
-        sut.viewDidLoad()
+        sut.getConversion(baseCode: "EUR", destinationCode: "USD")
         waitForExpectations(timeout: 1.0, handler: nil)
     }
     
@@ -55,24 +55,37 @@ class ConverterViewModelTests: XCTestCase {
             XCTAssertEqual(date, expectedDate)
             expectation.fulfill()
         }
-        sut.viewDidLoad()
+        sut.getConversion(baseCode: "EUR", destinationCode: "USD")
         waitForExpectations(timeout: 1.0, handler: nil)
     }
     
-    func testGivenAConverterViewModel_WhenViewDidLoad_ThenRateIsCorrectlyReturned() {
-        let expectation = self.expectation(description: "Rate is not Correct")
-       
-        let expectedRate = sut.getConversion()
-        sut.rateUpdater = { rate in
-            XCTAssertEqual(rate, expectedRate)
-            expectation.fulfill()
-        }
+//    func testGivenAConverterViewModel_WhenViewDidLoad_ThenRateIsCorrectlyReturned() {
+//        let expectation = self.expectation(description: "Rate is not Correct")
+//       
+//        let expectedRate = sut.getConversion()
+//        sut.rateUpdater = { rate in
+//            XCTAssertEqual(rate, expectedRate)
+//            expectation.fulfill()
+//        }
+//
+//        sut.viewDidLoad()
+//        waitForExpectations(timeout: 1.0, handler: nil)
+//    }
+//    var fakeCurrencyData: Data? {
+//        let bundle = Bundle(for: ConverterViewModelTests.self)
+//        let url = bundle.url(forResource: "FakeCurrencyData", withExtension: "json")!
+//        return try! Data(contentsOf: url)
+//    }
+//    
+    
+}
 
-        sut.viewDidLoad()
-        waitForExpectations(timeout: 1.0, handler: nil)
+fileprivate class MockConversionRepository: ConversionNetworkType {
+    
+    var baseCode = "DZD"
+    var destinationCode = "USD"
+    var convertedAmount = "100"
+    
+    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, ConversionResponse?) -> Void) {
     }
-    
-    
-    
-    
 }
