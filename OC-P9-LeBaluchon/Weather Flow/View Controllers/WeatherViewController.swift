@@ -6,7 +6,7 @@
 import UIKit
 import ImageIO
 
-class WeatherViewController: UIViewController {
+final class WeatherViewController: UIViewController {
    
     weak var coordinator: WeatherCoordinator?
     var viewModel: WeatherViewModel!
@@ -77,39 +77,6 @@ class WeatherViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
-    func bind(to: WeatherViewModel) {
-        viewModel.titleText = { [weak self] text in
-            self?.title = text
-        }
-        // NY
-        viewModel.nyCityNameUpdater = { [weak self] name in
-            self?.nyCityName.text = name
-        }
-        viewModel.nyDescriptionUpdater = { [weak self] description in
-            self?.nyDescription.text = description
-            
-        }
-        viewModel.nyTemperatureUpdater = { [weak self] temperature in
-            self?.nyTemperature.text = temperature
-        }
-        
-        viewModel.cityNameUpdater = { [weak self] name in
-            self?.cityName.text = name
-        }
-        
-        viewModel.cityDescriptionUpdater = { [weak self] description in
-            self?.cityDescription.text = description
-        }
-        
-        viewModel.cityTemperatureUpdater = { [weak self] temperature in
-            self?.cityTemperature.text = temperature
-        }
-        
-        viewModel.cityImageViewGifNameUpdater = { [weak self] name in
-            self?.cityWeatherImageView.loadGif(name: name)
-        }
-    }
-    
     @objc func settings() {
         coordinator?.startCitySelection()
     }
@@ -121,13 +88,10 @@ class WeatherViewController: UIViewController {
     func getWeather(city: String) {
         viewModel.getCityWeather(city: city)
     }
-    
-    func updateChosenCity(name: String) {
-        getWeather(city: name)
-    }
 }
 
-extension WeatherViewController{
+//MARK: User Interface Setup
+extension WeatherViewController {
     private func setupUI() {
         view.backgroundColor = .secondarySystemBackground
         view.addSubview(nyWeatherImageView)
@@ -146,7 +110,6 @@ extension WeatherViewController{
         nyWeatherImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         nyWeatherImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         nyWeatherImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        nyWeatherImageView.loadGif(name: "sunny")
         
         nyCityName.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         nyCityName.topAnchor.constraint(equalTo: nyWeatherImageView.bottomAnchor).isActive = true
@@ -161,7 +124,6 @@ extension WeatherViewController{
         cityWeatherImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: 16).isActive = true
         cityWeatherImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         cityWeatherImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        cityWeatherImageView.loadGif(name: "rain")
         
         cityName.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         cityName.topAnchor.constraint(equalTo: cityWeatherImageView.bottomAnchor).isActive = true
@@ -171,6 +133,48 @@ extension WeatherViewController{
         cityTemperature.centerYAnchor.constraint(equalTo: cityWeatherImageView.centerYAnchor).isActive = true
         cityTemperature.trailingAnchor.constraint(equalTo: cityWeatherImageView.leadingAnchor, constant: -16).isActive = true
         cityTemperature.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        
     }
 }
+
+//MARK: Binding
+extension WeatherViewController {
+    
+    func bind(to: WeatherViewModel) {
+        viewModel.titleText = { [weak self] text in
+            self?.title = text
+        }
+        // NY
+        viewModel.nyCityNameUpdater = { [weak self] name in
+            self?.nyCityName.text = name
+        }
+        viewModel.nyDescriptionUpdater = { [weak self] description in
+            self?.nyDescription.text = description
+            
+        }
+        viewModel.nyTemperatureUpdater = { [weak self] temperature in
+            self?.nyTemperature.text = temperature
+        }
+        
+        viewModel.nyImageViewGifNameUpdater = { [weak self] name in
+            self?.nyWeatherImageView.loadGif(name: name)
+        }
+        
+        // City
+        viewModel.cityNameUpdater = { [weak self] name in
+            self?.cityName.text = name
+        }
+        
+        viewModel.cityDescriptionUpdater = { [weak self] description in
+            self?.cityDescription.text = description
+        }
+        
+        viewModel.cityTemperatureUpdater = { [weak self] temperature in
+            self?.cityTemperature.text = temperature
+        }
+        
+        viewModel.cityImageViewGifNameUpdater = { [weak self] name in
+            self?.cityWeatherImageView.loadGif(name: name)
+        }
+    }
+}
+
