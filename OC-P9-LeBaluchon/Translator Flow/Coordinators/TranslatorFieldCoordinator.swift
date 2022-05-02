@@ -21,22 +21,19 @@ extension TranslatorFieldCoordinator {
     
     func start() {
         let viewController = TranslatorFieldViewController()
-        
+        let network = TranslationNetwork.shared
         viewController.coordinator = self
+        let viewModel = TranslatorViewModel(network: network)
+        viewController.viewModel = viewModel
         viewControllers.append(viewController)
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
-
- 
-//    
-//    func update(chosenCity: String) {
-//        guard let viewController = navigationController.viewControllers.first as? WeatherViewController else {
-//            return
-//        }
-//         viewController.updateChosenCity(name: chosenCity)
-//    }
     
+    func updateTranslation(text: String) {
+        parentCoordinator?.updateTranslation(text: text)
+    }
+
     func dismiss() {
         navigationController.dismiss(animated: true)
     }
