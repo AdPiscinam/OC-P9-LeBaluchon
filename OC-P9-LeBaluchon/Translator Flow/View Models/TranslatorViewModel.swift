@@ -26,13 +26,20 @@ class TranslatorViewModel {
     func viewDidLoad() {
         titleText?("Translator")
         modalTitleText?("Enter text")
-        
         englishTextUpdater?("English")
         frenchTextUpdater?("Français")
-        
         textToTranslateUpdater?("Tap to enter your text...")
     }
     
-    
-    
+    func getTranslation(text: String) {
+        network.getData(text: text) { [self] result in
+            switch result {
+            case .success(let response):
+                print(response)
+                englishTextUpdater?(response.data.translations[0].translatedText)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
