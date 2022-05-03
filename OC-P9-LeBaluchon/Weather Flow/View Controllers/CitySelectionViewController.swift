@@ -38,6 +38,10 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
         coordinator?.update(chosenCity: name)
         coordinator?.dismiss()
     }
+    
+    @objc func cancel() {
+        coordinator?.dismiss()
+    }
 }
 
 //MARK: User Interface Setup
@@ -51,6 +55,9 @@ extension CitySelectionViewController {
         
         let okBarButtonItem = UIBarButtonItem(title: "Apply", style: .done, target: self, action: #selector(apply))
         self.navigationItem.rightBarButtonItem  = okBarButtonItem
+        
+        let cancelButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        self.navigationItem.leftBarButtonItem  = cancelButtonItem
         
         cityName.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         cityName.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true

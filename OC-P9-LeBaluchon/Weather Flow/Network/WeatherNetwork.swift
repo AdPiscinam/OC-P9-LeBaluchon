@@ -10,7 +10,6 @@ protocol WeatherNetworkType {
 }
 
 final class WeatherNetwork: WeatherNetworkType {
-    
     var weatherResponse: WeatherResponse?
     
     private let session: URLSession
@@ -24,6 +23,7 @@ final class WeatherNetwork: WeatherNetworkType {
     var accessKey = "&appid=404728b6e3ea5ba52b603ac5142c0d28"
     var remainingKeys = "&units=metric&lang=fr"
     private var task: URLSessionDataTask?
+   
     func constructApiCall(cityName: String) -> String {
         apiAdress + cityName + accessKey + remainingKeys
     }
