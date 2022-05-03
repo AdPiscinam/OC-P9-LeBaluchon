@@ -131,7 +131,7 @@ final class WeatherViewModel {
             imageViewGifName =  "partlyCloudy"
         }
         case 802: if response.weather[0].icon.contains("n") {
-            imageViewGifName =  "mostlylCloudyNight"
+            imageViewGifName =  "mostlyCloudyNight"
         } else {
             imageViewGifName =  "partlySunny"
         }

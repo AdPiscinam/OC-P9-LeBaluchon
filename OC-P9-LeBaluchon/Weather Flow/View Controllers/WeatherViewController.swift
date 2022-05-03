@@ -7,7 +7,6 @@ import UIKit
 import ImageIO
 
 final class WeatherViewController: UIViewController {
-   
     weak var coordinator: WeatherCoordinator?
     var viewModel: WeatherViewModel!
     
@@ -72,8 +71,8 @@ final class WeatherViewController: UIViewController {
     }()
     
     override func viewWillAppear(_ animated: Bool) {
-//       getNYWeather()
-//        getWeather(city: "Paris")
+      //  getNYWeather()
+      //  getWeather(city: "Paris")
     }
     
     override func viewDidLoad() {
@@ -183,4 +182,3 @@ extension WeatherViewController {
         }
     }
 }
-

@@ -43,8 +43,8 @@ final class ConverterViewModel {
         destinationUpdater?("USD")
         resultAmountUpdater?("0")
         
-        dateUpdater?(getCurrentTime())
-    //    getConversion(baseCode: "EUR", destinationCode: "USD")
+   //     dateUpdater?(getCurrentTime())
+   //     getConversion(baseCode: "EUR", destinationCode: "USD")
         populateData()
     }
     
