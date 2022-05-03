@@ -23,7 +23,7 @@ final class WeatherNetwork: WeatherNetworkType {
     var accessKey = "&appid=404728b6e3ea5ba52b603ac5142c0d28"
     var remainingKeys = "&units=metric&lang=fr"
     private var task: URLSessionDataTask?
-   
+    
     func constructApiCall(cityName: String) -> String {
         apiAdress + cityName + accessKey + remainingKeys
     }
@@ -37,8 +37,8 @@ final class WeatherNetwork: WeatherNetworkType {
         
         guard let strigedUrl = URL(string: url) else { return }
         
-            task = session.dataTask(with: strigedUrl, completionHandler: { data, response, error in
-                DispatchQueue.main.async {  
+        task = session.dataTask(with: strigedUrl, completionHandler: { data, response, error in
+            DispatchQueue.main.async {
                 guard let data = data , error == nil else {
                     return
                 }
@@ -58,10 +58,8 @@ final class WeatherNetwork: WeatherNetworkType {
                     return
                 }
                 callback(.success(json))
-                }
-                })
-        
-        
+            }
+        })
         task?.resume()
     }
 }

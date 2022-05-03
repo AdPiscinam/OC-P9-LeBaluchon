@@ -51,11 +51,12 @@ final class ConverterViewModel {
     func getConversion(baseCode: String, destinationCode: String) {
         //TODO: Uncomment me
         dateUpdater?(getCurrentTime())
-        ConversionNetwork.shared.getData(baseCode: baseCode, destinationCode: destinationCode) { [self] (success, response) in
-            if success, let response = response {
+        network.getData(baseCode: baseCode, destinationCode: destinationCode) { [self] result in
+            switch result {
+            case .success(let response):
                 baseUpdater?(baseCode)
                 destinationUpdater?(destinationCode)
-                guard let rate = response.rates[destinationCode]?.rate else {
+                guard let rate = response?.rates[destinationCode]?.rate else {
                     return
                 }
                
@@ -68,6 +69,8 @@ final class ConverterViewModel {
                 let result = doubledRate * doubledAmount
                 amount = String(result)
                 resultAmountUpdater?(amount)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
