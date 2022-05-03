@@ -23,5 +23,6 @@ struct TranslationDataClass: Codable {
 
 // MARK: - Translation
 struct Translation: Codable {
+    let detectedSourceLanguage: String
     let translatedText: String
 }

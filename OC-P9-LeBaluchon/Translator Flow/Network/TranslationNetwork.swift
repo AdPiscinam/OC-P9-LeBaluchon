@@ -13,12 +13,12 @@ protocol TranslationNetworkType {
 final class TranslationNetwork: TranslationNetworkType {
     var apiAdresse = "https://translation.googleapis.com/language/translate/v2?"
     var question = "q="
-    var textToTranslate = "Hello"
+    var textToTranslate = ""
     var languageTarget = "&target="
     var languageTargetCode = "en"
     var format = "&format=text"
     var languageSource = "&source="
-    var languageSourceCode = "fr"
+    var languageSourceCode = ""
     var apiKey = "&key="
     var keyValue = "AIzaSyB3SW8oNYlcdvlHKlzsj9vKhgufBAalj3Y"
     
