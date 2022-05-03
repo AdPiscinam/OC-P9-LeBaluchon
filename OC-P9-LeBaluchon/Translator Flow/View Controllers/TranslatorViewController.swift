@@ -27,6 +27,14 @@ class TranslatorViewController: UIViewController {
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
+    
+    lazy var translateButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Translate", for: .normal)
+        button.addTarget(self, action: #selector(translate), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +43,14 @@ class TranslatorViewController: UIViewController {
         bind(to: viewModel)
         viewModel.viewDidLoad()
         addTapRecognizer()
+      
     }
     
     private func setupUI() {
         view.backgroundColor = .customBackground
         view.addSubview(englishText)
         view.addSubview(frenchText)
+        view.addSubview(translateButton)
         englishText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         englishText.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         englishText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
@@ -50,6 +60,9 @@ class TranslatorViewController: UIViewController {
         frenchText.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         frenchText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         frenchText.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        
+        translateButton.topAnchor.constraint(equalTo: frenchText.bottomAnchor, constant: 16).isActive = true
+        translateButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
     }
     
     func addTapRecognizer() {
@@ -60,10 +73,18 @@ class TranslatorViewController: UIViewController {
     
     func updateTranslation(text: String) {
         frenchText.text = text
+        translate()
     }
     
     @objc func showModal() {
         coordinator?.startTranslatorField()
+    }
+    
+    @objc func translate() {
+        guard let text = frenchText.text else {
+            return
+        }
+        viewModel.getTranslation(text: text)
     }
 }
 
