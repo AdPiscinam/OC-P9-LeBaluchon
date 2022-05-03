@@ -17,7 +17,7 @@ final class ConversionNetwork: ConversionNetworkType {
     
     var apiAdresse = "https://api.getgeoapi.com/v2/currency/convert?"
     var apiKey = "api_key="
-    var keyValue = "f8513c87b89eb3b39235d47eec48f50fae8b31c7"
+    var keyValue = ""
     var from = "&from="
     var baseCode = "EUR"
     var to =  "&to="
