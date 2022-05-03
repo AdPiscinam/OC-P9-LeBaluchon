@@ -22,7 +22,7 @@ extension ConverterCoordinator {
     
     func start() {
         let viewController = ConverterViewController()
-        let network = ConversionNetwork.shared
+        let network = ConversionNetwork()
         let tab = UITabBarItem(title: "Converter", image: UIImage(systemName: "dollarsign.circle"), selectedImage: UIImage(systemName: "dollarsign.circle.fill"))
         viewController.tabBarItem = tab
         viewController.coordinator = self

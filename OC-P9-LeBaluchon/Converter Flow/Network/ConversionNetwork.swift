@@ -6,14 +6,18 @@
 import Foundation
 
 protocol ConversionNetworkType {
-    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, CurrencyResponse?) -> Void)
+    func getData(baseCode: String, destinationCode: String, callback: @escaping (Result<CurrencyResponse?, Error>) -> Void)
 }
 
 final class ConversionNetwork: ConversionNetworkType {
+    var weatherResponse: CurrencyResponse?
     
-    static var shared = ConversionNetwork()
-    
-    private init() {}
+    private let session: URLSession
+    private var task: URLSessionDataTask?
+   
+    init() {
+        session = URLSession.init(configuration: .default)
+    }
     
     var apiAdresse = "https://api.getgeoapi.com/v2/currency/convert?"
     var apiKey = "api_key="
@@ -31,23 +35,25 @@ final class ConversionNetwork: ConversionNetworkType {
         apiAdresse + apiKey + keyValue + from + baseCode + to + destinationCode + amount + amountValue
     }
     
-    func getData(baseCode: String, destinationCode: String, callback: @escaping (Bool, CurrencyResponse?) -> Void) {
-        let url = constructApiCall(baseCode: baseCode, destinationCode: destinationCode)
-        URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: {  data, response, error in
-           
+    func getData(baseCode: String, destinationCode: String, callback: @escaping (Result<CurrencyResponse?, Error>) -> Void) {
+        let stringURL = constructApiCall(baseCode: baseCode, destinationCode: destinationCode)
+        
+       task = session.dataTask(with: URL(string: stringURL)!, completionHandler: {  data, response, error in
             DispatchQueue.main.async {
                 guard let data = data , error == nil else {
-                    //FIXME: Manage Errors with Alert
-                    print("data error")
                     return
                 }
-                // we have data
+                guard let response = response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 404 else {
+                    return
+                }
+                
                 var result: CurrencyResponse?
+                
                 do {
-                    
                     result = try JSONDecoder().decode(CurrencyResponse.self, from: data)
                 } catch  {
                     //FIXME: Manage Errors with Alert
+                    callback(.failure(error))
                     print("data error2")
                 }
                 guard let json = result else {
@@ -55,9 +61,10 @@ final class ConversionNetwork: ConversionNetworkType {
                     print("data error3")
                     return
                 }
-                callback(true, json)
+                callback(.success(json))
                 print(json)
             }
-        }).resume()
+        })
+       task?.resume()
     }
 }

@@ -6,7 +6,6 @@
 import UIKit
 
 class CurrencySelectionCoordinator: Coordinator {
-
     var navigationController: UINavigationController
     var viewControllers: [UIViewController] = []
     
@@ -19,10 +18,9 @@ class CurrencySelectionCoordinator: Coordinator {
 }
 
 extension CurrencySelectionCoordinator {
-    
     func start() {
         let viewController = CurrencySelectionViewController()
-        let network = ConversionNetwork.shared
+        let network = ConversionNetwork()
         viewController.coordinator = self
         let viewModel = ConverterViewModel(network: network)
         viewController.viewModel = viewModel
