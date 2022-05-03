@@ -15,7 +15,6 @@ class CurrencySelectionViewController: UIViewController, UINavigationControllerD
     
     let originCurrencyPickerView: UIPickerView = {
         let picker = UIPickerView()
-        
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
@@ -86,7 +85,6 @@ extension CurrencySelectionViewController: UIPickerViewDataSource, UIPickerViewD
         let attributedString = NSAttributedString(string: viewModel.currenciesArray[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.customGolden])
             return attributedString
     }
-    
 }
 
 extension CurrencySelectionViewController {

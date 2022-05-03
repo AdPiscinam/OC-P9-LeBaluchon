@@ -21,7 +21,7 @@ extension TranslatorFieldCoordinator {
     
     func start() {
         let viewController = TranslatorFieldViewController()
-        let network = TranslationNetwork.shared
+        let network = TranslationNetwork()
         viewController.coordinator = self
         let viewModel = TranslatorViewModel(network: network)
         viewController.viewModel = viewModel

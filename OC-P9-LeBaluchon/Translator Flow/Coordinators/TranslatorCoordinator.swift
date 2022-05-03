@@ -21,7 +21,7 @@ class TranslatorCoordinator: Coordinator {
 extension TranslatorCoordinator {
     func start() {
         let viewController = TranslatorViewController()
-        let network = TranslationNetwork.shared
+        let network = TranslationNetwork()
         let tab = UITabBarItem(title: "Translator", image: UIImage(systemName: "bubble.left.and.bubble.right"), selectedImage: UIImage(systemName: "bubble.left.and.bubble.right.fill"))
         viewController.tabBarItem = tab
         viewController.coordinator = self
@@ -60,4 +60,3 @@ extension TranslatorCoordinator {
         }
     }
 }
-
