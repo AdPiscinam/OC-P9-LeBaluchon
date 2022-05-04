@@ -6,8 +6,8 @@
 import UIKit
 
 final class ConverterViewModel {
-    
     private let network: ConversionNetworkType
+    var doubledAmount: Double = 0
     
     init(network: ConversionNetworkType) {
         self.network = network
@@ -25,14 +25,13 @@ final class ConverterViewModel {
     var rateUpdater: ((String) -> Void)?
     var destinationUpdater: ((String) -> Void)?
     var baseUpdater: ((String) -> Void)?
-        
+    var onErrorHandling : ((String) -> Void)?
+    
     var amount = "0" {
         didSet {
             resultAmountUpdater?(amount)
         }
     }
-    
-    var doubledAmount: Double = 0
 
     // MARK: - Inputs
     func viewDidLoad() {
@@ -47,19 +46,20 @@ final class ConverterViewModel {
    //     getConversion(baseCode: "EUR", destinationCode: "USD")
         populateData()
     }
-    
+   
     func getConversion(baseCode: String, destinationCode: String) {
         //TODO: Uncomment me
         dateUpdater?(getCurrentTime())
+       
         network.getData(baseCode: baseCode, destinationCode: destinationCode) { [self] result in
             switch result {
             case .success(let response):
                 baseUpdater?(baseCode)
                 destinationUpdater?(destinationCode)
+                
                 guard let rate = response?.rates[destinationCode]?.rate else {
                     return
                 }
-               
                 rateUpdater?("1 \(baseCode) = \(rate) \(destinationCode)")
                 
                 guard let doubledRate = Double(rate) else {
@@ -70,7 +70,7 @@ final class ConverterViewModel {
                 amount = String(result)
                 resultAmountUpdater?(amount)
             case .failure(let error):
-                print(error.localizedDescription)
+                self.onErrorHandling?(error.localizedDescription)
             }
         }
     }

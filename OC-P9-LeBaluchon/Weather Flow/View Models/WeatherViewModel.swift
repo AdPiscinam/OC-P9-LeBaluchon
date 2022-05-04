@@ -33,15 +33,12 @@ final class WeatherViewModel {
     func viewDidLoad() {
         titleText?("Weather")
         modalTitleText?("Settings")
-        
         nyCityNameUpdater?("New York")
         nyDescriptionUpdater?("Description")
         nyTemperatureUpdater?("99°C")
-        
         cityNameUpdater?("Paris")
         cityDescriptionUpdater?("Description")
         cityTemperatureUpdater?("99°C")
-        
         subjectLabelTextUpdater?("Enter a City")
     }
     
@@ -74,7 +71,6 @@ final class WeatherViewModel {
     }
     
     func getNyCityWeather() {
-       
         network.getWeather(city: "New York") { [self] result in
             switch result {
             case .success(let response):
@@ -85,9 +81,6 @@ final class WeatherViewModel {
             case .failure(let error):
                 print(error.localizedDescription)
             }
-        
-            
-           
         }
     }
     
@@ -139,6 +132,4 @@ final class WeatherViewModel {
         default: imageViewGifName =  "hurricane"
         }
     }
-
-    
 }
