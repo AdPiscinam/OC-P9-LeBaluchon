@@ -93,6 +93,10 @@ final class WeatherViewController: UIViewController {
     func getWeather(city: String) {
         viewModel.getCityWeather(city: city)
     }
+    
+    func showMessage(errorMessage: String) {
+        coordinator?.showErrorAlert(errorMessage: errorMessage)
+    }
 }
 
 //MARK: User Interface Setup
@@ -148,6 +152,10 @@ extension WeatherViewController {
         viewModel.titleText = { [weak self] text in
             self?.title = text
         }
+        viewModel.onErrorHandling = {  error in
+            self.showMessage(errorMessage: error)
+        }
+        
         // NY
         viewModel.nyCityNameUpdater = { [weak self] name in
             self?.nyCityName.text = name

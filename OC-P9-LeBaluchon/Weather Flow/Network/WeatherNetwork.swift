@@ -43,7 +43,7 @@ final class WeatherNetwork: WeatherNetworkType {
                     return
                 }
                 
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 404 else {
+                guard let response = response as? HTTPURLResponse, response.statusCode == 401 || response.statusCode == 404 || response.statusCode == 429 || response.statusCode == 429 || response.statusCode == 500 || response.statusCode == 502 || response.statusCode == 503 || response.statusCode == 504 else {
                     return
                 }
                 

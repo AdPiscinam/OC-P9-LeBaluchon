@@ -15,6 +15,7 @@ final class WeatherViewModel {
     // MARK: - Outputs
     var titleText: ((String) -> Void)?
     var modalTitleText: ((String) -> Void)?
+    var onErrorHandling : ((String) -> Void)?
     
     var nyCityNameUpdater: ((String) -> Void)?
     var nyDescriptionUpdater: ((String) -> Void)?
@@ -28,7 +29,7 @@ final class WeatherViewModel {
     var nyImageViewGifNameUpdater: ((String) -> Void)?
     
     var subjectLabelTextUpdater: ((String) -> Void)?
-   
+    
     // MARK: - Inputs
     func viewDidLoad() {
         titleText?("Weather")
