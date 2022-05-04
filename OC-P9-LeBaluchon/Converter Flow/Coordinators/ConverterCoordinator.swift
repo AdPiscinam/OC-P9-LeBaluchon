@@ -54,11 +54,10 @@ extension ConverterCoordinator {
     }
     
     func showErrorAlert(errorMessage: String) {
-        
         guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
             return
         }
-        let alertView = UIAlertController(title: "TEST", message: errorMessage , preferredStyle: .alert)
+        let alertView = UIAlertController(title: "Something went wrong", message: errorMessage , preferredStyle: .alert)
         alertView.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
         viewController.present(alertView, animated: true, completion: nil)
     }

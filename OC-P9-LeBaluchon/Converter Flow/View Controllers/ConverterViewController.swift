@@ -181,7 +181,6 @@ extension ConverterViewController {
         }
         
         viewModel.onErrorHandling = {  error in
-            
             self.showMessage(errorMessage: error)
         }
     }
