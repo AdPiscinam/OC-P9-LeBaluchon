@@ -42,8 +42,8 @@ final class ConverterViewModel {
         destinationUpdater?("USD")
         resultAmountUpdater?("0")
         
-   //     dateUpdater?(getCurrentTime())
-   //     getConversion(baseCode: "EUR", destinationCode: "USD")
+        dateUpdater?(getCurrentTime())
+        getConversion(baseCode: "EUR", destinationCode: "USD")
         populateData()
     }
    
@@ -69,6 +69,7 @@ final class ConverterViewModel {
                 let result = doubledRate * doubledAmount
                 amount = String(result)
                 resultAmountUpdater?(amount)
+                print(amount)
             case .failure(let error):
                 self.onErrorHandling?(error.localizedDescription)
             }
@@ -83,14 +84,14 @@ final class ConverterViewModel {
         return dateString
     }
   
-    func populateData() {
+    private func populateData() {
         for (code, _) in Currency.jsonData {
             ratesCityCode[code] = Currency.jsonData[code]?.name
         }
         self.currenciesArray = createArrayFormDictionnary(dict: ratesCityCode)
     }
     
-    func createArrayFormDictionnary(dict: [String: String]) -> [String]{
+    private func createArrayFormDictionnary(dict: [String: String]) -> [String]{
        var array: [String] = []
        for (key, value) in dict {
            array.append(key + " - \(value)")

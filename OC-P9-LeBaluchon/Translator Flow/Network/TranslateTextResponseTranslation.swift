@@ -12,6 +12,7 @@ struct TranslateTextResponseList: Codable {
     let list: [TranslateTextResponseTranslation]
 }
 
+// MARK: - TranslateTextResponseTranslation
 struct TranslateTextResponseTranslation: Codable {
     let data: TranslationDataClass
 }

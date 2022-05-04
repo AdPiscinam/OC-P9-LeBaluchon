@@ -34,20 +34,6 @@ class CurrencySelectionViewController: UIViewController, UINavigationControllerD
         coordinator?.didFinishSelecting()
     }
     
-    func bind(to: ConverterViewModel){
-        viewModel.modalTitleText = { [weak self] text in
-            self?.title = text
-        }
-        
-        viewModel.baseUpdater = { [weak self] baseCode in
-            self?.originCurrencyCode = baseCode
-        }
-        
-        viewModel.destinationUpdater = { [weak self] destinationCode in
-            self?.destinationCurrencyCode = destinationCode
-        }
-    }
-    
     @objc func okay() {
         originCurrencyCode = getCurrenciesCode(pickerView: self.originCurrencyPickerView)
         coordinator?.update(base: originCurrencyCode, destination: destinationCurrencyCode)
@@ -67,6 +53,7 @@ class CurrencySelectionViewController: UIViewController, UINavigationControllerD
     }
 }
 
+//MARK: PickerView Management
 extension CurrencySelectionViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -87,6 +74,24 @@ extension CurrencySelectionViewController: UIPickerViewDataSource, UIPickerViewD
     }
 }
 
+//MARK: View Model Binding
+extension CurrencySelectionViewController {
+    func bind(to: ConverterViewModel){
+        viewModel.modalTitleText = { [weak self] text in
+            self?.title = text
+        }
+        
+        viewModel.baseUpdater = { [weak self] baseCode in
+            self?.originCurrencyCode = baseCode
+        }
+        
+        viewModel.destinationUpdater = { [weak self] destinationCode in
+            self?.destinationCurrencyCode = destinationCode
+        }
+    }
+}
+
+//MARK: User Interface Setup
 extension CurrencySelectionViewController {
     private func setupUI() {
         view.backgroundColor = .customLightBrown
@@ -104,3 +109,4 @@ extension CurrencySelectionViewController {
         originCurrencyPickerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
     }
 }
+

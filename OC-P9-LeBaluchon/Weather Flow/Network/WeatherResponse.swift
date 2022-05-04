@@ -49,4 +49,3 @@ struct Weather: Codable {
         case icon
     }
 }
-

@@ -43,8 +43,6 @@ final class WeatherViewModel {
         subjectLabelTextUpdater?("Enter a City")
     }
     
-    //MARK: Computed Properties
-    
     private var cityImageViewGifName = "tornado" {
         didSet {
             cityImageViewGifNameUpdater?(cityImageViewGifName)
@@ -85,7 +83,7 @@ final class WeatherViewModel {
         }
     }
     
-    func setIconFrom(response: WeatherResponse, id: Int, imageViewGifName: inout String) {
+    private func setIconFrom(response: WeatherResponse, id: Int, imageViewGifName: inout String) {
         switch id {
         case 200...232 : imageViewGifName = "storm"
         case 300...310:  if response.weather[0].icon.contains("n") {

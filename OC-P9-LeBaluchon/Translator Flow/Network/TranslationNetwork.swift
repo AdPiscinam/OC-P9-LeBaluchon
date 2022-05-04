@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 protocol TranslationNetworkType {
     func getData(text: String, callback: @escaping (Result<TranslateTextResponseTranslation, Error>) -> Void)
 }
@@ -48,7 +47,7 @@ final class TranslationNetwork: TranslationNetworkType {
                     return
                 }
                 
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 404 else {
+                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                     return
                 }
                 

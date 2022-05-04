@@ -25,25 +25,25 @@ final class ConversionNetwork: ConversionNetworkType {
     var from = "&from="
     var baseCode = "EUR"
     var to =  "&to="
-    var destinationCode = "DZD"
+    var destinationCode = ""
     var amount = "&amount="
     var amountValue = "1"
     var format = "&format=json"
     var rate = 0.0
     
     private func constructApiCall(baseCode: String, destinationCode: String) -> String {
-        apiAdresse + apiKey + keyValue + from + baseCode + to + destinationCode + amount + amountValue
+        apiAdresse + apiKey + keyValue + from + baseCode + to + destinationCode + amount + amountValue + format
     }
     
     func getData(baseCode: String, destinationCode: String, callback: @escaping (Result<CurrencyResponse?, Error>) -> Void) {
         let stringURL = constructApiCall(baseCode: baseCode, destinationCode: destinationCode)
-        
+       
        task = session.dataTask(with: URL(string: stringURL)!, completionHandler: {  data, response, error in
             DispatchQueue.main.async {
                 guard let data = data , error == nil else {
                     return
                 }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 400 || response.statusCode == 403 || response.statusCode == 404 || response.statusCode == 405 else {
+                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                     return
                 }
                 

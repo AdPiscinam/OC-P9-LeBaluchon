@@ -44,6 +44,15 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
     }
 }
 
+//MARK: View Model Binding
+extension CitySelectionViewController {
+    func bind(to: WeatherViewModel) {
+        viewModel.subjectLabelTextUpdater = { [weak self] text in
+            self?.title = text
+        }
+    }
+}
+
 //MARK: User Interface Setup
 extension CitySelectionViewController {
     private func setupUI() {
@@ -63,14 +72,5 @@ extension CitySelectionViewController {
         cityName.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         cityName.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         cityName.heightAnchor.constraint(equalToConstant: 30).isActive = true
-    }
-}
-
-//MARK: View Model Binding
-extension CitySelectionViewController {
-    func bind(to: WeatherViewModel) {
-        viewModel.subjectLabelTextUpdater = { [weak self] text in
-            self?.title = text
-        }
     }
 }

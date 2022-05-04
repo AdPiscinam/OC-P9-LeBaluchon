@@ -28,6 +28,21 @@ class TranslatorFieldViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
+    @objc func translate() {
+        coordinator?.updateTranslation(text: textToTranslate.text)
+        coordinator?.dismiss()
+    }
+}
+
+//MARK: Text View Management
+extension TranslatorFieldViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
+        viewModel.textToTranslateUpdater?(textView.text)
+    }
+}
+
+//MARK: View Model Binding
+extension TranslatorFieldViewController {
     func bind(to: TranslatorViewModel){
         viewModel.modalTitleText = { [weak self] text in
             self?.title = text
@@ -36,9 +51,11 @@ class TranslatorFieldViewController: UIViewController {
         viewModel.textToTranslateUpdater = { [weak self] text in
             self?.textToTranslate.text = text
         }
-    
     }
-    
+}
+
+//MARK: User Interface Setup
+extension TranslatorFieldViewController {
     func setupUI() {
         view.backgroundColor = .customLightBrown
         navigationController?.navigationBar.tintColor = UIColor.customOrange
@@ -48,19 +65,6 @@ class TranslatorFieldViewController: UIViewController {
         textToTranslate.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         textToTranslate.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         let okBarButtonItem = UIBarButtonItem(title: "Translate", style: .done, target: self, action: #selector(translate))
-                                              
         self.navigationItem.rightBarButtonItem = okBarButtonItem
-    }
-    
-    @objc func translate() {
-        coordinator?.updateTranslation(text: textToTranslate.text)
-        coordinator?.dismiss()
-    }
-}
-
-extension TranslatorFieldViewController: UITextViewDelegate {
-    
-    func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
-        viewModel.textToTranslateUpdater?(textView.text)
     }
 }

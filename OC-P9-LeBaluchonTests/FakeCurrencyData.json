@@ -1,10 +1,9 @@
 {
-    "success": true,
-    "timestamp": 1649419924,
-    "base": "EUR",
+    "from": "EUR",
+    "to": "USD",
+    "amount": "1",
     "date": "2022-04-08",
     "rates": {
-        "AED": 3.988117,
-        "AFN": 95.80861
+        "USD": 3.988117,
     }
 }

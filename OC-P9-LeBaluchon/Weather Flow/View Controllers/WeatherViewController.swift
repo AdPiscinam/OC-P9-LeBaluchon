@@ -71,8 +71,8 @@ final class WeatherViewController: UIViewController {
     }()
     
     override func viewWillAppear(_ animated: Bool) {
-      //  getNYWeather()
-      //  getWeather(city: "Paris")
+        getNYWeather()
+        getWeather(city: "Paris")
     }
     
     override func viewDidLoad() {
@@ -98,6 +98,52 @@ final class WeatherViewController: UIViewController {
         coordinator?.showErrorAlert(errorMessage: errorMessage)
     }
 }
+
+//MARK: View Model Binding
+extension WeatherViewController {
+    func bind(to: WeatherViewModel) {
+        viewModel.titleText = { [weak self] text in
+            self?.title = text
+        }
+        viewModel.onErrorHandling = {  error in
+            self.showMessage(errorMessage: error)
+        }
+        
+        // NY
+        viewModel.nyCityNameUpdater = { [weak self] name in
+            self?.nyCityName.text = name
+        }
+        viewModel.nyDescriptionUpdater = { [weak self] description in
+            self?.nyDescription.text = description
+            
+        }
+        viewModel.nyTemperatureUpdater = { [weak self] temperature in
+            self?.nyTemperature.text = temperature
+        }
+        
+        viewModel.nyImageViewGifNameUpdater = { [weak self] name in
+            self?.nyWeatherImageView.loadGif(name: name)
+        }
+        
+        // City
+        viewModel.cityNameUpdater = { [weak self] name in
+            self?.cityName.text = name
+        }
+        
+        viewModel.cityDescriptionUpdater = { [weak self] description in
+            self?.cityDescription.text = description
+        }
+        
+        viewModel.cityTemperatureUpdater = { [weak self] temperature in
+            self?.cityTemperature.text = temperature
+        }
+        
+        viewModel.cityImageViewGifNameUpdater = { [weak self] name in
+            self?.cityWeatherImageView.loadGif(name: name)
+        }
+    }
+}
+
 
 //MARK: User Interface Setup
 extension WeatherViewController {
@@ -142,51 +188,5 @@ extension WeatherViewController {
         cityTemperature.centerYAnchor.constraint(equalTo: cityWeatherImageView.centerYAnchor).isActive = true
         cityTemperature.trailingAnchor.constraint(equalTo: cityWeatherImageView.leadingAnchor, constant: -16).isActive = true
         cityTemperature.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-    }
-}
-
-//MARK: Binding
-extension WeatherViewController {
-    
-    func bind(to: WeatherViewModel) {
-        viewModel.titleText = { [weak self] text in
-            self?.title = text
-        }
-        viewModel.onErrorHandling = {  error in
-            self.showMessage(errorMessage: error)
-        }
-        
-        // NY
-        viewModel.nyCityNameUpdater = { [weak self] name in
-            self?.nyCityName.text = name
-        }
-        viewModel.nyDescriptionUpdater = { [weak self] description in
-            self?.nyDescription.text = description
-            
-        }
-        viewModel.nyTemperatureUpdater = { [weak self] temperature in
-            self?.nyTemperature.text = temperature
-        }
-        
-        viewModel.nyImageViewGifNameUpdater = { [weak self] name in
-            self?.nyWeatherImageView.loadGif(name: name)
-        }
-        
-        // City
-        viewModel.cityNameUpdater = { [weak self] name in
-            self?.cityName.text = name
-        }
-        
-        viewModel.cityDescriptionUpdater = { [weak self] description in
-            self?.cityDescription.text = description
-        }
-        
-        viewModel.cityTemperatureUpdater = { [weak self] temperature in
-            self?.cityTemperature.text = temperature
-        }
-        
-        viewModel.cityImageViewGifNameUpdater = { [weak self] name in
-            self?.cityWeatherImageView.loadGif(name: name)
-        }
     }
 }

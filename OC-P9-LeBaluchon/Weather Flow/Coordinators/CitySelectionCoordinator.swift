@@ -26,7 +26,6 @@ extension CitySelectionCoordinator {
         let viewModel = WeatherViewModel(network: network)
         viewController.viewModel = viewModel
         viewControllers.append(viewController)
-        
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
     }
 
