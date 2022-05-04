@@ -43,7 +43,7 @@ final class ConversionNetwork: ConversionNetworkType {
                 guard let data = data , error == nil else {
                     return
                 }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 404 else {
+                guard let response = response as? HTTPURLResponse, response.statusCode == 400 || response.statusCode == 403 || response.statusCode == 404 || response.statusCode == 405 else {
                     return
                 }
                 
@@ -53,15 +53,11 @@ final class ConversionNetwork: ConversionNetworkType {
                 } catch  {
                     //FIXME: Manage Errors with Alert
                     callback(.failure(error))
-                    print("data error2")
                 }
                 guard let json = result else {
-                    //FIXME: Manage Errors with Alert
-                    print("data error3")
                     return
                 }
                 callback(.success(json))
-                print(json)
             }
         })
        task?.resume()
