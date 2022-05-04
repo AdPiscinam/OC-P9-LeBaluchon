@@ -6,20 +6,18 @@
 import UIKit
 
 class ConverterCoordinator: NSObject, Coordinator {
-   
     var navigationController: UINavigationController
     var viewControllers: [UIViewController] = []
     
     weak var parentCoordinator: AppCoordinator?
     var childCoordinators: [Coordinator] = []
-   
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
 }
 
 extension ConverterCoordinator {
-    
     func start() {
         let viewController = ConverterViewController()
         let network = ConversionNetwork()
@@ -32,7 +30,6 @@ extension ConverterCoordinator {
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
         navigationController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.customOrange]
-
     }
     
     func startCurrencySelection() {
@@ -55,7 +52,17 @@ extension ConverterCoordinator {
         }
         viewController.fetchData()
     }
-
+    
+    func showErrorAlert(errorMessage: String) {
+        
+        guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
+            return
+        }
+        let alertView = UIAlertController(title: "TEST", message: errorMessage , preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
+        viewController.present(alertView, animated: true, completion: nil)
+    }
+    
     //MARK: Finishes
     func childDidFinish(_ child: Coordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() {

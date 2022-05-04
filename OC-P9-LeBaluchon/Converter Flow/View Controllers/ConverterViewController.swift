@@ -6,7 +6,6 @@
 import UIKit
 
 class ConverterViewController: UIViewController {
-    
     weak var coordinator: ConverterCoordinator?
     var viewModel: ConverterViewModel!
     
@@ -106,6 +105,7 @@ class ConverterViewController: UIViewController {
         guard let destination = upperCurrencyLabel.text else {
             return
         }
+         
         viewModel.getConversion(baseCode: base, destinationCode: destination)
     }
     
@@ -113,12 +113,14 @@ class ConverterViewController: UIViewController {
         coordinator?.startCurrencySelection()
     }
     
+    func showMessage(errorMessage: String) {
+        coordinator?.showErrorAlert(errorMessage: errorMessage)
+    }
+
     func updateCurrenciesNames(base: String, destination: String) {
         viewModel.baseUpdater?(base)
         viewModel.destinationUpdater?(destination)
     }
-    
-    
 }
 
 //MARK: Keyboard Management
@@ -151,7 +153,6 @@ extension ConverterViewController {
         }
         
         viewModel.doubledAmount = doubledAmount
-        
     }
 }
 
@@ -177,6 +178,11 @@ extension ConverterViewController {
         
         viewModel.destinationUpdater = { [weak self] text in
             self?.upperCurrencyLabel.text = text
+        }
+        
+        viewModel.onErrorHandling = {  error in
+            
+            self.showMessage(errorMessage: error)
         }
     }
 }
