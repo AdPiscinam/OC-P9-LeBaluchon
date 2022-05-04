@@ -48,6 +48,15 @@ extension TranslatorCoordinator {
         viewController.updateTranslation(text: text)
     }
     
+    func showErrorAlert(errorMessage: String) {
+        guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
+            return
+        }
+        let alertView = UIAlertController(title: "Something went wrong", message: errorMessage , preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
+        viewController.present(alertView, animated: true, completion: nil)
+    }
+
     //MARK: Finishes
     func childDidFinish(_ child: Coordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() {

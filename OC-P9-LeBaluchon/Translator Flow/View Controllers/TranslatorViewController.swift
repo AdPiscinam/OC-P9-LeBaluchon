@@ -76,6 +76,10 @@ class TranslatorViewController: UIViewController {
         translate()
     }
     
+    func showMessage(errorMessage: String) {
+        coordinator?.showErrorAlert(errorMessage: errorMessage)
+    }
+    
     @objc func showModal() {
         coordinator?.startTranslatorField()
     }
@@ -93,6 +97,10 @@ extension TranslatorViewController {
     func bind(to: TranslatorViewModel){
         viewModel.titleText = { [weak self] text in
             self?.title = text
+        }
+        
+        viewModel.onErrorHandling = {  error in
+            self.showMessage(errorMessage: error)
         }
         
         viewModel.englishTextUpdater = { [weak self] text in

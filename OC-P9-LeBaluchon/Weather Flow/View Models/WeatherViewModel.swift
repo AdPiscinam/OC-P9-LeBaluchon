@@ -66,7 +66,7 @@ final class WeatherViewModel {
                 cityDescriptionUpdater?(response.weather[0].weatherDescription.capitalizingFirstLetter())
                 setIconFrom(response: response, id: response.weather[0].id, imageViewGifName: &cityImageViewGifName)
             case .failure(let error):
-                print(error.localizedDescription)
+                self.onErrorHandling?(error.localizedDescription)
             }
         }
     }
@@ -80,7 +80,7 @@ final class WeatherViewModel {
                 nyDescriptionUpdater?(response.weather[0].weatherDescription.capitalizingFirstLetter())
                 setIconFrom(response: response, id: response.weather[0].id, imageViewGifName: &nyImageViewGifName)
             case .failure(let error):
-                print(error.localizedDescription)
+                self.onErrorHandling?(error.localizedDescription)
             }
         }
     }
