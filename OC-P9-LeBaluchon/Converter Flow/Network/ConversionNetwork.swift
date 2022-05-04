@@ -48,7 +48,6 @@ final class ConversionNetwork: ConversionNetworkType {
                 }
                 
                 var result: CurrencyResponse?
-                
                 do {
                     result = try JSONDecoder().decode(CurrencyResponse.self, from: data)
                 } catch  {
