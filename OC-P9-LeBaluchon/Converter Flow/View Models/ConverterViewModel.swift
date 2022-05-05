@@ -48,9 +48,7 @@ final class ConverterViewModel {
     }
    
     func getConversion(baseCode: String, destinationCode: String) {
-        //TODO: Uncomment me
         dateUpdater?(getCurrentTime())
-       
         network.getData(baseCode: baseCode, destinationCode: destinationCode) { [self] result in
             switch result {
             case .success(let response):

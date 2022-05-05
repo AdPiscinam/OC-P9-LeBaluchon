@@ -1,0 +1,16 @@
+{
+    "base_currency_code": "EUR",
+    "base_currency_name": "Euro",
+    "amount": "1.0000",
+    "updated_date": "2022-05-05",
+    "rates": {
+        "DZD": {
+            "currency_name": "Algerian dinar",
+            "rate": "154.2781",
+            "rate_for_amount": "154.2781"
+        }
+    },
+    "status": "success"
+}
+
+
