@@ -5,7 +5,15 @@
 
 import Foundation
 
-struct CurrencyResponse: Decodable {
+struct CurrencyResponse: Decodable, Equatable {
+    static func == (lhs: CurrencyResponse, rhs: CurrencyResponse) -> Bool {
+        var bool = false
+        if lhs.baseCurrencyName == rhs.baseCurrencyName && lhs.baseCurrencyCode == lhs.baseCurrencyCode && lhs.rates == rhs.rates {
+            bool = true
+        }
+        return bool
+    }
+    
     let baseCurrencyCode: String
     let baseCurrencyName: String
     let amount: String
@@ -13,7 +21,7 @@ struct CurrencyResponse: Decodable {
     let rates: [String: Rate]
     let status: String
     
-    struct Rate: Decodable {
+    struct Rate: Decodable, Equatable {
         let currencyName: String
         let rate: String
         let rateForAmount: String
