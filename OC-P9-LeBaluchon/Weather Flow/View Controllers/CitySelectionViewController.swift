@@ -5,39 +5,64 @@
 
 import UIKit
 
-class CitySelectionViewController: UIViewController, UINavigationControllerDelegate {
+class CitySelectionViewController: UIViewController, UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "City", for: indexPath)
+        cell.textLabel?.text = filteredData[indexPath.row]
+        return cell
+    }
+    
+    var data: [Cities]? = nil
+    let stuff = ["One", "Two", "Three"]
+    var filteredData: [String]!
     
     weak var coordinator: CitySelectionCoordinator?
     var viewModel: WeatherViewModel!
     
-    let cityNameTextField: UITextField = {
-        let field = UITextField()
+    let cityNameSearchTextField: UISearchBar = {
+        let field = UISearchBar()
         field.backgroundColor = .darkGray
-        field.textAlignment = .center
-        field.textColor = .systemBackground
-        field.clearButtonMode = .whileEditing
-        field.clearsOnBeginEditing = true
         field.layer.cornerRadius = 10
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     
+    let resultTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .yellow
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        resultTableView.dataSource = self
+        resultTableView.delegate = self
+        resultTableView.register(UITableViewCell.self, forCellReuseIdentifier: "City")
+        
+        cityNameSearchTextField.delegate = self
+        
+        
         setupUI()
         bind(to: viewModel)
         viewModel.viewDidLoad()
-        
+        data = Cities.parseJSON()
+        filteredData = getCitiesNames()
     }
     
     @objc func apply() {
-        guard let name = cityNameTextField.text else {
+        guard let name = cityNameSearchTextField.text else {
             return
         }
         if viewModel.cityExists(with: name) == true {
-           coordinator?.update(chosenCity: name)
-           coordinator?.dismiss()
+            coordinator?.update(chosenCity: name)
+            coordinator?.dismiss()
         }
     }
     
@@ -48,6 +73,53 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
     func showMessage(errorMessage: String) {
         coordinator?.showErrorAlert(errorMessage: errorMessage)
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        filteredData = getCitiesNames()
+        resultTableView.reloadData()
+        
+        filteredData = searchText.isEmpty ? filteredData : filteredData.filter { (item: String) -> Bool in
+            // If dataItem matches the searchText, return true to include it
+            return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        
+        resultTableView.reloadData()
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         
+        guard let unwrappedCell = tableView.cellForRow(at: indexPath) else {
+            return
+        }
+        
+        let currentCell = unwrappedCell
+        
+        guard let unwrappedTextLabel = currentCell.textLabel, let unwrappedText = unwrappedTextLabel.text else {
+            return
+        }
+        print(unwrappedText)
+        
+    }
+    
+    
+    
+    func getCitiesNames() -> [String] {
+        var names = [String]()
+        guard let safeData = data else {
+            return names
+        }
+        
+        for dat in safeData {
+            let phrase = "\(dat.name) \(dat.country)"
+            names.append(phrase)
+        }
+        return names
+    }
+    
+    
+    
 }
 
 //MARK: View Model Binding
@@ -61,11 +133,11 @@ extension CitySelectionViewController {
         }
         
         viewModel.searchedCityPlaceHolderUpdater = { cityToSearch in
-            self.cityNameTextField.placeholder = cityToSearch
+            self.cityNameSearchTextField.placeholder = cityToSearch
         }
         
         viewModel.searchedCityTextFieldUpdater = { text in
-            self.cityNameTextField.text = text
+            self.cityNameSearchTextField.text = text
         }
     }
 }
@@ -76,7 +148,8 @@ extension CitySelectionViewController {
         view.backgroundColor = .customLightBrown
         navigationController?.navigationBar.tintColor = UIColor.customOrange
         
-        view.addSubview(cityNameTextField)
+        view.addSubview(cityNameSearchTextField)
+        view.addSubview(resultTableView)
         view.isOpaque = false
         
         let okBarButtonItem = UIBarButtonItem(title: "Apply", style: .done, target: self, action: #selector(apply))
@@ -85,10 +158,15 @@ extension CitySelectionViewController {
         let cancelButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
         self.navigationItem.leftBarButtonItem  = cancelButtonItem
         
-        cityNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        cityNameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
-        cityNameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
-        cityNameTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        cityNameSearchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        cityNameSearchTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        cityNameSearchTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
+        cityNameSearchTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        resultTableView.topAnchor.constraint(equalTo: cityNameSearchTextField.bottomAnchor).isActive = true
+        resultTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        resultTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        resultTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 }
 
@@ -121,5 +199,18 @@ struct Cities: Decodable {
             return false
         }
         return bool
+    }
+    
+    static func parseJSON() -> [Cities] {
+        let cities = try! translationFromJSON(fileName: "cities")
+        var parsedCities = [Cities]()
+        do {
+            let  result = try JSONDecoder().decode([Cities].self, from: cities)
+            parsedCities = result
+            return parsedCities
+        } catch _ {
+            print("error in parsing Cities")
+        }
+        return parsedCities
     }
 }

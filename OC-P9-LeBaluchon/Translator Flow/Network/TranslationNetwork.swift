@@ -52,7 +52,7 @@ final class TranslationNetwork: TranslationNetworkType {
                 }
                 
                 var result: TranslateResponse?
-                
+          
                 do {
                     result = try JSONDecoder().decode(TranslateResponse.self, from: data)
                 } catch let error {

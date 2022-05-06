@@ -19,8 +19,8 @@ struct TranslationDataClass: Codable, Equatable {
 
 // MARK: - Translation
 struct Translation: Codable, Equatable {
-    let detectedSourceLanguage: String
     let translatedText: String
+    let detectedSourceLanguage: String
 }
 
 extension TranslateResponse {

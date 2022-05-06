@@ -24,7 +24,7 @@ extension Data {
     
     public static func translationFromJSON(fileName: String) throws -> Data {
         let bundle = Bundle(for: TestBundleClass.self)
-        let url = bundle.url(forResource: "FakeTranslationData", withExtension: "json")!
+        let url = bundle.url(forResource: "FakeTranslateData", withExtension: "json")!
         return try Data(contentsOf: url)
     }
 }
