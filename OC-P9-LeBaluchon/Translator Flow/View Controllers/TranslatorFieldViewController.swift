@@ -13,7 +13,8 @@ class TranslatorFieldViewController: UIViewController {
     let textToTranslate: UITextView = {
         let text = UITextView()
         text.isEditable = true
-        text.textColor = .systemBackground
+        text.textColor = .customGolden
+        text.font = .systemFont(ofSize: 16)
         text.backgroundColor = .customLightBrown
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
@@ -32,10 +33,21 @@ class TranslatorFieldViewController: UIViewController {
         coordinator?.updateTranslation(text: textToTranslate.text)
         coordinator?.dismiss()
     }
+    
+    @objc func cancel(){
+        coordinator?.dismiss()
+    }
+    
 }
 
 //MARK: Text View Management
 extension TranslatorFieldViewController: UITextViewDelegate {
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        textView.text = ""
+        return true
+    }
+    
     func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
         viewModel.textToTranslateUpdater?(textView.text)
     }
@@ -66,5 +78,7 @@ extension TranslatorFieldViewController {
         textToTranslate.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         let okBarButtonItem = UIBarButtonItem(title: "Translate", style: .done, target: self, action: #selector(translate))
         self.navigationItem.rightBarButtonItem = okBarButtonItem
+        let cancelButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        self.navigationItem.leftBarButtonItem  = cancelButtonItem
     }
 }

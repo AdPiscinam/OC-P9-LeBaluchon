@@ -6,7 +6,7 @@
 import Foundation
 
 protocol TranslationNetworkType {
-    func getData(text: String, callback: @escaping (Result<TranslateTextResponseTranslation, Error>) -> Void)
+    func getData(text: String, callback: @escaping (Result<TranslateResponse, Error>) -> Void)
 }
 
 final class TranslationNetwork: TranslationNetworkType {
@@ -32,7 +32,7 @@ final class TranslationNetwork: TranslationNetworkType {
         apiAdresse + question + textToTranslate + languageTarget + targetCode + format + languageSource + sourceCode + apiKey + keyValue
     }
     
-    func getData(text: String, callback: @escaping (Result<TranslateTextResponseTranslation, Error>) -> Void) {
+    func getData(text: String, callback: @escaping (Result<TranslateResponse, Error>) -> Void) {
         let stringURL = constructApiCall(textToTranslate: text, targetCode: languageTargetCode, sourceCode: languageSourceCode)
         
         guard let url = stringURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
@@ -51,16 +51,17 @@ final class TranslationNetwork: TranslationNetworkType {
                     return
                 }
                 
-                var result: TranslateTextResponseTranslation?
+                var result: TranslateResponse?
                 
                 do {
-                    result = try JSONDecoder().decode(TranslateTextResponseTranslation.self, from: data)
+                    result = try JSONDecoder().decode(TranslateResponse.self, from: data)
                 } catch let error {
                     callback(.failure(error))
                 }
                 guard let json = result else {
                     return
                 }
+                print(json.data.translations[0].translatedText)
                 callback(.success(json))
             }
         })

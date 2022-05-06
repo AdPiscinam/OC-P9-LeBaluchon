@@ -15,6 +15,7 @@ class TranslatorViewController: UIViewController {
         text.isEditable = false
         text.backgroundColor = .customLightBrown
         text.textColor = .customGolden
+        text.font = .systemFont(ofSize: 16)
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -24,6 +25,7 @@ class TranslatorViewController: UIViewController {
         text.isEditable = false
         text.backgroundColor = .customLightBrown
         text.textColor = .lightGray
+        text.font = .systemFont(ofSize: 16)
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
