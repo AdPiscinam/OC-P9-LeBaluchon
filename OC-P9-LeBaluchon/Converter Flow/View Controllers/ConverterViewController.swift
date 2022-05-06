@@ -33,10 +33,11 @@ class ConverterViewController: UIViewController {
     
     lazy var upperCurrencyLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .customScriptureGray
+        label.backgroundColor = .customBackground
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.layer.cornerRadius = 20
+        label.textColor = .customScriptureGray
         label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

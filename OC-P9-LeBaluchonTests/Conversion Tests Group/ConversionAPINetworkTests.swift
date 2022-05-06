@@ -21,8 +21,7 @@ class ConversionAPINetworkTests: XCTestCase {
         
         euroBasedMock.getData(baseCode: "EUR", destinationCode: "DZD") { result in
             switch result {
-            case .success(let result): print("success")
-                response = result
+            case .success(let result): response = result
             case .failure(_):
                 return
             }

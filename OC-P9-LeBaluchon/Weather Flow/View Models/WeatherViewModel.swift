@@ -93,15 +93,11 @@ final class WeatherViewModel {
     func cityExists(with name: String) -> Bool {
         var bool = false
         if Cities.parseJSON(cityName: name) == true {
-            print(" city")
             bool = true
-            
         } else {
             self.onErrorHandling?("Pleace enter a city")
             bool = false
         }
-        
-        
         return bool
     }
     

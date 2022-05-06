@@ -27,10 +27,9 @@ class WeatherAPINetworkTests: XCTestCase {
 
         weatherServiceMock.getWeather(city: "New York") { result in
             switch result {
-            case .success(let result): print("succ")
+            case .success(let result):
                 response = result
             case .failure(_):
-                print("wrong")
                 return
             }
             expectation.fulfill()

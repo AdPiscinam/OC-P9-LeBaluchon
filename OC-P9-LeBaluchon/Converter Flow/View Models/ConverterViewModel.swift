@@ -67,7 +67,6 @@ final class ConverterViewModel {
                 let result = doubledRate * doubledAmount
                 amount = String(result)
                 resultAmountUpdater?(amount)
-                print(amount)
             case .failure(let error):
                 self.onErrorHandling?(error.localizedDescription)
             }

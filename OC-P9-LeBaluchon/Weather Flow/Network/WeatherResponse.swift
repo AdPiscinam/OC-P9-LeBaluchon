@@ -7,16 +7,6 @@ import Foundation
 
 // MARK: - CityWeatherResponse
 struct WeatherResponse: Codable, Equatable {
-    
-    static func == (lhs: WeatherResponse, rhs: WeatherResponse) -> Bool {
-        var bool = false
-        if lhs.weather == rhs.weather && lhs.name == rhs.name && lhs.main == rhs.main {
-            bool = true
-        }
-        print(bool)
-
-        return bool
-    }
     let coord: Coord
     let weather: [Weather]
     let base: String
@@ -76,4 +66,14 @@ struct Weather: Codable, Equatable {
 struct Coord: Codable {
     let lon: Double
     let lat: Double
+}
+
+extension WeatherResponse {
+    static func == (lhs: WeatherResponse, rhs: WeatherResponse) -> Bool {
+        var bool = false
+        if lhs.weather == rhs.weather && lhs.name == rhs.name && lhs.main == rhs.main {
+            bool = true
+        }
+        return bool
+    }
 }

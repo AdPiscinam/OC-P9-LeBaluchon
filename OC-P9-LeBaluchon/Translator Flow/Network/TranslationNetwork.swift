@@ -61,7 +61,6 @@ final class TranslationNetwork: TranslationNetworkType {
                 guard let json = result else {
                     return
                 }
-                print(json.data.translations[0].translatedText)
                 callback(.success(json))
             }
         })
