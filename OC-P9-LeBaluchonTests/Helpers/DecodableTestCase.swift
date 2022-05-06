@@ -13,9 +13,21 @@ protocol DecodableTestCase: AnyObject {
     var sut: T! { get set }
 }
 extension DecodableTestCase {
-    func givenSUTFromJSON(fileName: String = "\(T.self)") throws {
+    func currencyGivenSUTFromJSON(fileName: String = "\(T.self)") throws {
         let decoder = JSONDecoder()
-        let data = try Data.fromJSON(fileName: fileName)
+        let data = try Data.currencyFromJSON(fileName: fileName)
+        sut = try decoder.decode(T.self, from: data)
+    }
+    
+    func weatherGivenSUTFromJSON(fileName: String = "\(T.self)") throws {
+        let decoder = JSONDecoder()
+        let data = try Data.weatherFromJSON(fileName: fileName)
+        sut = try decoder.decode(T.self, from: data)
+    }
+    
+    func translationGivenSUTFromJSON(fileName: String = "\(T.self)") throws {
+        let decoder = JSONDecoder()
+        let data = try Data.translationFromJSON(fileName: fileName)
         sut = try decoder.decode(T.self, from: data)
     }
 }

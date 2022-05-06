@@ -15,7 +15,7 @@ class CurrencyResponseTests: XCTestCase, DecodableTestCase { // 2
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         try super.setUpWithError()
-        try! givenSUTFromJSON() // 4
+        try! currencyGivenSUTFromJSON() // 4
     }
     
     override func tearDownWithError() throws {
@@ -37,5 +37,4 @@ class CurrencyResponseTests: XCTestCase, DecodableTestCase { // 2
         XCTAssertNotNil(sut.baseCurrencyName)
         XCTAssertEqual(sut.rates.count, 1)
     }
-
 }
