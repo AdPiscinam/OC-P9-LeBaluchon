@@ -87,6 +87,7 @@
 		59CB5F21280F96C000470E7C /* CitySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CB5F20280F96C000470E7C /* CitySelectionViewController.swift */; };
 		59CB5F24280FB65B00470E7C /* WeatherNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CB5F23280FB65B00470E7C /* WeatherNetwork.swift */; };
 		59CB5F26280FB82700470E7C /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CB5F25280FB82700470E7C /* WeatherResponse.swift */; };
+		59E162E628256CC400EA2DA3 /* Cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E162E528256CC400EA2DA3 /* Cities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +178,7 @@
 		59CB5F20280F96C000470E7C /* CitySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectionViewController.swift; sourceTree = "<group>"; };
 		59CB5F23280FB65B00470E7C /* WeatherNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNetwork.swift; sourceTree = "<group>"; };
 		59CB5F25280FB82700470E7C /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
+		59E162E528256CC400EA2DA3 /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,6 +303,7 @@
 		597E42F428003BC100FFA50D /* Weather Flow */ = {
 			isa = PBXGroup;
 			children = (
+				59E162E428256CBA00EA2DA3 /* Model */,
 				597E42F528003BCF00FFA50D /* Coordinators */,
 				597E42F628003BD600FFA50D /* View Controllers */,
 				59CB5EED280F695700470E7C /* View Models */,
@@ -512,6 +515,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		59E162E428256CBA00EA2DA3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				59E162E528256CC400EA2DA3 /* Cities.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -652,6 +663,7 @@
 				597E430328003C6F00FFA50D /* AppCoordinator.swift in Sources */,
 				590E9EE42818F4F1005F3956 /* TranslatorFieldViewController.swift in Sources */,
 				597E42D8280039CF00FFA50D /* AppDelegate.swift in Sources */,
+				59E162E628256CC400EA2DA3 /* Cities.swift in Sources */,
 				59CB5F1F280F967B00470E7C /* CitySelectionCoordinator.swift in Sources */,
 				597E42EE28003AF600FFA50D /* MainTabBarController.swift in Sources */,
 				59CB5F21280F96C000470E7C /* CitySelectionViewController.swift in Sources */,
