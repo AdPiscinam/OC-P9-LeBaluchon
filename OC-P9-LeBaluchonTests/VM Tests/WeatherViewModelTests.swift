@@ -1,7 +1,7 @@
 // WeatherViewModelTests.swift
 // OC-P9-LeBaluchon
 // Created by Ad Piscinam on 28/04/2022
-// 
+//
 
 import XCTest
 @testable import OC_P9_LeBaluchon
@@ -35,46 +35,47 @@ class WeatherViewModelTests: XCTestCase {
     
     func testGivenAConverterViewModel_WhenViewDidLoad_ThenNewYorkCityIsCorrectlyReturned() {
         let expectation = self.expectation(description: "New York name is not Correct")
-        let expectedTitle: String = "New York"
-      
+        var expectedTitle: String = "New York"
+        
         sut.nyCityNameUpdater = { city in
             XCTAssertEqual(city, expectedTitle)
             expectation.fulfill()
         }
-        sut.getNyCityWeather()
+        
+        service.getWeather(city: "New York") { result in
+            switch result {
+            case .success(_): expectedTitle = "New York"
+            case .failure(_): print("failure")
+            }
+        }
+        
+        sut.viewDidLoad()
         waitForExpectations(timeout: 1.0, handler: nil)
     }
     
     func testGivenAConverterViewModel_WhenViewDidLoad_ThenCityIsCorrectlyReturned() {
-        let expectation = self.expectation(description: "Paris ame is not Correct")
+        let expectation = self.expectation(description: "Paris name is not Correct")
         let expectedTitle: String = "Paris"
-      
+        
         sut.cityNameUpdater = { city in
             XCTAssertEqual(city, expectedTitle)
             expectation.fulfill()
         }
+        
         sut.getCityWeather(city: "Paris")
         waitForExpectations(timeout: 1.0, handler: nil)
     }
-}
     
-
-fileprivate final class MockWeatherNetwork: WeatherNetworkType {
-    
-    var weather: WeatherResponse?
-    
-    func getWeather(city: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void) {
+    func testGivenAConverterViewModel_WhenViewDidLoad_ThenNYCityIsCorrectlyReturned() {
+        let expectation = self.expectation(description: "New York name is not Correct")
+        let expectedTitle: String = "New York"
+        
+        sut.nyCityNameUpdater = { city in
+            XCTAssertEqual(city, expectedTitle)
+            expectation.fulfill()
+        }
+        
+        sut.getNyCityWeather()
+        waitForExpectations(timeout: 1.0, handler: nil)
     }
 }
-
-class FakeWeatherData {
-    // MARK: - Data
-    static var parisWeatherData: Data? {
-        let bundle = Bundle(for: FakeWeatherData.self)
-        let url = bundle.url(forResource: "NewYorkWeatherData", withExtension: "json")!
-        return try! Data(contentsOf: url)
-    }
-}
-
-
-
