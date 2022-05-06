@@ -16,6 +16,7 @@ final class WeatherViewModel {
     var titleText: ((String) -> Void)?
     var modalTitleText: ((String) -> Void)?
     var onErrorHandling : ((String) -> Void)?
+    var noCityErrorHandling: ((String) -> Void)?
     
     var nyCityNameUpdater: ((String) -> Void)?
     var nyDescriptionUpdater: ((String) -> Void)?
@@ -29,6 +30,8 @@ final class WeatherViewModel {
     var nyImageViewGifNameUpdater: ((String) -> Void)?
     
     var subjectLabelTextUpdater: ((String) -> Void)?
+    var searchedCityPlaceHolderUpdater: ((String) -> Void)?
+    var searchedCityTextFieldUpdater: ((String) -> Void)?
     
     // MARK: - Inputs
     func viewDidLoad() {
@@ -41,6 +44,10 @@ final class WeatherViewModel {
         cityDescriptionUpdater?("Description")
         cityTemperatureUpdater?("99°C")
         subjectLabelTextUpdater?("Enter a City")
+        
+        noCityErrorHandling?("Please enter an existing city name")
+        searchedCityPlaceHolderUpdater?("Paris")
+        searchedCityTextFieldUpdater?("")
     }
     
     private var cityImageViewGifName = "tornado" {
@@ -56,7 +63,7 @@ final class WeatherViewModel {
     }
     
     func getCityWeather(city: String) {
-        network.getWeather(city: city) {   [self] result in
+        network.getWeather(city: city) { [self] result in
             switch result {
             case .success(let response):
                 cityNameUpdater?(response.name)
@@ -81,6 +88,21 @@ final class WeatherViewModel {
                 self.onErrorHandling?(error.localizedDescription)
             }
         }
+    }
+    
+    func cityExists(with name: String) -> Bool {
+        var bool = false
+        if Cities.parseJSON(cityName: name) == true {
+            print(" city")
+            bool = true
+            
+        } else {
+            self.onErrorHandling?("Pleace enter a city")
+            bool = false
+        }
+        
+        
+        return bool
     }
     
     private func setIconFrom(response: WeatherResponse, id: Int, imageViewGifName: inout String) {
