@@ -27,7 +27,7 @@ class TranslatorViewModel {
         titleText?("Translator")
         modalTitleText?("Enter text")
         englishTextUpdater?("English")
-        frenchTextUpdater?("Français")
+        frenchTextUpdater?("Tap to translate")
         textToTranslateUpdater?("Tap to enter your text...")
     }
     

@@ -49,7 +49,7 @@ extension WeatherCoordinator {
     }
     
     func showErrorAlert(errorMessage: String) {
-        guard let viewController = navigationController.viewControllers.first as? ConverterViewController else {
+        guard let viewController = viewControllers.first as? WeatherViewController else {
             return
         }
         let alertView = UIAlertController(title: "Something went wrong", message: errorMessage , preferredStyle: .alert)

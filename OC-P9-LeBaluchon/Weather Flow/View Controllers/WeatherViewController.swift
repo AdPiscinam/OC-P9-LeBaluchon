@@ -71,8 +71,8 @@ final class WeatherViewController: UIViewController {
     }()
     
     override func viewWillAppear(_ animated: Bool) {
-        getNYWeather()
-        getWeather(city: "Paris")
+  //      getNYWeather()
+   //     getWeather(city: "Paris")
     }
     
     override func viewDidLoad() {
@@ -81,6 +81,9 @@ final class WeatherViewController: UIViewController {
         bind(to: viewModel)
         viewModel.viewDidLoad()
     }
+    
+    
+    
     
     @objc func settings() {
         coordinator?.startCitySelection()
@@ -190,3 +193,4 @@ extension WeatherViewController {
         cityTemperature.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
     }
 }
+

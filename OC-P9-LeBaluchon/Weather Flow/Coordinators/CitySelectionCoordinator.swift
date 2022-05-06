@@ -33,6 +33,15 @@ extension CitySelectionCoordinator {
         parentCoordinator?.update(chosenCity: chosenCity)
     }
     
+    func showErrorAlert(errorMessage: String) {
+        guard let viewController = viewControllers.first as? CitySelectionViewController else {
+            return
+        }
+        let alertView = UIAlertController(title: "Something went wrong", message: errorMessage , preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
+        viewController.present(alertView, animated: true, completion: nil)
+    }
+    
     func dismiss() {
         navigationController.dismiss(animated: true)
     }
