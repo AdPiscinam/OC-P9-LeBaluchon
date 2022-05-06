@@ -5,10 +5,6 @@
 
 import Foundation
 
-protocol ConversionNetworkType {
-    func getData(baseCode: String, destinationCode: String, callback: @escaping (Result<CurrencyResponse?, Error>) -> Void)
-}
-
 final class ConversionNetwork: ConversionNetworkType {
     var weatherResponse: CurrencyResponse?
     

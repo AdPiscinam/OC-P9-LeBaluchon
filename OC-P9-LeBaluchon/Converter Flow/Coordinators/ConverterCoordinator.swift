@@ -11,7 +11,6 @@ class ConverterCoordinator: NSObject, Coordinator {
     
     weak var parentCoordinator: AppCoordinator?
     var childCoordinators: [Coordinator] = []
-    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
