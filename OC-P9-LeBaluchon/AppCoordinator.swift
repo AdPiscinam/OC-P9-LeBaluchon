@@ -41,20 +41,3 @@ extension AppCoordinator {
         }
     }
 }
-
-extension AppCoordinator: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
-            return
-        }
-        
-        if navigationController.viewControllers.contains(fromViewController) {
-            return
-        }
-        
-        if let converterCoordinator = fromViewController as? ConverterViewController {
-            print("converter Finished")
-            childDidFinish(converterCoordinator.coordinator)
-        }
-    }
-}
