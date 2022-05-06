@@ -96,13 +96,19 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
         
         let currentCell = unwrappedCell
         
-        guard let unwrappedTextLabel = currentCell.textLabel, let unwrappedText = unwrappedTextLabel.text else {
+        guard let unwrappedTextLabel = currentCell.textLabel, var unwrappedText = unwrappedTextLabel.text else {
             return
         }
-        print(unwrappedText)
-        
+      
+        cityNameSearchTextField.text = deleteCountryFrom(name: &unwrappedText)
     }
     
+    func deleteCountryFrom(name: inout String) -> String {
+        name.removeLast()
+        name.removeLast()
+        name.removeLast()
+        return name
+    }
     
     
     func getCitiesNames() -> [String] {
@@ -111,8 +117,9 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
             return names
         }
         
-        for dat in safeData {
-            let phrase = "\(dat.name) \(dat.country)"
+        
+        for city in safeData {
+            let phrase = "\(city.name) \(city.country)"
             names.append(phrase)
         }
         return names
@@ -213,4 +220,8 @@ struct Cities: Decodable {
         }
         return parsedCities
     }
+}
+
+extension String {
+  
 }
