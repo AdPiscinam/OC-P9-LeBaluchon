@@ -8,7 +8,7 @@ import Foundation
 struct CurrencyResponse: Decodable, Equatable {
     static func == (lhs: CurrencyResponse, rhs: CurrencyResponse) -> Bool {
         var bool = false
-        if lhs.baseCurrencyName == rhs.baseCurrencyName && lhs.baseCurrencyCode == lhs.baseCurrencyCode && lhs.rates == rhs.rates {
+        if lhs.baseCurrencyName == rhs.baseCurrencyName && lhs.baseCurrencyCode == rhs.baseCurrencyCode && lhs.rates == rhs.rates {
             bool = true
         }
         return bool
