@@ -42,6 +42,7 @@ struct Cities: Decodable {
         do {
             let  result = try JSONDecoder().decode([Cities].self, from: cities)
             parsedCities = result
+            parsedCities = parsedCities.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
             return parsedCities
         } catch _ {
             print("error in parsing Cities")
