@@ -102,10 +102,13 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
         guard let safeData = data else {
             return names
         }
- 
+
         for city in safeData {
-            let phrase = "\(city.name) \(city.country) \(city.lat) \(city.lng)"
-            names.append(phrase)
+            let cityname = "\(city.name)"    //" \(city.country) \(city.lat) \(city.lng)"
+            let countryName = "\(city.country)"
+            let cityLat = city.lat
+            let cityLong = city.lng
+            names.append(cityname + " " + countryName + " " + "lat: " + cityLat + " " + "lng: " + cityLong)
         }
         return names
     }
@@ -146,7 +149,8 @@ extension CitySelectionViewController: UITableViewDataSource, UITableViewDelegat
         guard let unwrappedTextLabel = currentCell.textLabel, var unwrappedText = unwrappedTextLabel.text else {
             return
         }
-        cityNameSearchTextField.text = deleteCountryFrom(name: &unwrappedText)
+        selectedCity = unwrappedText
+        cityNameSearchTextField.text = keepOnlyCity(name: &unwrappedText)
     }
 }
 
