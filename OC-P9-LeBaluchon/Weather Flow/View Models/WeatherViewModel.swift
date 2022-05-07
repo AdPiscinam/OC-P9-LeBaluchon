@@ -90,6 +90,20 @@ final class WeatherViewModel {
         }
     }
     
+    func getCityWeather(latitude: String, longitude: String) {
+        network.getWeather(latitude: latitude, longitude: longitude) { [self] result in
+            switch result {
+            case .success(let response):
+                cityNameUpdater?(response.name)
+                cityTemperatureUpdater?("\(String(response.main.temp))°C")
+                cityDescriptionUpdater?(response.weather[0].weatherDescription.capitalizingFirstLetter())
+                setIconFrom(response: response, id: response.weather[0].id, imageViewGifName: &cityImageViewGifName)
+            case .failure(let error):
+                self.onErrorHandling?(error.localizedDescription)
+            }
+        }
+    }
+    
     func cityExists(with name: String) -> Bool {
         var bool = false
         if Cities.parseJSON(cityName: name) == true {

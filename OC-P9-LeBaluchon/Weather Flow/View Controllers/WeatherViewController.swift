@@ -97,6 +97,10 @@ final class WeatherViewController: UIViewController {
         viewModel.getCityWeather(city: city)
     }
     
+    func getWeather(latitude: String, longitude: String) {
+        viewModel.getCityWeather(latitude: latitude, longitude: longitude)
+    }
+    
     func showMessage(errorMessage: String) {
         coordinator?.showErrorAlert(errorMessage: errorMessage)
     }
