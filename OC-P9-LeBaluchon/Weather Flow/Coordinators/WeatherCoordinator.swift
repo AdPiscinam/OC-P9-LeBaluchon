@@ -48,6 +48,13 @@ extension WeatherCoordinator {
          viewController.getWeather(city: chosenCity)
     }
     
+    func update(latitude: String, longitude: String) {
+        guard let viewController = navigationController.viewControllers.first as? WeatherViewController else {
+            return
+        }
+        viewController.getWeather(latitude: latitude, longitude: longitude)
+    }
+    
     func showErrorAlert(errorMessage: String) {
         guard let viewController = viewControllers.first as? WeatherViewController else {
             return
