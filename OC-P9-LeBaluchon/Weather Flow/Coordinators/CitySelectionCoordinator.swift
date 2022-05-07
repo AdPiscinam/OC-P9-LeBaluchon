@@ -33,6 +33,9 @@ extension CitySelectionCoordinator {
         parentCoordinator?.update(chosenCity: chosenCity)
     }
     
+    func update(latitude: String, longitude: String) {
+        parentCoordinator?.update(latitude: latitude, longitude: longitude)
+    }
     func showErrorAlert(errorMessage: String) {
         guard let viewController = viewControllers.first as? CitySelectionViewController else {
             return
