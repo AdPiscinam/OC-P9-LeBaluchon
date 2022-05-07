@@ -19,14 +19,23 @@ final class WeatherNetwork: WeatherNetworkType {
         session = URLSession.init(configuration: .default)
     }
     
-    let apiAdress = "https://api.openweathermap.org/data/2.5/weather?q="
+    let apiAdress = "https://api.openweathermap.org/data/2.5/weather?"
+    var cityString = "q="
     var cityName = "New York"
+    var latString = "lat="
+    var latitude = "40.712784"
+    var longString = "&lon="
+    var longitude = "-74.005941"
     var accessKey = "&appid=404728b6e3ea5ba52b603ac5142c0d28"
     var remainingKeys = "&units=metric&lang=fr"
     private var task: URLSessionDataTask?
     
-    func constructApiCall(cityName: String) -> String {
-        apiAdress + cityName + accessKey + remainingKeys
+    func constructNameApiCall(cityName: String) -> String {
+        apiAdress + cityString + cityName + accessKey + remainingKeys
+    }
+    
+    func constructGeoApiCall(latitude: String, longitude: String) -> String {
+        apiAdress + latString + latitude + longString + longitude + accessKey + remainingKeys
     }
     
     func getWeather(city: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void) {
