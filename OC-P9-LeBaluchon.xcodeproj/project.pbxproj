@@ -392,7 +392,6 @@
 				5988803C2822A5F400F6C55A /* NewYorkWeatherData.json */,
 				598880422822D6DA00F6C55A /* ParisWeatherData.json */,
 				59C00B5E2824182400CC6C42 /* FakeTranslateData.json */,
-				59C00B682824D8F200CC6C42 /* cities.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -491,6 +490,7 @@
 				59CB5EFD280F830300470E7C /* hurricane.gif */,
 				59CB5F02280F830400470E7C /* tornado.gif */,
 				59CB5EFA280F830300470E7C /* mist.gif */,
+				59C00B682824D8F200CC6C42 /* cities.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

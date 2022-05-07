@@ -5,24 +5,13 @@
 
 import UIKit
 
-class CitySelectionViewController: UIViewController, UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "City", for: indexPath)
-        cell.textLabel?.text = filteredData[indexPath.row]
-        return cell
-    }
-    
-    var data: [Cities]? = nil
-    let stuff = ["One", "Two", "Three"]
-    var filteredData: [String]!
+class CitySelectionViewController: UIViewController, UINavigationControllerDelegate {
     
     weak var coordinator: CitySelectionCoordinator?
     var viewModel: WeatherViewModel!
+    
+    var data: [Cities]? = nil
+    var filteredData: [String]!
     
     let cityNameSearchTextField: UISearchBar = {
         let field = UISearchBar()
@@ -41,13 +30,10 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         resultTableView.dataSource = self
         resultTableView.delegate = self
         resultTableView.register(UITableViewCell.self, forCellReuseIdentifier: "City")
-        
         cityNameSearchTextField.delegate = self
-        
         
         setupUI()
         bind(to: viewModel)
@@ -73,9 +59,32 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
     func showMessage(errorMessage: String) {
         coordinator?.showErrorAlert(errorMessage: errorMessage)
     }
+
+    //MARK: Helper Methods
+    private func deleteCountryFrom(name: inout String) -> String {
+        if let first = name.components(separatedBy: " ").first {
+            return first
+        }
+        return name
+    }
     
+    private func getCitiesNames() -> [String] {
+        var names = [String]()
+        guard let safeData = data else {
+            return names
+        }
+ 
+        for city in safeData {
+            let phrase = "\(city.name) \(city.country) \(city.lat) \(city.lng)"
+            names.append(phrase)
+        }
+        return names
+    }
+}
+
+//MARK: Search Bar Management
+extension CitySelectionViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         filteredData = getCitiesNames()
         resultTableView.reloadData()
         
@@ -86,48 +95,34 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
         
         resultTableView.reloadData()
     }
-    
+}
+
+//MARK: Table View Management
+extension CitySelectionViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredData.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "City", for: indexPath)
+        cell.textLabel?.text = filteredData[indexPath.row]
+        return cell
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         
         guard let unwrappedCell = tableView.cellForRow(at: indexPath) else {
             return
         }
         
         let currentCell = unwrappedCell
-        
         guard let unwrappedTextLabel = currentCell.textLabel, var unwrappedText = unwrappedTextLabel.text else {
             return
-        }   
-      
+        }
         cityNameSearchTextField.text = deleteCountryFrom(name: &unwrappedText)
     }
-    
-    func deleteCountryFrom(name: inout String) -> String {
-        name.removeLast()
-        name.removeLast()
-        name.removeLast()
-        return name
-    }
-    
-    
-    func getCitiesNames() -> [String] {
-        var names = [String]()
-        guard let safeData = data else {
-            return names
-        }
-        
-        
-        for city in safeData {
-            let phrase = "\(city.name) \(city.country)"
-            names.append(phrase)
-        }
-        return names
-    }
-    
-    
-    
 }
+
+
 
 //MARK: View Model Binding
 extension CitySelectionViewController {
@@ -135,6 +130,7 @@ extension CitySelectionViewController {
         viewModel.subjectLabelTextUpdater = { [weak self] text in
             self?.title = text
         }
+        
         viewModel.onErrorHandling = {  error in
             self.showMessage(errorMessage: error)
         }
@@ -175,9 +171,4 @@ extension CitySelectionViewController {
         resultTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         resultTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
-}
-
-
-extension String {
-  
 }
