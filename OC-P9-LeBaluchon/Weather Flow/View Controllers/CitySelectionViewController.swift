@@ -70,10 +70,14 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
     }
 
     //MARK: Helper Methods
-    private func deleteCountryFrom(name: inout String) -> String {
-        if let first = name.components(separatedBy: " ").first {
-            return first
-        }
+    private func keepOnlyCity(name: inout String) -> String {
+        var serparatedString = name.components(separatedBy: " ")
+        serparatedString.removeLast()
+        serparatedString.removeLast()
+        serparatedString.removeLast()
+        serparatedString.removeLast()
+        serparatedString.removeLast()
+        name = serparatedString.joined(separator: " ")
         return name
     }
     
