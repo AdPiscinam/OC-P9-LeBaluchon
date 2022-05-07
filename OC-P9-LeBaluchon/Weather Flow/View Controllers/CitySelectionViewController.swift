@@ -12,6 +12,9 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
     
     var data: [Cities]? = nil
     var filteredData: [String]!
+    var latitude = String()
+    var longitude = String()
+    var selectedCity = String()
     
     let cityNameSearchTextField: UISearchBar = {
         let field = UISearchBar()
@@ -43,13 +46,19 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
     }
     
     @objc func apply() {
-        guard let name = cityNameSearchTextField.text else {
-            return
-        }
-        if viewModel.cityExists(with: name) == true {
-            coordinator?.update(chosenCity: name)
-            coordinator?.dismiss()
-        }
+//        guard let name = cityNameSearchTextField.text else {
+//            return
+//        }
+//        if viewModel.cityExists(with: name) == true {
+//            coordinator?.update(chosenCity: name)
+//            coordinator?.dismiss()
+//        }
+        latitude = extractGeoCoordinates(from: &selectedCity).0
+        longitude = extractGeoCoordinates(from: &selectedCity).1
+        print(latitude + longitude)
+        coordinator?.update(latitude: latitude, longitude: longitude)
+        coordinator?.dismiss()
+
     }
     
     @objc func cancel() {
@@ -92,7 +101,6 @@ extension CitySelectionViewController: UISearchBarDelegate {
             // If dataItem matches the searchText, return true to include it
             return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
-        
         resultTableView.reloadData()
     }
 }
