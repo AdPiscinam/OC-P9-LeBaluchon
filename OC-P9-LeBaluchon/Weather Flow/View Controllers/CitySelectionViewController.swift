@@ -81,6 +81,22 @@ class CitySelectionViewController: UIViewController, UINavigationControllerDeleg
         return name
     }
     
+    private func extractGeoCoordinates(from text: inout String) -> (String, String) {
+        var separatedString = text.components(separatedBy: " ")
+        let longitude = separatedString.last
+        separatedString.removeLast()
+        separatedString.removeLast()
+        let latitude = separatedString.last
+       
+        guard let unwrappedLat = latitude, let unwrappedLong = longitude else {
+            return ("","")
+        }
+        
+        self.latitude = unwrappedLat
+        self.longitude = unwrappedLong
+        return (self.latitude, self.longitude)
+    }
+    
     private func getCitiesNames() -> [String] {
         var names = [String]()
         guard let safeData = data else {
