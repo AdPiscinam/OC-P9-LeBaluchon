@@ -39,7 +39,42 @@ final class WeatherNetwork: WeatherNetworkType {
     }
     
     func getWeather(city: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void) {
-        let stringURL = constructApiCall(cityName: city)
+        let stringURL = constructNameApiCall(cityName: city)
+        
+        guard let url = stringURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return
+        }
+        
+        guard let strigedUrl = URL(string: url) else { return }
+        
+        task = session.dataTask(with: strigedUrl, completionHandler: { data, response, error in
+            DispatchQueue.main.async {
+                guard let data = data , error == nil else {
+                    return
+                }
+                
+                guard let response = response as? HTTPURLResponse,response.statusCode == 200 || response.statusCode == 404 else {
+                    return
+                }
+                
+                var result: WeatherResponse?
+                
+                do {
+                    result = try JSONDecoder().decode(WeatherResponse.self, from: data)
+                } catch let error {
+                    callback(.failure(error))
+                }
+                guard let json = result else {
+                    return
+                }
+                callback(.success(json))
+            }
+        })
+        task?.resume()
+    }
+    
+    func getWeather(latitude: String, longitude: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void) {
+        let stringURL = constructGeoApiCall(latitude: latitude, longitude: longitude)
         
         guard let url = stringURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
