@@ -23,21 +23,5 @@ final class AppCoordinator: NSObject, Coordinator {
 }
 
 extension AppCoordinator {
-    func start() {
-        let child = ConverterCoordinator(navigationController: navigationController)
-        child.parentCoordinator = self
-        childCoordinators.append(child)
-        child.start()
-    }
-    
-    //MARK: Finishes
-    func childDidFinish(_ child: Coordinator?) {
-        for (index, coordinator) in childCoordinators.enumerated() {
-            if coordinator === child {
-                childCoordinators.remove(at: index)
-               
-                break
-            }
-        }
-    }
+	func start() {}
 }
