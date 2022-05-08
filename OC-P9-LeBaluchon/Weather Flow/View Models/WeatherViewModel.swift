@@ -11,7 +11,7 @@ final class WeatherViewModel {
     init(network: WeatherNetworkType) {
         self.network = network
     }
-    
+	 
     // MARK: - Outputs
     var titleText: ((String) -> Void)?
     var modalTitleText: ((String) -> Void)?
@@ -32,7 +32,7 @@ final class WeatherViewModel {
     var subjectLabelTextUpdater: ((String) -> Void)?
     var searchedCityPlaceHolderUpdater: ((String) -> Void)?
     var searchedCityTextFieldUpdater: ((String) -> Void)?
-    
+	var dataUpdater: (([Cities]) -> Void)?
     // MARK: - Inputs
     func viewDidLoad() {
         titleText?("Weather")
@@ -48,6 +48,8 @@ final class WeatherViewModel {
         noCityErrorHandling?("Please enter an existing city name")
         searchedCityPlaceHolderUpdater?("Paris")
         searchedCityTextFieldUpdater?("")
+	 
+		dataUpdater?(Cities.parseJSON())
     }
     
     private var cityImageViewGifName = "tornado" {

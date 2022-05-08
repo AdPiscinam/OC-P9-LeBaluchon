@@ -14,8 +14,7 @@ class MainTabBarController: UITabBarController {
     let translatorCoordinator = TranslatorCoordinator(navigationController: UINavigationController())
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        appCoordinator.start()
+        super.viewDidLoad() 
         converterCoordinator.start()
         weatherCoordinator.start()
         translatorCoordinator.start()

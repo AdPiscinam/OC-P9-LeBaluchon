@@ -5,7 +5,7 @@
 
 import UIKit
 
-class ConverterCoordinator: NSObject, Coordinator {
+class ConverterCoordinator: Coordinator {
     var navigationController: UINavigationController
     var viewControllers: [UIViewController] = []
     

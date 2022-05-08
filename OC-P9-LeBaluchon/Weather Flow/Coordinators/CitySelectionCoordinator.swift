@@ -23,7 +23,7 @@ extension CitySelectionCoordinator {
         let viewController = CitySelectionViewController()
         let network = WeatherNetwork()
         viewController.coordinator = self
-        let viewModel = WeatherViewModel(network: network)
+		let viewModel = WeatherViewModel(network: network)
         viewController.viewModel = viewModel
         viewControllers.append(viewController)
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
@@ -48,4 +48,9 @@ extension CitySelectionCoordinator {
     func dismiss() {
         navigationController.dismiss(animated: true)
     }
+	
+	//MARK: Finishes
+	func didFinishSelecting() {
+		parentCoordinator?.childDidFinish(self)
+	}
 }

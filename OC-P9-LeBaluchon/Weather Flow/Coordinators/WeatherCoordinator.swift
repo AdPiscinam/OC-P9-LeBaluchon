@@ -22,7 +22,7 @@ extension WeatherCoordinator {
     func start() {
         let viewController = WeatherViewController()
         let network = WeatherNetwork()
-        let tab = UITabBarItem(title: "Weather", image: UIImage(systemName: "cloud.sun.rain"), selectedImage: UIImage(systemName: "cloud.sun.rain.fill"))
+		let tab = UITabBarItem(title: "Weather", image: UIImage(systemName: "cloud.sun.rain"), selectedImage: UIImage(systemName: "cloud.sun.rain.fill"))
         viewController.tabBarItem = tab
         viewController.coordinator = self
         let viewModel = WeatherViewModel(network: network)
