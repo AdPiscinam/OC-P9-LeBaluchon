@@ -24,7 +24,6 @@ struct Cities: Decodable {
         let cities = try! translationFromJSON(fileName: "cities")
         do {
             let  result = try JSONDecoder().decode([Cities].self, from: cities)
-            
             for (_, city) in result.enumerated() {
                 if cityName == city.name {
                     bool = true

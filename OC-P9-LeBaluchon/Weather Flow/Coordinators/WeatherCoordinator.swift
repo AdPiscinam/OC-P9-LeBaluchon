@@ -68,16 +68,11 @@ extension WeatherCoordinator {
 		guard let viewController = viewControllers.first as? WeatherViewController else {
 			return
 		}
-		
 		let loadingVC = LoadingViewController()
 		viewControllers.append(loadingVC)
 		loadingVC.coordinator = self
-		// Animate loadingVC over the existing views on screen
 		loadingVC.modalPresentationStyle = .overCurrentContext
-
-		// Animate loadingVC with a fade in animation
 		loadingVC.modalTransitionStyle = .crossDissolve
-			   
 		viewController.present(loadingVC, animated: true, completion: nil)
 	}
 	
@@ -109,5 +104,3 @@ extension Array where Element: Hashable {
 		return duplicates
 	}
 }
-
-//[1, 2, 2, 3, 1].duplicates() -> [1, 2]
