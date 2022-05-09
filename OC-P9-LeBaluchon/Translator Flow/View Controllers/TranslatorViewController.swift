@@ -10,7 +10,7 @@ class TranslatorViewController: UIViewController {
     weak var coordinator: TranslatorCoordinator?
     var viewModel: TranslatorViewModel!
     
-    let frenchText: UITextView = {
+    let foreignText: UITextView = {
         let text = UITextView()
         text.isEditable = false
         text.backgroundColor = .customLightBrown
@@ -45,17 +45,16 @@ class TranslatorViewController: UIViewController {
         bind(to: viewModel)
         viewModel.viewDidLoad()
         addTapRecognizer()
-      
     }
 
     func addTapRecognizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(showModal))
         tap.cancelsTouchesInView = false
-        frenchText.addGestureRecognizer(tap)
+        foreignText.addGestureRecognizer(tap)
     }
     
     func updateTranslation(text: String) {
-        frenchText.text = text
+        foreignText.text = text
         translate()
     }
     
@@ -68,7 +67,7 @@ class TranslatorViewController: UIViewController {
     }
     
     @objc func translate() {
-        guard let text = frenchText.text else {
+        guard let text = foreignText.text else {
             return
         }
         viewModel.getTranslation(text: text)
@@ -90,8 +89,8 @@ extension TranslatorViewController {
             self?.englishText.text = text
         }
         
-        viewModel.frenchTextUpdater = { [weak self] text in
-            self?.frenchText.text = text
+        viewModel.foreignTextUpdater = { [weak self] text in
+            self?.foreignText.text = text
         }
     }
 }
@@ -100,19 +99,19 @@ extension TranslatorViewController {
     private func setupUI() {
         view.backgroundColor = .customBackground
         view.addSubview(englishText)
-        view.addSubview(frenchText)
+        view.addSubview(foreignText)
         view.addSubview(translateButton)
         englishText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         englishText.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         englishText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         englishText.heightAnchor.constraint(equalToConstant: 150).isActive = true
         
-        frenchText.topAnchor.constraint(equalTo: englishText.bottomAnchor, constant: 16).isActive = true
-        frenchText.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
-        frenchText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
-        frenchText.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        foreignText.topAnchor.constraint(equalTo: englishText.bottomAnchor, constant: 16).isActive = true
+        foreignText.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        foreignText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
+        foreignText.heightAnchor.constraint(equalToConstant: 150).isActive = true
         
-        translateButton.topAnchor.constraint(equalTo: frenchText.bottomAnchor, constant: 16).isActive = true
+        translateButton.topAnchor.constraint(equalTo: foreignText.bottomAnchor, constant: 16).isActive = true
         translateButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
     }
 }

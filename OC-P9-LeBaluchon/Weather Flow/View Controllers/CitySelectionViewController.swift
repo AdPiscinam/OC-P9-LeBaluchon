@@ -5,10 +5,6 @@
 
 import UIKit
 
-extension CitySelectionViewController {
-
-}
-
 class CitySelectionViewController: UIViewController {
 	
 	weak var coordinator: CitySelectionCoordinator?
@@ -37,6 +33,7 @@ class CitySelectionViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		coordinator?.vanishLoadingView()
 		resultTableView.dataSource = self
 		resultTableView.delegate = self
 		resultTableView.register(UITableViewCell.self, forCellReuseIdentifier: "City")
@@ -44,18 +41,17 @@ class CitySelectionViewController: UIViewController {
 		setupUI()
 		bind(to: viewModel)
 		viewModel.viewDidLoad()
-	 	filteredData = getCitiesNames()
+		filteredData = getCitiesNames()
 	}
 
-	 
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		coordinator?.didFinishSelecting()
-		 data = []
-		 filteredData = []
-		 latitude = String()
-		 longitude = String()
-		 selectedCity = String()
+		data = []
+		filteredData = []
+		latitude = String()
+		longitude = String()
+		selectedCity = String()
 	}
 	
 	@objc func apply() {
@@ -136,6 +132,10 @@ extension CitySelectionViewController: UITableViewDataSource, UITableViewDelegat
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "City", for: indexPath)
+		let backgroundView = UIView()
+		backgroundView.backgroundColor = UIColor.customGolden
+		cell.selectedBackgroundView = backgroundView
+		cell.setSelected(false, animated: false)
 		cell.textLabel?.text = filteredData[indexPath.row]
 		return cell
 	}
@@ -153,8 +153,6 @@ extension CitySelectionViewController: UITableViewDataSource, UITableViewDelegat
 		cityNameSearchTextField.text = keepOnlyCity(name: &unwrappedText)
 	}
 }
-
-
 
 //MARK: View Model Binding
 extension CitySelectionViewController {

@@ -15,6 +15,7 @@
 		593A5A3D28196ABF000220D4 /* TranslationNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593A5A3C28196ABF000220D4 /* TranslationNetwork.swift */; };
 		593A5A402819C884000220D4 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593A5A3F2819C884000220D4 /* WeatherViewModel.swift */; };
 		593A5A42281A0197000220D4 /* WeatherViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593A5A41281A0197000220D4 /* WeatherViewModelTests.swift */; };
+		594599802828F863006906C3 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5945997F2828F863006906C3 /* LoadingViewController.swift */; };
 		597E42D8280039CF00FFA50D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E42D7280039CF00FFA50D /* AppDelegate.swift */; };
 		597E42DA280039CF00FFA50D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E42D9280039CF00FFA50D /* SceneDelegate.swift */; };
 		597E42DC280039CF00FFA50D /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E42DB280039CF00FFA50D /* ConverterViewController.swift */; };
@@ -109,6 +110,7 @@
 		593A5A3C28196ABF000220D4 /* TranslationNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationNetwork.swift; sourceTree = "<group>"; };
 		593A5A3F2819C884000220D4 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		593A5A41281A0197000220D4 /* WeatherViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelTests.swift; sourceTree = "<group>"; };
+		5945997F2828F863006906C3 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		597E42D4280039CF00FFA50D /* OC-P9-LeBaluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OC-P9-LeBaluchon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		597E42D7280039CF00FFA50D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		597E42D9280039CF00FFA50D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				597E42F928003C1000FFA50D /* WeatherViewController.swift */,
+				5945997F2828F863006906C3 /* LoadingViewController.swift */,
 				59CB5F20280F96C000470E7C /* CitySelectionViewController.swift */,
 			);
 			path = "View Controllers";
@@ -663,6 +666,7 @@
 				597E430328003C6F00FFA50D /* AppCoordinator.swift in Sources */,
 				590E9EE42818F4F1005F3956 /* TranslatorFieldViewController.swift in Sources */,
 				597E42D8280039CF00FFA50D /* AppDelegate.swift in Sources */,
+				594599802828F863006906C3 /* LoadingViewController.swift in Sources */,
 				59E162E628256CC400EA2DA3 /* Cities.swift in Sources */,
 				59CB5F1F280F967B00470E7C /* CitySelectionCoordinator.swift in Sources */,
 				597E42EE28003AF600FFA50D /* MainTabBarController.swift in Sources */,

@@ -18,7 +18,7 @@ class TranslatorViewModel {
     var onErrorHandling : ((String) -> Void)?
     
     var englishTextUpdater: ((String) -> Void)?
-    var frenchTextUpdater: ((String) -> Void)?
+    var foreignTextUpdater: ((String) -> Void)?
     
     var textToTranslateUpdater: ((String) -> Void)?
     
@@ -27,7 +27,7 @@ class TranslatorViewModel {
         titleText?("Translator")
         modalTitleText?("Enter text")
         englishTextUpdater?("English")
-        frenchTextUpdater?("Tap to translate")
+        foreignTextUpdater?("Tap to translate")
         textToTranslateUpdater?("Tap to enter your text...")
     }
     

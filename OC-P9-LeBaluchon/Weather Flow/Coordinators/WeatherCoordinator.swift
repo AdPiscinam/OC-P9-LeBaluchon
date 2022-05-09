@@ -63,7 +63,33 @@ extension WeatherCoordinator {
         alertView.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
         viewController.present(alertView, animated: true, completion: nil)
     }
-    
+	
+	func showLoadingView() {
+		guard let viewController = viewControllers.first as? WeatherViewController else {
+			return
+		}
+		
+		let loadingVC = LoadingViewController()
+		viewControllers.append(loadingVC)
+		loadingVC.coordinator = self
+		// Animate loadingVC over the existing views on screen
+		loadingVC.modalPresentationStyle = .overCurrentContext
+
+		// Animate loadingVC with a fade in animation
+		loadingVC.modalTransitionStyle = .crossDissolve
+			   
+		viewController.present(loadingVC, animated: true, completion: nil)
+	}
+	
+	func vanishLoadingView() {
+		for (index, viewController) in viewControllers.enumerated() {
+			if viewController is LoadingViewController {
+				viewControllers.remove(at: index)
+			}
+		}
+		navigationController.dismiss(animated: true)
+	}
+	
     //MARK: Finishes
     func childDidFinish(_ child: Coordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() {
@@ -74,3 +100,14 @@ extension WeatherCoordinator {
         }
     }
 }
+
+extension Array where Element: Hashable {
+	func duplicates() -> Array {
+		let groups = Dictionary(grouping: self, by: {$0})
+		let duplicateGroups = groups.filter {$1.count > 1}
+		let duplicates = Array(duplicateGroups.keys)
+		return duplicates
+	}
+}
+
+//[1, 2, 2, 3, 1].duplicates() -> [1, 2]

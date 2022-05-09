@@ -82,10 +82,8 @@ final class WeatherViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
-    
-    
-    
     @objc func settings() {
+		coordinator?.showLoadingView()
         coordinator?.startCitySelection()
     }
     
@@ -197,4 +195,3 @@ extension WeatherViewController {
         cityTemperature.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
     }
 }
-

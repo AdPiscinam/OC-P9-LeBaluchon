@@ -44,7 +44,11 @@ extension CitySelectionCoordinator {
         alertView.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
         viewController.present(alertView, animated: true, completion: nil)
     }
-    
+	
+	func vanishLoadingView() {
+		parentCoordinator?.vanishLoadingView()
+	}
+	
     func dismiss() {
         navigationController.dismiss(animated: true)
     }
