@@ -21,7 +21,7 @@ class TranslatorViewModel {
     var foreignTextUpdater: ((String) -> Void)?
     
     var textToTranslateUpdater: ((String) -> Void)?
-    
+
     // MARK: - Inputs
     func viewDidLoad() {
         titleText?("Translator")

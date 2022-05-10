@@ -19,7 +19,6 @@ class LoadingViewController: UIViewController {
 			.flexibleLeftMargin, .flexibleRightMargin,
 			.flexibleTopMargin, .flexibleBottomMargin
 		]
-		
 		return indicator
 	}()
 	
@@ -37,7 +36,6 @@ class LoadingViewController: UIViewController {
 		blurEffectView.autoresizingMask = [
 			.flexibleWidth, .flexibleHeight
 		]
-		
 		return blurEffectView
 	}()
 	

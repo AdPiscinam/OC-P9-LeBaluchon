@@ -5,7 +5,7 @@
 
 import Foundation
 
-final class ConversionNetwork: ConversionNetworkType {
+final class ConversionNetwork {
     var weatherResponse: CurrencyResponse?
     
     private let session: URLSession
@@ -30,32 +30,34 @@ final class ConversionNetwork: ConversionNetworkType {
     private func constructApiCall(baseCode: String, destinationCode: String) -> String {
         apiAdresse + apiKey + keyValue + from + baseCode + to + destinationCode + amount + amountValue + format
     }
-    
-    func getData(baseCode: String, destinationCode: String, callback: @escaping (Result<CurrencyResponse?, Error>) -> Void) {
-        let stringURL = constructApiCall(baseCode: baseCode, destinationCode: destinationCode)
-       
-       task = session.dataTask(with: URL(string: stringURL)!, completionHandler: {  data, response, error in
-            DispatchQueue.main.async {
-                guard let data = data , error == nil else {
-                    return
-                }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    return
-                }
-                
-                var result: CurrencyResponse?
-                do {
-                    result = try JSONDecoder().decode(CurrencyResponse.self, from: data)
-                } catch  {
-                    //FIXME: Manage Errors with Alert
-                    callback(.failure(error))
-                }
-                guard let json = result else {
-                    return
-                }
-                callback(.success(json))
-            }
-        })
-       task?.resume()
-    }
+}
+
+extension ConversionNetwork: ConversionNetworkType {
+	func getData(baseCode: String, destinationCode: String, callback: @escaping (Result<CurrencyResponse?, Error>) -> Void) {
+		let stringURL = constructApiCall(baseCode: baseCode, destinationCode: destinationCode)
+	   
+	   task = session.dataTask(with: URL(string: stringURL)!, completionHandler: {  data, response, error in
+			DispatchQueue.main.async {
+				guard let data = data , error == nil else {
+					return
+				}
+				guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+					return
+				}
+				
+				var result: CurrencyResponse?
+				do {
+					result = try JSONDecoder().decode(CurrencyResponse.self, from: data)
+				} catch  {
+					//FIXME: Manage Errors with Alert
+					callback(.failure(error))
+				}
+				guard let json = result else {
+					return
+				}
+				callback(.success(json))
+			}
+		})
+	   task?.resume()
+	}
 }
