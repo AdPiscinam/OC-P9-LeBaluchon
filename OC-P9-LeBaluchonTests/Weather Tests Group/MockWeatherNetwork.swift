@@ -8,7 +8,7 @@
 import Foundation
 @testable import OC_P9_LeBaluchon
 
-class MockWeatherNetwork: WeatherNetworkType {
+class MockWeatherNetwork {
     let coord: Coord
     let weather: [Weather]
     let base: String
@@ -21,10 +21,10 @@ class MockWeatherNetwork: WeatherNetworkType {
     let timezone, id: Int
     let name: String
     let cod: Int
-    
+
     var weatherResponse: WeatherResponse?
     var apiCallCounter = 0
-    
+
     init(coord: Coord, weather: [Weather], base: String, main: Main, visibility: Int, wind: Wind, clouds: Clouds, dt: Int, sys: Sys, timezone: Int, id: Int, name: String, cod: Int) {
         self.coord = coord
         self.weather = weather
@@ -41,14 +41,43 @@ class MockWeatherNetwork: WeatherNetworkType {
         self.cod = cod
         self.weatherResponse = WeatherResponse(coord: coord, weather: weather, base: base, main: main, visibility: visibility, wind: wind, clouds: clouds, dt: dt, sys: sys, timezone: timezone, id: id, name: name, cod: cod)
     }
-    
-    func getWeather(city: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void) {
-        self.apiCallCounter += 1
-        guard let weatherResponse = self.weatherResponse else {
-            callback(.failure(ServiceError.noDataReceived))
-            return
-        }
-        callback(.success(weatherResponse))
-    }
-    
 }
+
+extension MockWeatherNetwork: WeatherNetworkType {
+	static var cityName: String?
+	
+	func getWeather(city: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void) {
+		guard self.weatherResponse != nil else {
+			callback(.failure(ServiceError.noDataReceived))
+			return
+		}
+		
+		let decoder = JSONDecoder()
+		do {
+			let data = try Data.weatherFromJSON(fileName: "NewYorkWeatherData")
+			let weather = try decoder.decode(WeatherResponse.self, from: data)
+			callback(.success(weather))
+		} catch _ {
+			callback(.failure(ServiceError.noDataReceived))
+		}
+	}
+
+	func getWeather(latitude: String, longitude: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void) {
+		guard self.weatherResponse != nil else {
+			callback(.failure(ServiceError.noDataReceived))
+			return
+		}
+		
+		let decoder = JSONDecoder()
+		do {
+			let data = try Data.weatherFromJSON(fileName: "NewYorkWeatherData")
+			let weather = try decoder.decode(WeatherResponse.self, from: data)
+			callback(.success(weather))
+		} catch _ {
+			callback(.failure(ServiceError.noDataReceived))
+		}
+	}
+}
+
+
+

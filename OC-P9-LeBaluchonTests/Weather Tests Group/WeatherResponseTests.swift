@@ -24,7 +24,7 @@ class WeatherResponseTests: XCTestCase, DecodableTestCase { // 2
         try super.tearDownWithError()
     }
     
-    // MARK: - Type Tests
+   //  MARK: - Type Tests
     func testConformsToDecodable() { // 6
         XCTAssertTrue((sut as Any) is Decodable) // cast silences a warning
     }
@@ -37,5 +37,4 @@ class WeatherResponseTests: XCTestCase, DecodableTestCase { // 2
         XCTAssertNotNil(sut.weather)
         XCTAssertEqual(sut.weather.count, 1)
     }
-
 }
