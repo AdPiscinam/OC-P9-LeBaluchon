@@ -29,7 +29,6 @@ extension ConverterCoordinator {
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
         navigationController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.customOrange]
-        
     }
     
     func startCurrencySelection() {
