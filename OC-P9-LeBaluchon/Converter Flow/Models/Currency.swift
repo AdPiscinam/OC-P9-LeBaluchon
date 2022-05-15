@@ -18,8 +18,7 @@ struct Currency {
     static let jsonData = try! JSONDecoder().decode(CurrenciesData.self, from: currenciesData!)
 }
 
-
-// MARK: - CurrenciesDataValue
+//MARK: - CurrenciesDataValue
 struct CurrenciesDataValue: Codable {
     let symbol, name, symbolNative: String
     let decimalDigits: Int

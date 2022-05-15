@@ -12,7 +12,6 @@ protocol Coordinator: AnyObject {
 }
 
 final class AppCoordinator: NSObject, Coordinator {
-    
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
     

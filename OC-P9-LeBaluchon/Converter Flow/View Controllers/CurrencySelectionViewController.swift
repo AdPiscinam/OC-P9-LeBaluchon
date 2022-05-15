@@ -6,7 +6,6 @@
 import UIKit
 
 class CurrencySelectionViewController: UIViewController, UINavigationControllerDelegate {
-    
     weak var coordinator: CurrencySelectionCoordinator?
     var viewModel: ConverterViewModel!
     
@@ -55,7 +54,6 @@ class CurrencySelectionViewController: UIViewController, UINavigationControllerD
 
 //MARK: PickerView Management
 extension CurrencySelectionViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -109,4 +107,3 @@ extension CurrencySelectionViewController {
         originCurrencyPickerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
     }
 }
-
