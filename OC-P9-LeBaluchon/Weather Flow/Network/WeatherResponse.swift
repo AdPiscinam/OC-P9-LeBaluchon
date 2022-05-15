@@ -5,7 +5,6 @@
 
 import Foundation
 
-// MARK: - CityWeatherResponse
 struct WeatherResponse: Codable, Equatable {
     let coord: Coord
     let weather: [Weather]
@@ -21,7 +20,6 @@ struct WeatherResponse: Codable, Equatable {
     let cod: Int
 }
 
-// MARK: - Main
 struct Main: Codable, Equatable {
     let temp, feelsLike, tempMin, tempMax: Double
     let pressure, humidity: Int
@@ -44,14 +42,13 @@ struct Wind: Codable {
     let deg: Int
 }
 
-// MARK: - Sys
+//MARK: - Sys
 struct Sys: Codable {
     let type, id: Int
     let country: String
     let sunrise, sunset: Int
 }
 
-// MARK: - Weather
 struct Weather: Codable, Equatable {
     let id: Int
     let main, weatherDescription, icon: String

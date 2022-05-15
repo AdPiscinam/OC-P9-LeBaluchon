@@ -6,7 +6,6 @@
 import UIKit
 
 class CitySelectionViewController: UIViewController {
-	
 	weak var coordinator: CitySelectionCoordinator?
 	var viewModel: WeatherViewModel!
 	
@@ -26,7 +25,7 @@ class CitySelectionViewController: UIViewController {
 	
 	let resultTableView: UITableView = {
 		let tableView = UITableView()
-		tableView.backgroundColor = .yellow
+		tableView.backgroundColor = .customBackground
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		return tableView
 	}()
@@ -57,7 +56,6 @@ class CitySelectionViewController: UIViewController {
 	@objc func apply() {
 		latitude = extractGeoCoordinates(from: &selectedCity).0
 		longitude = extractGeoCoordinates(from: &selectedCity).1
-		print(latitude + longitude)
 		coordinator?.update(latitude: latitude, longitude: longitude)
 		coordinator?.dismiss()
 	}
@@ -177,7 +175,7 @@ extension CitySelectionViewController {
 			self.data = data
 		}
 	}
-}
+} 
 
 //MARK: User Interface Setup
 extension CitySelectionViewController {

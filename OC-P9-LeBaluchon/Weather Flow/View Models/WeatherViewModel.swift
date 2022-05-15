@@ -12,7 +12,7 @@ final class WeatherViewModel {
         self.network = network
     }
 	 
-    // MARK: - Outputs
+    //MARK: - Outputs
     var titleText: ((String) -> Void)?
     var modalTitleText: ((String) -> Void)?
     var onErrorHandling : ((String) -> Void)?
@@ -33,7 +33,8 @@ final class WeatherViewModel {
     var searchedCityPlaceHolderUpdater: ((String) -> Void)?
     var searchedCityTextFieldUpdater: ((String) -> Void)?
 	var dataUpdater: (([Cities]) -> Void)?
-    // MARK: - Inputs
+    
+	//MARK: - Inputs
     func viewDidLoad() {
         titleText?("Weather")
         modalTitleText?("Settings")
@@ -106,6 +107,7 @@ final class WeatherViewModel {
         }
     }
     
+	//MARK: - Helper Methods
     func cityExists(with name: String) -> Bool {
         var bool = false
         if Cities.parseJSON(cityName: name) == true {
@@ -116,53 +118,56 @@ final class WeatherViewModel {
         }
         return bool
     }
-    
-    private func setIconFrom(response: WeatherResponse, id: Int, imageViewGifName: inout String) {
-        switch id {
-        case 200...232 : imageViewGifName = "storm"
-        case 300...310:  if response.weather[0].icon.contains("n") {
-            imageViewGifName = "drizzleNight"
-        } else {
-            imageViewGifName = "drizzleSunny"
-        }
-        case 311...321:  imageViewGifName = "drizzle"
-        case 500...503:  if response.weather[0].icon.contains("n") {
-            imageViewGifName = "rainNight"
-        } else {
-            imageViewGifName =  "rainSunny"
-        }
-        case 504:  imageViewGifName =  "rain"
-        case 511...531:  if response.weather[0].icon.contains("n") {
-            imageViewGifName = "rainNight"
-        } else {
-            imageViewGifName =  "rainSunny"
-        }
-        case 600...602: imageViewGifName =  "snowy"
-        case 611...622: if response.weather[0].icon.contains("n") {
-            imageViewGifName =  "snowyNight"
-        } else {
-            imageViewGifName =  "snowySunny"
-        }
-        case 701...762:  imageViewGifName =  "mist"
-        case 771: imageViewGifName =  "windy"
-        case 781: imageViewGifName = "tornado "
-        case 800: if response.weather[0].icon.contains("n") {
-            imageViewGifName =  "clearNight"
-        } else {
-            imageViewGifName = "sunny"
-        }
-        case 801: if response.weather[0].icon.contains("n") {
-            imageViewGifName =  "partlyCloudyNight"
-        } else {
-            imageViewGifName =  "partlyCloudy"
-        }
-        case 802: if response.weather[0].icon.contains("n") {
-            imageViewGifName =  "mostlyCloudyNight"
-        } else {
-            imageViewGifName =  "partlySunny"
-        }
-        case 803...804: imageViewGifName = "cloudy"
-        default: imageViewGifName =  "hurricane"
-        }
-    }
+}
+
+//MARK: - Icons Management
+extension WeatherViewModel {
+	private func setIconFrom(response: WeatherResponse, id: Int, imageViewGifName: inout String) {
+		switch id {
+		case 200...232 : imageViewGifName = "storm"
+		case 300...310:  if response.weather[0].icon.contains("n") {
+			imageViewGifName = "drizzleNight"
+		} else {
+			imageViewGifName = "drizzleSunny"
+		}
+		case 311...321:  imageViewGifName = "drizzle"
+		case 500...503:  if response.weather[0].icon.contains("n") {
+			imageViewGifName = "rainNight"
+		} else {
+			imageViewGifName =  "rainSunny"
+		}
+		case 504:  imageViewGifName =  "rain"
+		case 511...531:  if response.weather[0].icon.contains("n") {
+			imageViewGifName = "rainNight"
+		} else {
+			imageViewGifName =  "rainSunny"
+		}
+		case 600...602: imageViewGifName =  "snowy"
+		case 611...622: if response.weather[0].icon.contains("n") {
+			imageViewGifName =  "snowyNight"
+		} else {
+			imageViewGifName =  "snowySunny"
+		}
+		case 701...762:  imageViewGifName =  "mist"
+		case 771: imageViewGifName =  "windy"
+		case 781: imageViewGifName = "tornado "
+		case 800: if response.weather[0].icon.contains("n") {
+			imageViewGifName =  "clearNight"
+		} else {
+			imageViewGifName = "sunny"
+		}
+		case 801: if response.weather[0].icon.contains("n") {
+			imageViewGifName =  "partlyCloudyNight"
+		} else {
+			imageViewGifName =  "partlyCloudy"
+		}
+		case 802: if response.weather[0].icon.contains("n") {
+			imageViewGifName =  "mostlyCloudyNight"
+		} else {
+			imageViewGifName =  "partlySunny"
+		}
+		case 803...804: imageViewGifName = "cloudy"
+		default: imageViewGifName =  "hurricane"
+		}
+	}
 }
