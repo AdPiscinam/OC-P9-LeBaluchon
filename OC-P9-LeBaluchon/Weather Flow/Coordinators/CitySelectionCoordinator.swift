@@ -6,7 +6,6 @@
 import UIKit
 
 class CitySelectionCoordinator: Coordinator {
-    
     var navigationController: UINavigationController
     var viewControllers: [UIViewController] = []
     
@@ -36,6 +35,7 @@ extension CitySelectionCoordinator {
     func update(latitude: String, longitude: String) {
         parentCoordinator?.update(latitude: latitude, longitude: longitude)
     }
+	
     func showErrorAlert(errorMessage: String) {
         guard let viewController = viewControllers.first as? CitySelectionViewController else {
             return

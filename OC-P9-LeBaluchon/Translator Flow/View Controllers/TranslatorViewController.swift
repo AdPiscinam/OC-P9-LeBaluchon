@@ -6,7 +6,6 @@
 import UIKit
 
 class TranslatorViewController: UIViewController {
-    
     weak var coordinator: TranslatorCoordinator?
     var viewModel: TranslatorViewModel!
     
@@ -74,7 +73,7 @@ class TranslatorViewController: UIViewController {
     }
 }
 
-//MARK: View Model Binding
+//MARK: - View Model Binding
 extension TranslatorViewController {
     func bind(to: TranslatorViewModel){
         viewModel.titleText = { [weak self] text in
@@ -94,7 +93,8 @@ extension TranslatorViewController {
         }
     }
 }
-//MARK: User Interface Setup
+
+//MARK: - User Interface Setup
 extension TranslatorViewController {
     private func setupUI() {
         view.backgroundColor = .customBackground

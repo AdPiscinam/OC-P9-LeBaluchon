@@ -6,7 +6,6 @@
 import UIKit
 
 class TranslatorCoordinator: Coordinator {
-   
     var navigationController: UINavigationController
     var viewControllers: [UIViewController] = []
     
@@ -57,13 +56,11 @@ extension TranslatorCoordinator {
         viewController.present(alertView, animated: true, completion: nil)
     }
 
-    //MARK: Finishes
+    //MARK: - Finishes
     func childDidFinish(_ child: Coordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() {
             if coordinator === child {
-             
                 childCoordinators.remove(at: index)
-                 
                 break
             }
         }

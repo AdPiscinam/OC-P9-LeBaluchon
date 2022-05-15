@@ -6,7 +6,6 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-    
     let appCoordinator = AppCoordinator(navigationController: UINavigationController())
     
     let converterCoordinator = ConverterCoordinator(navigationController: UINavigationController())

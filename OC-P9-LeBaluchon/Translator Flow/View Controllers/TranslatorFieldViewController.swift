@@ -6,7 +6,6 @@
 import UIKit
 
 class TranslatorFieldViewController: UIViewController {
-    
     weak var coordinator: TranslatorFieldCoordinator?
     var viewModel: TranslatorViewModel!
     
@@ -37,12 +36,10 @@ class TranslatorFieldViewController: UIViewController {
     @objc func cancel(){
         coordinator?.dismiss()
     }
-    
 }
 
 //MARK: Text View Management
 extension TranslatorFieldViewController: UITextViewDelegate {
-    
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         textView.text = ""
         return true

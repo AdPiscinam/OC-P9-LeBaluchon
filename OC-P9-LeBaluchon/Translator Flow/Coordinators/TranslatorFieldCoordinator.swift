@@ -6,7 +6,6 @@
 import UIKit
 
 class TranslatorFieldCoordinator: Coordinator {
-
     var navigationController: UINavigationController
     weak var parentCoordinator: TranslatorCoordinator?
     var childCoordinators: [Coordinator] = []
@@ -18,7 +17,6 @@ class TranslatorFieldCoordinator: Coordinator {
 }
 
 extension TranslatorFieldCoordinator {
-    
     func start() {
         let viewController = TranslatorFieldViewController()
         let network = TranslationNetwork()
