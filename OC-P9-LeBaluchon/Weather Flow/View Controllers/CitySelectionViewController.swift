@@ -19,6 +19,8 @@ final class CitySelectionViewController: UIViewController {
 		let field = UISearchBar()
 		field.backgroundColor = .darkGray
         field.barTintColor = .customLightBrown
+        let textFieldInsideSearchBar = field.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .white
 		field.layer.cornerRadius = 10
 		field.translatesAutoresizingMaskIntoConstraints = false
 		return field
