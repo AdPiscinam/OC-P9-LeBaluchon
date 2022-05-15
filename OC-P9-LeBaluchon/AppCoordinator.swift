@@ -11,7 +11,6 @@ protocol Coordinator: AnyObject {
     func start()
 }
 
-
 final class AppCoordinator: NSObject, Coordinator {
     
     var navigationController: UINavigationController

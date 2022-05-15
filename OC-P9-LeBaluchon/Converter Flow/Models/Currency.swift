@@ -6,7 +6,6 @@
 import Foundation
 
 struct Currency {
-    
     static let share = Currency()
     
     private init() {}
