@@ -38,7 +38,7 @@ class TranslatorFieldViewController: UIViewController {
     }
 }
 
-//MARK: Text View Management
+//MARK: - Text View Management
 extension TranslatorFieldViewController: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         textView.text = ""
@@ -50,7 +50,7 @@ extension TranslatorFieldViewController: UITextViewDelegate {
     }
 }
 
-//MARK: View Model Binding
+//MARK: - View Model Binding
 extension TranslatorFieldViewController {
     func bind(to: TranslatorViewModel){
         viewModel.modalTitleText = { [weak self] text in
@@ -63,7 +63,7 @@ extension TranslatorFieldViewController {
     }
 }
 
-//MARK: User Interface Setup
+//MARK: - User Interface Setup
 extension TranslatorFieldViewController {
     func setupUI() {
         view.backgroundColor = .customLightBrown

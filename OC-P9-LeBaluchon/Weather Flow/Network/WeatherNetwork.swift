@@ -5,11 +5,6 @@
 
 import UIKit
 
-protocol WeatherNetworkType {
-    func getWeather(city: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void)
-    func getWeather(latitude: String, longitude: String, callback: @escaping (Result<WeatherResponse, Error>) -> Void)
-}
-
 final class WeatherNetwork: WeatherNetworkType {
     var weatherResponse: WeatherResponse?
     
