@@ -5,7 +5,7 @@
 
 import UIKit
 
-class WeatherCoordinator: Coordinator {
+final class WeatherCoordinator: Coordinator {
     var navigationController: UINavigationController
     var viewControllers: [UIViewController] = []
     

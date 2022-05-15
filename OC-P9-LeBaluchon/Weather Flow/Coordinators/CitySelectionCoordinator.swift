@@ -5,7 +5,7 @@
 
 import UIKit
 
-class CitySelectionCoordinator: Coordinator {
+final class CitySelectionCoordinator: Coordinator {
     var navigationController: UINavigationController
     var viewControllers: [UIViewController] = []
     

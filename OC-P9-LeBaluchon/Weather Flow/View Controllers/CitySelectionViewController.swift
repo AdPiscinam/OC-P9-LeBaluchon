@@ -5,7 +5,7 @@
 
 import UIKit
 
-class CitySelectionViewController: UIViewController {
+final class CitySelectionViewController: UIViewController {
 	weak var coordinator: CitySelectionCoordinator?
 	var viewModel: WeatherViewModel!
 	
@@ -18,6 +18,7 @@ class CitySelectionViewController: UIViewController {
 	let cityNameSearchTextField: UISearchBar = {
 		let field = UISearchBar()
 		field.backgroundColor = .darkGray
+        field.barTintColor = .customLightBrown
 		field.layer.cornerRadius = 10
 		field.translatesAutoresizingMaskIntoConstraints = false
 		return field
@@ -131,8 +132,10 @@ extension CitySelectionViewController: UITableViewDataSource, UITableViewDelegat
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "City", for: indexPath)
 		let backgroundView = UIView()
-		backgroundView.backgroundColor = UIColor.customGolden
-		cell.selectedBackgroundView = backgroundView
+        backgroundView.backgroundColor = .customOrange
+        cell.selectedBackgroundView = backgroundView
+        cell.backgroundColor = .customLightBrown
+        cell.textLabel?.textColor = .systemBackground
 		cell.setSelected(false, animated: false)
 		cell.textLabel?.text = filteredData[indexPath.row]
 		return cell
@@ -182,7 +185,9 @@ extension CitySelectionViewController {
 	private func setupUI() {
 		view.backgroundColor = .customLightBrown
 		navigationController?.navigationBar.tintColor = UIColor.customOrange
-		
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
 		view.addSubview(cityNameSearchTextField)
 		view.addSubview(resultTableView)
 		view.isOpaque = false

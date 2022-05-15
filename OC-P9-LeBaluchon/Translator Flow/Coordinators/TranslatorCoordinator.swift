@@ -5,7 +5,7 @@
 
 import UIKit
 
-class TranslatorCoordinator: Coordinator {
+final class TranslatorCoordinator: Coordinator {
     var navigationController: UINavigationController
     var viewControllers: [UIViewController] = []
     

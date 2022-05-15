@@ -5,7 +5,7 @@
 
 import UIKit
 
-class CurrencySelectionCoordinator: Coordinator {
+final class CurrencySelectionCoordinator: Coordinator {
     var navigationController: UINavigationController
     var viewControllers: [UIViewController] = []
     

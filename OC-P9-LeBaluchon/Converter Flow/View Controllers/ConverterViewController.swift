@@ -5,7 +5,7 @@
 
 import UIKit
 
-class ConverterViewController: UIViewController {
+final class ConverterViewController: UIViewController {
     weak var coordinator: ConverterCoordinator?
     var viewModel: ConverterViewModel!
     

@@ -5,7 +5,7 @@
 
 import Foundation
 
-class TranslatorViewModel {
+final class TranslatorViewModel {
     private let network: TranslationNetworkType
     
     init(network: TranslationNetworkType) {

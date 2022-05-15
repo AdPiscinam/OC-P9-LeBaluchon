@@ -5,7 +5,7 @@
 
 import UIKit
 
-class ConverterCoordinator: Coordinator {
+final class ConverterCoordinator: Coordinator {
     var navigationController: UINavigationController
     var viewControllers: [UIViewController] = []
     
@@ -29,6 +29,7 @@ extension ConverterCoordinator {
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: true)
         navigationController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.customOrange]
+        
     }
     
     func startCurrencySelection() {

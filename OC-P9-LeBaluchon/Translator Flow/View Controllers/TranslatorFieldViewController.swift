@@ -5,7 +5,7 @@
 
 import UIKit
 
-class TranslatorFieldViewController: UIViewController {
+final class TranslatorFieldViewController: UIViewController {
     weak var coordinator: TranslatorFieldCoordinator?
     var viewModel: TranslatorViewModel!
     
@@ -68,6 +68,8 @@ extension TranslatorFieldViewController {
     func setupUI() {
         view.backgroundColor = .customLightBrown
         navigationController?.navigationBar.tintColor = UIColor.customOrange
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
         view.addSubview(textToTranslate)
         textToTranslate.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         textToTranslate.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true

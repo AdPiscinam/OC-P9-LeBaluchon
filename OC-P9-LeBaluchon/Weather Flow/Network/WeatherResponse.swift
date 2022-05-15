@@ -42,7 +42,6 @@ struct Wind: Codable {
     let deg: Int
 }
 
-//MARK: - Sys
 struct Sys: Codable {
     let type, id: Int
     let country: String

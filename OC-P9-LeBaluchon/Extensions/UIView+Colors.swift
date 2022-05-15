@@ -14,4 +14,3 @@ extension UIColor {
     static let customGolden = UIColor(red: 173/255,green: 131/255,blue: 60/255, alpha: 1.00)
     static let customScriptureGray = UIColor(red:96/255,green:96/255,blue: 96/255, alpha: 1.00)
 }
- 

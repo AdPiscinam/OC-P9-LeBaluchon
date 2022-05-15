@@ -5,7 +5,7 @@
 
 import UIKit
 
-class TranslatorViewController: UIViewController {
+final class TranslatorViewController: UIViewController {
     weak var coordinator: TranslatorCoordinator?
     var viewModel: TranslatorViewModel!
     
@@ -29,14 +29,6 @@ class TranslatorViewController: UIViewController {
         return text
     }()
     
-    lazy var translateButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Translate", for: .normal)
-        button.addTarget(self, action: #selector(translate), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray2
@@ -100,7 +92,7 @@ extension TranslatorViewController {
         view.backgroundColor = .customBackground
         view.addSubview(englishText)
         view.addSubview(foreignText)
-        view.addSubview(translateButton)
+     
         englishText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         englishText.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         englishText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
@@ -110,8 +102,5 @@ extension TranslatorViewController {
         foreignText.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         foreignText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         foreignText.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        
-        translateButton.topAnchor.constraint(equalTo: foreignText.bottomAnchor, constant: 16).isActive = true
-        translateButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
     }
 }

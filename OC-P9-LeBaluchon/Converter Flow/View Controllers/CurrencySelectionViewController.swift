@@ -5,7 +5,7 @@
 
 import UIKit
 
-class CurrencySelectionViewController: UIViewController, UINavigationControllerDelegate {
+final class CurrencySelectionViewController: UIViewController, UINavigationControllerDelegate {
     weak var coordinator: CurrencySelectionCoordinator?
     var viewModel: ConverterViewModel!
     

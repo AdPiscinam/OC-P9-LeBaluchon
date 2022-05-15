@@ -5,7 +5,7 @@
 
 import UIKit
 
-class TranslatorFieldCoordinator: Coordinator {
+final class TranslatorFieldCoordinator: Coordinator {
     var navigationController: UINavigationController
     weak var parentCoordinator: TranslatorCoordinator?
     var childCoordinators: [Coordinator] = []
@@ -25,7 +25,9 @@ extension TranslatorFieldCoordinator {
         viewController.viewModel = viewModel
         viewControllers.append(viewController)
         navigationController.navigationBar.prefersLargeTitles = true
+        
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
+        
     }
     
     func updateTranslation(text: String) {

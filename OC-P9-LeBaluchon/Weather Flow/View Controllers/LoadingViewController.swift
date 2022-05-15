@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoadingViewController: UIViewController {
+final class LoadingViewController: UIViewController {
 	weak var coordinator: WeatherCoordinator?
 	
 	var loadingActivityIndicator: UIActivityIndicatorView = {
@@ -25,6 +25,7 @@ class LoadingViewController: UIViewController {
 	let loadingLabel: UILabel = {
 		let label = UILabel()
 		label.text = "Loading..."
+        label.textColor = .systemBackground
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
