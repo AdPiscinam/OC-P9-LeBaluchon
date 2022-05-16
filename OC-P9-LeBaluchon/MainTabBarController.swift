@@ -6,8 +6,6 @@
 import UIKit
 
 final class MainTabBarController: UITabBarController {
-    let appCoordinator = AppCoordinator(navigationController: UINavigationController())
-    
     let converterCoordinator = ConverterCoordinator(navigationController: UINavigationController())
     let weatherCoordinator = WeatherCoordinator(navigationController: UINavigationController())
     let translatorCoordinator = TranslatorCoordinator(navigationController: UINavigationController())

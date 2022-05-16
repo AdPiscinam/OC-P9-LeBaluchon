@@ -94,7 +94,8 @@ extension CurrencySelectionViewController {
     private func setupUI() {
         view.backgroundColor = .customLightBrown
         navigationController?.navigationBar.tintColor = UIColor.customOrange
-        
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
         let okBarButtonItem = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(okay))
         self.navigationItem.rightBarButtonItem  = okBarButtonItem
         
