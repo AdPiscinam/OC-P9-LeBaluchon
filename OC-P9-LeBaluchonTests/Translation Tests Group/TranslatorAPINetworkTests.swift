@@ -43,7 +43,7 @@ class TranslatorAPINetworkTests: XCTestCase {
 		waitForExpectations(timeout: 1.0, handler: nil)
 	}
 	
-	func test_Given() {
+	func test_GivenViewModel_WhenViewDidLoad_ThenDestinationLabelDisplayIsCorrect() {
 		let expectation = self.expectation(description: "View Did Load Error")
 		let expectedResult = "Tap to translate"
 
